@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //List Employers
 Route::get('/allemployers/{limit}','EmployersController@index');
 Route::get('/deleteEmployer/{id}', 'EmployersController@destroy');
+Route::post('/addEmployer', 'EmployersController@add');

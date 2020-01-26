@@ -6,7 +6,7 @@ namespace App\Repositories\Work;
 use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Models\Employer;
 use DB;
-
+use Hash;
 class EmployersEloquen implements EmployersInterface
 {
      //get all list employers
@@ -35,6 +35,17 @@ class EmployersEloquen implements EmployersInterface
                 'message' => 'Không có dữ liệu'
             ]);
         };  
+    }
+    public function add($request){
+        $request['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
+        $request['Password'] = Hash::make($request["Password"]);
+            Employer::create($request->all());
+        // return $request;
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]);
+
     }
        
     

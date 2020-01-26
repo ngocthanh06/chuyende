@@ -1,5 +1,10 @@
 <template>
+<div>
+  <div class="pb-3">
+                  <router-link to="/addEmployer" class="btn btn-success">Thêm nhân viên</router-link>
+              </div>
 <div class="row">
+            
               <div class="col">
                 <div class="card mb-grid">
                   <div class="table-responsive-md">
@@ -18,7 +23,7 @@
                                 <el-input v-model="search" size="mini" placeholder="Type to search"/>
                             </template>
                             <template slot-scope="scope">
-                                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                                <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/${scope.row.User_id}`">Edit</router-link>
                                 <el-button size="mini" type="danger" @click="handleDelete(scope.row.User_id, scope.row)">Delete</el-button>
                             </template>
                             </el-table-column>
@@ -34,6 +39,9 @@
             </div>
             
  
+
+
+</div>
 </template>
 
 <script>

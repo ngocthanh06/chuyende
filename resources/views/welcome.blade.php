@@ -111,7 +111,7 @@
                 <span class="sidebar-nav-icon">
                   <i data-feather="home"></i>                  
                 </span>
-                  <router-link to="/hello" href="#" class="nav-link">
+                  <router-link to="/employers" href="#" class="nav-link">
                   Nhân viên
                 </router-link>
               </a>
@@ -135,9 +135,7 @@
                 </ol>
               </nav>
   
-              <div class="pb-3">
-                <h1>Dashboard</h1>
-              </div>
+              
   
               
               <router-view></router-view>

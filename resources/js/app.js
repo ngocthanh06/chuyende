@@ -8,7 +8,15 @@ import vuex from 'vuex';
 Vue.use(vuex);
 import storeData from './Store';
 const store = new vuex.Store(storeData);
+import lang from 'element-ui/lib/locale/lang/vi'
+import locale from 'element-ui/lib/locale'
+//v-form
+import {Form, HasError, AlertError} from 'vform';
+window.Form = Form;
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
 
+locale.use(lang)
 Vue.use(route);
 Vue.use(vuex);
 Vue.use(UI);

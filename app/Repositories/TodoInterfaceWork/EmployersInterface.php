@@ -10,5 +10,7 @@ interface EmployersInterface
    public function getAll($limit);
    //delete employer
    public function del($id);
+   //add employer
+   public function add($request);
    
 }

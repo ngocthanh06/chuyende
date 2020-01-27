@@ -36,6 +36,7 @@ class EmployersEloquen implements EmployersInterface
             ]);
         };  
     }
+    //Add
     public function add($request){
         $request['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
         $request['Password'] = Hash::make($request["Password"]);
@@ -46,6 +47,17 @@ class EmployersEloquen implements EmployersInterface
             'messages' => 'Thành công'
         ]);
 
+    }
+    // get
+    public function get($id){
+       return Employer::find($id);
+    }
+    // Edit
+    public function Edit($id, $value){
+        $employer = Employer::find($id);
+        $employer = $value;
+        return $employer;
+        
     }
        
     

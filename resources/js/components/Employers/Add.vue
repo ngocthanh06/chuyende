@@ -99,6 +99,7 @@
             { min: 3, max: 100, message: 'Ký tự phải từ 3 và không vượt quá 100', trigger: 'blur' }
           ],
           Password: [
+            { required: true, message: 'Mật khẩu không được để trống', trigger: 'blur' },
             { validator: validatePass, trigger: 'blur' }
           ],
           User_add: [

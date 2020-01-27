@@ -6,6 +6,9 @@ import Setting from '../components/thanh.vue'
 import Employers from '../components/Employers/Show.vue';
 import AddEmployer from '../components/Employers/Add.vue';
 import EditEmployer from '../components/Employers/Edit.vue';
+//Calendat
+import SetCalendar from '../components/Calendar/Setcalendar.vue';
+
 vue.use(VueRouter);
 
 export default new VueRouter({
@@ -14,7 +17,8 @@ export default new VueRouter({
         {path: '/hello', component:Setting},
         {path:'/employers' ,component: Employers},
         {path: '/addEmployer', component: AddEmployer},
-        {path: 'edit-Employer/:id',component: EditEmployer}
+        {path: '/edit-Employer/:id',component: EditEmployer},
+        {path: '/Set-Calendar',component: SetCalendar}
         
     ],
     mode: 'history',

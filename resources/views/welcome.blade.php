@@ -116,6 +116,17 @@
                 </router-link>
               </a>
             </li>
+
+            <li class="sidebar-nav-item">
+              <a href="index.html" class="sidebar-nav-link active">
+                <span class="sidebar-nav-icon">
+                  <i data-feather="calendar"></i>                  
+                </span>
+                  <router-link to="/Set-Calendar" href="#" class="nav-link">
+                  Đặt lịch
+                </router-link>
+              </a>
+            </li>
           </ul>
         </div><!-- Sidebar End -->
   
@@ -134,13 +145,7 @@
                   <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                 </ol>
               </nav>
-  
-              
-  
-              
               <router-view></router-view>
-  
-              
             </div>
           </div>
         </div>

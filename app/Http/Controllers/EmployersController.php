@@ -7,6 +7,7 @@ use App\Models\Employer;
 use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Repositories\TodoInterfaceWork\SupportInterface;
 use App\Http\Requests\Employers\AddEmployerRequest;
+use App\Http\Requests\Employers\EditEmployerRequest;
 class EmployersController extends Controller
 {
 
@@ -23,6 +24,7 @@ class EmployersController extends Controller
     public function destroy($id){
         return $this->employer->del($id);
     }
+    //Add employer
     public function add(AddEmployerRequest $request){
         if($request['User_image'])
         {
@@ -31,5 +33,13 @@ class EmployersController extends Controller
         else 
             $request['User_image'] = '';
         return $this->employer->add($request);
+    }
+    //Get Employer with id
+    public function get($id){
+        return $this->employer->get($id);
+    }
+    // Edit
+    public function Edit($id, EditEmployerRequest $request ){
+        return $this->employer->Edit($id, $request);
     }
 }

@@ -12,5 +12,9 @@ interface EmployersInterface
    public function del($id);
    //add employer
    public function add($request);
+   //get employer
+   public function get($id);
+   //Edit employer
+   public function Edit($id, $request);
    
 }

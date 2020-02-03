@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand justify-content-between fixed-top">
           <a class="navbar-brand mb-0 h1 d-none d-md-block" href="index.html">
             <img src="./demo/img/logo.png" class="navbar-brand-image d-inline-block align-top mr-2" alt="">
-            AdminX
+            ỨNG DỤNG XẾP CA LÀM NHÂN VIÊN
           </a>
   
           <form class="form-inline form-quicksearch d-none d-md-block mx-auto">
@@ -127,6 +127,8 @@
                 </router-link>
               </a>
             </li>
+
+            
           </ul>
         </div><!-- Sidebar End -->
   
@@ -156,5 +158,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script src="{{asset('resource/AdminX-master/dist/js/vendor.js')}}"></script>
     <script src="{{asset('resource/AdminX-master/dist/js/adminx.js')}}"></script>
-    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script> 
 </html>

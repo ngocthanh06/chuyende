@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "element-ui": "^2.13.0",
+        "flatpickr": "^4.6.3",
         "vform": "^1.0.1",
         "vue-router": "^3.1.5",
         "vuejs-paginate": "^2.1.0",

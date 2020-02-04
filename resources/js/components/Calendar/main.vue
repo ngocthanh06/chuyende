@@ -43,8 +43,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div v-for="item in FirstDay" class="titleTable">
-                                        <span >{{item.mes}}</span>
+                                    <div v-for="item in getNumW()" :key="item" class="titleTable">
+                                        <span >{{item}}</span>
                                     </div>
                                 </div>
                                 <div class="ctLists">
@@ -104,7 +104,7 @@
 </template>
 <script>
 import addModal from './addModal.vue';
-// import moment from 'moment';
+import moment from 'moment';
 export default {
     components: {
         addModal
@@ -112,15 +112,13 @@ export default {
     data(){
         return {
             dateValueNow:'',
-            FirstDay : [],
             numWeek : '',
         }
     },
     created(){
         setInterval(this.getNow,1000),
         this.getNumWeek();
-        this.getFirstday();
-        this.getDayInWeek();
+        this.$store.dispatch('SetNumWeek',this.numWeek);
     },
     mounted(){
         flatpickr('#datepicker',{
@@ -129,38 +127,25 @@ export default {
             language: 'vi',
             dateFormat: "\\T\\u\\ầ\\n\\: W - Y",
             defaultDate: 'today',
-            "onChange": [function(){
-                // extract the week number
-                // note: "this" is bound to the flatpickr instance
-                const weekNumber = this.selectedDates[0]
-                    ? this.config.getWeek(this.selectedDates[0])
-                    : null;
+            "onChange": [
+                (dataObj,data,instance) => {
+                    const weekNumber = instance.selectedDates[0]
+                        ? instance.config.getWeek(instance.selectedDates[0])
+                        : null;
+                    this.numWeek = weekNumber;
+                    return this.$store.dispatch('SetNumWeek',weekNumber);
+                }
 
-                console.log(weekNumber);
-            }]
+            ]
         });
         
     },
     methods: {
-        //get name day
-        getFirstday(){
-            var day = [
-                {mes : 'T2'},{mes : 'T3'},{mes : 'T4'},{mes : 'T5'},{mes : 'T6'},{mes : 'T7'},{mes : 'CN'}
-            ];
-            this.FirstDay = day
-        },
         getNumWeek(){
-            let now = new Date();
-            let onejan = new Date(now.getFullYear(), 0, 1);
-            let week = Math.ceil( (((now - onejan) / 86400000) + onejan.getDay() + 1) / 7 );
-            return this.numWeek = week;
+            return this.numWeek = moment().week();
         },
-        getDayInWeek(){
-            // var weekDates = [];
-            // for(var i = 1; i <= 7 ; i++){
-            //     weekDates.push(moment().day(i));
-            // }
-            // console.log(weekDates);
+        getNumW(){
+            return this.$store.getters.getNumWeek
         }
     }
 }

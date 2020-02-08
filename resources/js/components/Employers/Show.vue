@@ -14,7 +14,7 @@
                             <el-table-column label="Họ Và Tên" prop="User_fullname"> </el-table-column>
                             <el-table-column label="Chức vụ" prop="Role_id"> </el-table-column>
                             <el-table-column label="Tên Tài Khoản" prop="Username"> </el-table-column>
-                            <el-table-column label="Giới Tính" prop="sex"> </el-table-column>
+                            <el-table-column label="Giới Tính" :formatter="ChangeSex" prop='sex'> </el-table-column>
                             <el-table-column label="Di Động" prop="User_phone"> </el-table-column>
                             <el-table-column label="TK Ngân Hàng" prop="User_bank"> </el-table-column>
                             
@@ -67,7 +67,9 @@
           this.currentPage = page;
           this.getEmployer();
       },
-      
+      ChangeSex(val){
+         return val.sex == 1 ? 'Nam' : 'Nữ'
+      },
       getEmployer(){
             this.loading =true;
             let uri = `/api/allemployers/${this.pagiSize}?page=${this.currentPage}`;

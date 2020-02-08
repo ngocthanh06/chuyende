@@ -16,5 +16,9 @@ interface EmployersInterface
    public function get($id);
    //Edit employer
    public function Edit($id, $request);
+   //Get Employer with Company
+   public function EmpCompany($id);
+   //Add Employer Spead
+   public function AddSpead($request);
    
 }

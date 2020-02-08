@@ -8,6 +8,7 @@ use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Repositories\TodoInterfaceWork\SupportInterface;
 use App\Http\Requests\Employers\AddEmployerRequest;
 use App\Http\Requests\Employers\EditEmployerRequest;
+use App\Http\Requests\Employers\AddSpeadEmployer;
 class EmployersController extends Controller
 {
 
@@ -41,5 +42,13 @@ class EmployersController extends Controller
     // Edit
     public function Edit($id, EditEmployerRequest $request ){
         return $this->employer->Edit($id, $request);
+    }
+    //get list with comp
+    public function EmpCompany($id){
+        return $this->employer->EmpCompany($id);
+    }
+    //add Employers Spead
+    public function AddSpead(AddSpeadEmployer $request){
+        return $this->employer->add($request);
     }
 }

@@ -16,7 +16,7 @@ class WorkShifts extends Migration
         Schema::create('WorkShifts', function (Blueprint $table) {
             $table->Increments('Work_id');
             $table->integer('FormM_id')->nullable();
-            $table->dateTime('Work_time')->nullable();
+            $table->integer('Work_time')->nullable();
             $table->time('time_in')->nullable();
             $table->time('time_out')->nullable();
             $table->text('Work_desc')->nullable();

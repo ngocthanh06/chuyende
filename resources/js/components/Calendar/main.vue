@@ -7,7 +7,7 @@
                         <div class="title">
                             <div class="ttLeff">
                                 <div class="form-group">
-                                    <button data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-outline-secondary">
+                                    <button data-toggle="modal" data-target="#AddEmp_Modal" class="btn btn-sm btn-outline-secondary">
                                         <i aria-label="icon: user-add" class="anticon anticon-user-add"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="user-add" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M678.3 642.4c24.2-13 51.9-20.4 81.4-20.4h.1c3 0 4.4-3.6 2.2-5.6a371.67 371.67 0 0 0-103.7-65.8c-.4-.2-.8-.3-1.2-.5C719.2 505 759.6 431.7 759.6 349c0-137-110.8-248-247.5-248S264.7 212 264.7 349c0 82.7 40.4 156 102.6 201.1-.4.2-.8.3-1.2.5-44.7 18.9-84.8 46-119.3 80.6a373.42 373.42 0 0 0-80.4 119.5A373.6 373.6 0 0 0 137 888.8a8 8 0 0 0 8 8.2h59.9c4.3 0 7.9-3.5 8-7.8 2-77.2 32.9-149.5 87.6-204.3C357 628.2 432.2 597 512.2 597c56.7 0 111.1 15.7 158 45.1a8.1 8.1 0 0 0 8.1.3zM512.2 521c-45.8 0-88.9-17.9-121.4-50.4A171.2 171.2 0 0 1 340.5 349c0-45.9 17.9-89.1 50.3-121.6S466.3 177 512.2 177s88.9 17.9 121.4 50.4A171.2 171.2 0 0 1 683.9 349c0 45.9-17.9 89.1-50.3 121.6C601.1 503.1 558 521 512.2 521zM880 759h-84v-84c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v84h-84c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h84v84c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8v-84h84c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z"></path></svg></i>
                                         Thêm nhân viên
                                     </button>
@@ -16,19 +16,25 @@
                                 <div  class="form-group flatpickr">
                                     <input id="datepicker" class="form-control mb-2 date-default flatpickr-input active" v-model="dateValueNow"  type="text" placeholder="Chọn ngày">
                                 </div>
+                                <!-- Theo tuần -->
                                 <div class="form-group flatpickr">
                                     <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>Theo tuần</option>
-                                    <option>Theo tháng</option>
+                                        <option v-for="item in Option" :key="item.id" :value="item.id">{{item.value}}</option>
                                     </select>
                                 </div>
+                                <!-- end theo tuần -->
+                                <!-- chọn công ty -->
+                                <div class="form-group flatpickr">
+                                    <select v-on:change="changeEmpComp()" v-model="company" class="form-control" id="exampleFormControlSelect1">
+                                        <option value=""  disabled selected hidden>Chọn công ty</option>
+                                        <option v-for="items in getCompanies" :key="items.idComp" :value="items.idComp">{{items.nameComp}}</option>
+                                    </select>
+                                </div>
+                                <!-- <end công ty -->
                             </div>
                             <!-- end left -->
                             <div class="ttRight">
-                                <button class="btn btn-sm btn-outline-info"><span class="oi oi-spreadsheet"></span> Ca làm</button>
-                                <button class="btn btn-sm btn-outline-info"><span class="oi oi-layers"></span> Xếp ca</button>
-                                <button class="btn btn-sm btn-outline-info"><span class="oi oi-timer"></span> Vào/ra</button>
-                                <button class="btn btn-sm btn-outline-info"><span class="oi oi-data-transfer-download"></span> Xuất Excel</button>
+                                <button v-for="item in titleRight" :key="item.id" class="btn btn-sm btn-outline-info"><router-link :to="item.link" ><span :class="item.icon"></span>{{item.value}}</router-link></button>
                             </div>
                             <!-- end right -->
                         </div>
@@ -48,12 +54,12 @@
                                     </div>
                                 </div>
                                 <div class="ctLists">
-                                    <div class="L_item">
+                                    <div v-for="(item, index) in getEmpCom()" :key="index" class="L_item">
                                         <div class="i_name titleTableSearch">
                                             <a class="logo" href="#">
                                                 <img src="https://chat.tanca.io:3001/avatar/+84783449848">
                                             </a>
-                                            <span>Đào Ngọc Thạnh</span>
+                                            <span>{{item.User_fullname}}</span>
                                         </div>
                                         <div class="i_desc titleTable">
                                             <button type="button" class="add_btn">
@@ -113,14 +119,29 @@ export default {
         return {
             dateValueNow:'',
             numWeek : '',
+            Option : [
+                {id : 1, value : 'Theo tuần'},
+                {id : 2, value : 'Theo tháng'},
+            ],
+            titleRight: [
+                {id : 1, icon: 'oi oi-spreadsheet', value : ' Ca làm', link: '/Show-Calam'},
+                {id : 2, icon: 'oi oi-layers', value : ' Xếp ca', link: ''},
+                {id : 3, icon: 'oi oi-timer', value : ' Vào/ra', link: ''},
+                {id : 4, icon: 'oi oi-data-transfer-download', value : ' Xuất Excel',link: ''},
+            ],
+            company: ''
         }
     },
     created(){
         setInterval(this.getNow,1000),
+        this.$store.dispatch('allCompany');
         this.getNumWeek();
         this.$store.dispatch('SetNumWeek',this.numWeek);
+        this.getTimeNow();
+
     },
     mounted(){
+        //calendar
         flatpickr('#datepicker',{
             'locate' : 'vi',
             weekNumbers : true,
@@ -135,18 +156,37 @@ export default {
                     this.numWeek = weekNumber;
                     return this.$store.dispatch('SetNumWeek',weekNumber);
                 }
-
             ]
         });
         
     },
     methods: {
+        //Get time now 
+        getTimeNow(){
+            return this.dateValueNow = `Tuần: ${moment().weeks()} - ${moment().year()}`
+        },
+        // get number week
         getNumWeek(){
             return this.numWeek = moment().week();
         },
         getNumW(){
             return this.$store.getters.getNumWeek
+        },
+        // get employer in company
+        getEmpCom(){
+            return this.$store.getters.getEmployerComp;
+        },
+        // change employer when change choose company orther
+        changeEmpComp() {
+            //emperloyer
+            return this.$store.dispatch('allEmployerComp',this.company);
         }
+    },
+    computed: {
+        // get all company
+        getCompanies(){
+            return this.$store.getters.getCompany
+        },
     }
 }
 </script>
@@ -171,7 +211,7 @@ export default {
                         }
                     }
                     .ttRight{
-
+                        button{margin: 0 5px}
                     }
                 }
                 // end title

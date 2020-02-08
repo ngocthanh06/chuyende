@@ -18,6 +18,7 @@ import locale from 'element-ui/lib/locale'
 // import { SchedulerView } from '@progress/kendo-scheduler-vue-wrapper'
 // import { SchedulerInstaller } from '@progress/kendo-scheduler-vue-wrapper'
 
+
 //DatePicker
 import flatpickr from 'flatpickr'
 //v-form
@@ -29,6 +30,7 @@ Vue.component(AlertError.name, AlertError);
 locale.use(lang);
 // Vue.use(SchedulerInstaller);
 Vue.use(route);
+
 Vue.use(vuex);
 Vue.use(UI);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

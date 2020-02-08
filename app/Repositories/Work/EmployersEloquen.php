@@ -59,8 +59,16 @@ class EmployersEloquen implements EmployersInterface
         return $employer;
         
     }
-       
+     
+    //Get Employer with Company
+    public function EmpCompany($id){
+        return Employer::where('idComp',$id)->get();
+    }  
     
+   //Add Employer Spead
+   public function AddSpead($request){
+       return $request;
+   }
     
     
 }

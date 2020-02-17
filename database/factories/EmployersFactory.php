@@ -14,6 +14,7 @@ $factory->define(Employer::class, function (Faker $faker) {
         'User_add' => $faker->title,
         'User_phone' => rand(1,100),
         'User_bank' => rand(1,100),
+        'idComp' => rand(1,10),
     ];
 });
 

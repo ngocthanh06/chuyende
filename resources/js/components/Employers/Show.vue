@@ -82,8 +82,9 @@
                     this.loading = false;
                 }
                 catch{(e)=>{
+                  alert('Không thể hiện thị nhân viên');
                 }}
-            }).catch((e)=>{});
+            })
       },
       handleDelete(event){
           this.$confirm('Bạn có chắc xóa dữ liệu này không?', 'Cảnh báo', {

@@ -5,13 +5,17 @@ export default {
        numWeek : '',
        company: [],
        EmployerComp : [],
+       DateCaLam: [],
+       CaLam : []
     },
     //xử lý thao tác chức năng
     getters: {
         getDistrict(state){return state.district},
         getNumWeek(state){return state.numWeek},
         getCompany(state){return state.company},
-        getEmployerComp(state){return state.EmployerComp}
+        getEmployerComp(state){return state.EmployerComp},
+        getDatecaLam(state){return state.DateCaLam},
+        getCaLam(state){return state.CaLam}
     },
     //Diễn tả 1 hành động
     actions: {
@@ -24,11 +28,11 @@ export default {
             axios.get('/api/company').then((res)=>{context.commit('commitCompany', res.data)})
         },
         //Lấy số ngày 
-        SetNumWeek(context,data){
+        SetNumWeek(context,data){            
             let numsDay = [];
             let scheldule = [];
             scheldule.push({
-                days:Array(7).fill(0).map((n, i) => moment().week(data).startOf('isoWeek').clone().add(n + i, 'day'))
+                days:Array(7).fill(0).map((n, i) => moment().week(data[0]).weekYear(data[1]).startOf('isoWeek').clone().add(n + i, 'day'))
             });
             scheldule.forEach( 
                 (date) => { 
@@ -41,11 +45,34 @@ export default {
             );
             context.commit('commitNumWeek',numsDay);
         },
+        SetDateCaLam(context,data){
+            
+            let numsDay = [];
+            let scheldule = [];
+            scheldule.push({
+                days:Array(7).fill(0).map((n, i) => moment().week(data[0]).weekYear(data[1]).startOf('isoWeek').clone().add(n + i, 'day'))
+            });
+            scheldule.forEach( 
+                (date) => { 
+                    date.days.forEach( 
+                        (d, index) => {
+                            numsDay[index] = d.lang('vi').format('YYYY-MM-DD'); 
+                        }                    
+                    )
+                }
+            );
+            context.commit('commitDateCalam',numsDay);
+        },
         
         //Lấy nhân viên với điều kiện công ty
         allEmployerComp(context, id){
             axios.get(`api/empCompany/${id}`).then((res)=>{ context.commit('commitEmpComp',res.data) });
         },
+
+        //Lấy tất cả ca làm
+        allCaLam(context){
+            axios.get('/api/CaLam').then((res)=>{ context.commit('commitCaLam', res.data)})
+        }
     },
     //Trạng thái không thể thay đổi trực tiếp mà chỉ thay đổi thông qua commit
     //Từ action thay đổi gọi xuống commit của mutations thông qua context.commit
@@ -53,7 +80,9 @@ export default {
         commitEmployers(state,data){state.district = data},
         commitNumWeek(state,data){state.numWeek = data},
         commitCompany(state,data){state.company = data},
-        commitEmpComp(state,data){state.EmployerComp = data}
+        commitEmpComp(state,data){state.EmployerComp = data},
+        commitDateCalam(state, data){state.DateCaLam = data},
+        commitCaLam(state,data){state.CaLam = data}
         
     }
 

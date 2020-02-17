@@ -30,7 +30,7 @@ class AddSpeadEmployer extends FormRequest
     }
     public function messages(){
         return [
-            'Username.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại 1',
+            'Username.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại ',
             'User_Phone.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại',
             'User_Phone.min' => 'Độ dài số điện thoại không hợp lệ',
             'User_Phone.max' => 'Độ dài số điện thoại không hợp lệ',

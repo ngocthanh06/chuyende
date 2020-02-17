@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\TodoInterfaceWork\WorkShilftsInterface;
+use App\Repositories\TodoInterfaceWork\FormMCaLamInterface;
 
 class CaLamController extends Controller
 {
 
-    private $workShift;
-    public function __construct(WorkShilftsInterface $workShift){
-        $this->workShift = $workShift;
+    private $CaLam;
+    public function __construct(FormMCaLamInterface $CaLam){
+        $this->CaLam = $CaLam;
     }
 
     /**
@@ -20,7 +20,7 @@ class CaLamController extends Controller
      */
     public function index(Request $request)
     {
-        
+        return $this->CaLam->all();   
     }
 
     /**
@@ -41,7 +41,7 @@ class CaLamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->CaLam->postWorkShift($request);
     }
 
     /**
@@ -52,7 +52,7 @@ class CaLamController extends Controller
      */
     public function show($id)
     {
-        return $this->workShift->getAll($id);
+        return $this->CaLam->getAll($id);
     }
 
     /**

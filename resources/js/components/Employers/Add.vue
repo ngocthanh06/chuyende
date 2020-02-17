@@ -16,18 +16,22 @@
             <el-input type="password" v-model="ruleForm.Password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Chức vụ" prop="Role_id" required>
-            <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
-            <el-option label="Nhân viên" value="1"></el-option>
-            <el-option label="Quản lý" value="2"></el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item label="Ngày Sinh" required>
-            <el-col :span="11">
-            <el-form-item prop="Birthday">
-                <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày Sinh" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Birthday" style="width: 100%;"></el-date-picker>
+          <el-col :span="5">
+            <el-form-item >
+              <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
+              <el-option label="Nhân viên" value="1"></el-option>
+              <el-option label="Quản lý" value="2"></el-option>
+              </el-select>
             </el-form-item>
-            </el-col>
+          </el-col>
+          <el-col :span="8">
+                <el-form-item label="Ngày Sinh" required prop="Birthday">
+                    <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày Sinh" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Birthday" style="width: 100%;"></el-date-picker>
+                </el-form-item>
+          </el-col>
         </el-form-item>
+        
+        
         <el-form-item label="Giới Tính" x prop="sex">
             <el-radio-group  v-model="ruleForm.sex" >
             <el-radio  label="Nam"></el-radio>

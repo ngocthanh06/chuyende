@@ -50,5 +50,6 @@ class EmployersController extends Controller
     //add Employers Spead
     public function AddSpead(AddSpeadEmployer $request){
         return $this->employer->add($request);
+        // return $this->employer->AddSpead($request);
     }
 }

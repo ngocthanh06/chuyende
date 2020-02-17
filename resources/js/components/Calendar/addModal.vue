@@ -23,9 +23,11 @@
                                 <el-form-item label="Họ Và Tên" prop="User_fullname">
                                     <el-input placeholder="Nhập họ và tên nhân viên" v-model="ruleForm.User_fullname"></el-input>
                                 </el-form-item>
-                                <el-form-item  label="Số điện thoại" prop="User_Phone" required>
-                                    <el-input v-on:change="ChangePassAndUser()" placeholder="Nhập số điện thoại" :class="{ 'is-invalid': ruleForm.errors.has('User_Phone') }" v-model.number="ruleForm.User_Phone"></el-input>
-                                    <has-error :form="ruleForm" field="User_Phone"></has-error>
+                                <el-form-item  label="Số điện thoại" prop="User_phone" required>
+                                    <el-input v-on:change="ChangePassAndUser()" placeholder="Nhập số điện thoại" :class="{ 'is-invalid':  ruleForm.errors.has('User_phone') }" v-model.number="ruleForm.User_phone"></el-input>
+                                    <has-error :form="ruleForm" field="User_phone"></has-error>
+                                    <el-input style="display:none" :class="{ 'is-invalid':  ruleForm.errors.has('Username') }"></el-input>
+                                    <has-error :form="ruleForm" field="Username"></has-error>
                                 </el-form-item>
                                 <el-form-item label="Chức vụ" prop="Role_id" required>
                                     <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
@@ -85,7 +87,7 @@ export default {
         ruleForm: new Form( {
             Role_id:'',
             User_fullname:'',
-            User_Phone: '',
+            User_phone: '',
             sex: '',
             idComp:'',
             Password:'',
@@ -99,7 +101,7 @@ export default {
           Role_id: [
             { required: true, message: 'Bạn chưa chọn chức vụ', trigger: 'change' }
           ],
-          User_Phone: [
+          User_phone: [
             { required: true, message: 'Số điện thoại không được để trống', trigger: 'blur' },
             { validator: checkUser_Phone, trigger: 'blur'},
           ],
@@ -136,6 +138,7 @@ export default {
                         this.hideModal();
                       }
                       else{
+                        console.log(res);
                           this.$message({
                           type: 'warning',
                           message: 'Lỗi'
@@ -155,8 +158,8 @@ export default {
         return this.$refs[formName].resetFields();
       },
       ChangePassAndUser(){
-          this.ruleForm.Password = this.ruleForm.User_Phone;
-          this.ruleForm.Username = this.ruleForm.User_Phone;
+          this.ruleForm.Password = this.ruleForm.User_phone;
+          this.ruleForm.Username = this.ruleForm.User_phone;
       },
       
     },

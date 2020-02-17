@@ -40,7 +40,7 @@ class EmployersEloquen implements EmployersInterface
     public function add($request){
         $request['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
         $request['Password'] = Hash::make($request["Password"]);
-            Employer::create($request->all());
+        Employer::create($request->all());
         // return $request;
         return response()->json([
             'code' => '200',
@@ -67,7 +67,19 @@ class EmployersEloquen implements EmployersInterface
     
    //Add Employer Spead
    public function AddSpead($request){
-       return $request;
+        $user = new Employer();
+        $user['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
+        $user['Password'] = Hash::make($request["Password"]);
+        $user['User_phone'] = $request->User_phone;
+        $user['idComp'] = $request->idComp;
+        $user['User_fullname'] = $request->User_fullname;
+        $user['username'] = $request->username;
+        $user['Role_id'] = $request->Role_id;
+        $user->save();
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]);
    }
     
     

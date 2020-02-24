@@ -52,7 +52,7 @@ class CaLamController extends Controller
 
         foreach($Day as $d){
             foreach($User as $U){
-                $Calam [] = DB::table('formm')->join('workshifts','formm.FormM_id','workshifts.FormM_id')->where('workshifts.User_id', $U->User_id)->where('workshifts.WS_date', $d)->first();
+                $Calam [] = DB::table('formm')->join('workshifts','formm.FormM_id','workshifts.FormM_id')->where('workshifts.User_id', $U->User_id)->where('workshifts.WS_date', $d)->get();
             }
         }
 

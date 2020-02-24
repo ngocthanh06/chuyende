@@ -62,9 +62,9 @@
                                             <span>{{item.User_fullname}}</span>
                                         </div>
                                         <div v-for="val in ChangeCaLam()" :key="val" class="i_desc titleTable">
-                                            <div   v-for="(value, index) in ValueCaLam" :key ="index" v-if="value != null"  >
+                                            <div v-for="(value, index) in ValueCaLam" :key ="index" v-if="value != null"  >
                                                     <div class="hidebutton" v-if="val === value.WS_date && item.User_id === value.User_id">
-                                                        {{  value.FormM_name  }}
+                                                        <button type="button" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
                                                     </div>
                                             </div>
                                             <button v-on:click ="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
@@ -190,8 +190,20 @@ export default {
         },
         //ca làm đã đăng ký
         setVal(){
+            let count = 0;
+            let date = [];
             axios.post('/api/countCaLam', {id : this.company, date:this.$store.getters.getDatecaLam }).then(res=>{
-                return this.ValueCaLam = res.data
+                res.data.forEach(
+                    val => {
+                        val.forEach(
+                            va => { 
+                                date[count] = va;
+                                count ++;
+                            }
+                        )
+                    }
+                )
+                return this.ValueCaLam = date
             })
         },
         HandelPage(){
@@ -283,6 +295,10 @@ export default {
                         }
                         .titleTable{width: 100%; display: block; position: relative; 
                             .hidebutton{ width: 100%; position: absolute; top: 0; left: 0; bottom: 0; text-align: center;  padding: 5px;  line-height: 21px;  background: #ffffff;
+                                display: flex; justify-content: center; align-items: center;
+                                button{
+                                        width: 100%; border: 1px solid #28a745; color: #28a745
+                                }
                             }
                         }
                         

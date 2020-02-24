@@ -7,7 +7,6 @@ export default {
        EmployerComp : [],
        DateCaLam: [],
        CaLam : [], 
-       calamIsset: []
     },
     //xử lý thao tác chức năng
     getters: {
@@ -17,7 +16,6 @@ export default {
         getEmployerComp(state){return state.EmployerComp},
         getDatecaLam(state){return state.DateCaLam},
         getCaLam(state){return state.CaLam},
-        getIssetCalam(state){return state.calamIsset}
     },
     //Diễn tả 1 hành động
     actions: {
@@ -76,13 +74,7 @@ export default {
             axios.get('/api/CaLam').then((res)=>{ context.commit('commitCaLam', res.data)})
         },
 
-        //Lấy ca làm đã tồn tại của nhân viên
-        allCalamisset(context,val){
-            axios.post('/api/countCaLam', { id : val[0], date: val[1] }).then(res=>{
-                context.commit('commitallCalamisset',res.data)
-            })
-        }
-
+       
     },
     //Trạng thái không thể thay đổi trực tiếp mà chỉ thay đổi thông qua commit
     //Từ action thay đổi gọi xuống commit của mutations thông qua context.commit
@@ -93,7 +85,6 @@ export default {
         commitEmpComp(state,data){state.EmployerComp = data},
         commitDateCalam(state, data){state.DateCaLam = data},
         commitCaLam(state,data){state.CaLam = data},
-        commitallCalamisset(state,data){state.calamIsset = data}
         
     }
 

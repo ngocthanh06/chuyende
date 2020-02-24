@@ -33,6 +33,10 @@ class FormMCalamEloquent implements FormMCaLamInterface
         ]);
 
     }
+
+    public function countCalam($request){
+        return $request;
+    }
     
     
     

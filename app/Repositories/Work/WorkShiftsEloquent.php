@@ -13,6 +13,8 @@ class WorkShiftsEloquent implements WorkShilftsInterface
     public function getAll($limit){
         return WorkShifts::with('FormM')->paginate($limit);
     }
+
+    
     
     
     

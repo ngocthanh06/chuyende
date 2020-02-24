@@ -26,8 +26,10 @@ Route::post('/editEmployer/{id}', 'EmployersController@Edit');
 Route::get('/empCompany/{id}','EmployersController@EmpCompany');
 Route::post('/addEmployersSpead','EmployersController@AddSpead');
 
+
 //List Company
 Route::resource('/company', 'CompanyController');
 
 //List CaLam
 Route::resource('/CaLam','CaLamController');
+Route::post('/countCaLam','CaLamController@countCalam');

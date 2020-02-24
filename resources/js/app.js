@@ -1,6 +1,7 @@
 require('./bootstrap');
 window.Vue = require('vue');
 //import
+import Layout from './components/Layouts/main.vue';
 import route from './Router';
 import UI from 'element-ui';
 //vuex
@@ -39,7 +40,9 @@ const app = new Vue({
     el: '#app',
     router:route, 
     store,
+    template: '<Layout></Layout>',
     components:{
         // Scheduler
+        Layout
     }
 });

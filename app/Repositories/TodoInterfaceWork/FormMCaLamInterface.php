@@ -12,4 +12,5 @@ interface FormMCaLamInterface
 
    public function postWorkShift($request);
    
+   public function countCalam($request);
 }

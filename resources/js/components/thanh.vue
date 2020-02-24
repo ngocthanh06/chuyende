@@ -1,46 +1,57 @@
 <template>
   <section>
-    <btn type="primary" @click="open=true">Launch Demo Modal</btn>
-    <modal v-model="open" title="Modal 1" @hide="callback" ref="modal" id="modal-demo">
-      <h4>Text in a modal</h4>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-      <h4>Popover in a modal</h4>
-      <p>
-        This
-        <btn v-popover:modal-demo="{title:'Title',content:'Some popover content...'}">button</btn>
-        should trigger a popover on click.
-      </p>
-      <h4>Tooltips in a modal</h4>
-      <p>
-        <a role="button" v-tooltip:modal-demo="'Tooltip'">This link</a>
-        <span>and</span>
-        <a role="button" v-tooltip:modal-demo="'Tooltip'">that link</a>
-        <span>should have tooltips on hover.</span>
-      </p>
-      <hr>
-      <h4>Overflowing text to show scroll behavior</h4>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    </modal>
+  {{show()}}
+    
+    <form>
+    <select v-on:change="a" v-model ="value1">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+    </form>
   </section>
 </template>
 <script>
   export default {
     data () {
       return {
-        open: false
+        open: false,
+        options: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }, {
+          value: 'Option3',
+          label: 'Option3'
+        }, {
+          value: 'Option4',
+          label: 'Option4'
+        }, {
+          value: 'Option5',
+          label: 'Option5'
+        }],
+        value1: ''
       }
     },
     methods: {
       callback (msg) {
         this.$notify(`Modal dismissed with msg '${msg}'.`)
+      },
+      change(){
+        console.log('thay đổi')
+      },
+      show(){
+        console.log('aa')
+      },
+      changeVal(){
+        console.log('b');
+      }
+    },
+    computed: {
+      a(){
+        console.log('t')
       }
     }
   }

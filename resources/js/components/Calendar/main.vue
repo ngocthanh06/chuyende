@@ -67,17 +67,13 @@
                                                         {{  value.FormM_name  }}
                                                     </div>
                                             </div>
-
                                             <button v-on:click ="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
                                                           <i aria-label="icon: plus" class="anticon anticon-plus"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg></i>           
                                             </button>
-                                            
-
                                         </div>
-                                        
                                     </div>
                                 </div>
-                                <modelCalam  v-bind:getCaLamProp =" getCaLam" v-bind:calam ="idCaLam" ></modelCalam>
+                                <modelCalam  v-bind:getCaLamProp =" getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage" ></modelCalam>
                         </div>
                    </div>
                    <!-- end list view -->
@@ -103,7 +99,8 @@ export default {
             numYear: '',
             idCaLam: {
                 WS_date: '',
-                User_id: ''
+                User_id: '',
+                idComp : ''
             },
             Option : [
                 {id : 1, value : 'Theo tuần'},
@@ -184,30 +181,22 @@ export default {
         ChangeCaLam(){
             return this.$store.getters.getDatecaLam;
         },
+        // thêm ca làm cho nhân viên khi truyền xuống modelCalam 
         setCaLam(valueID, date){
             this.idCaLam['User_id'] = valueID;
             this.idCaLam['WS_date'] = date;
+            this.idCaLam['idComp'] = this.company;
             this.$store.dispatch('allCaLam');
         },
-
+        //ca làm đã đăng ký
         setVal(){
-            let count = 0;
-            let num=[] ;
             axios.post('/api/countCaLam', {id : this.company, date:this.$store.getters.getDatecaLam }).then(res=>{
-                // res.data.forEach(
-                    // (val, index) => {
-                    //     val.forEach(
-                    //        (va,dex) =>{
-                    //         num[count] = {FormM_name:va.FormM_name , User_id :  va.User_id, WS_date : va.WS_date};
-                    //         count++;
-                    //        })
-                    // }
-                // )
-                console.log(res.data)
                 return this.ValueCaLam = res.data
             })
         },
-        
+        HandelPage(){
+            this.changeEmpComp();
+        }
 
         
     },

@@ -68,6 +68,9 @@ export default {
         }
     },
     methods: {
+        HandelPage(){
+            this.$emit('HandelPage')
+        },
         Accept(){
             if(this.selected.length != 0){
                 this.selected.forEach(
@@ -77,7 +80,8 @@ export default {
                 this.ruleForm1['WS_date'] = this.calam['WS_date'];
                 axios.post('/api/CaLam',this.ruleForm1).then((res)=>{
                     try{
-                        if(res.status === 200){
+                        if(res.status === 200){    
+                            this.HandelPage();
                             this.ruleForm1.FormM_id = [];
                             this.$message({
                             type: 'success',
@@ -99,6 +103,7 @@ export default {
         return this.selected = []
       },
       getTime(val){
+          
           //Check time work
           if(this.selected.length > 1 && val.FormM_Work >= 8)
          {

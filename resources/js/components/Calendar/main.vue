@@ -61,10 +61,13 @@
                                             </a>
                                             <span>{{item.User_fullname}}</span>
                                         </div>
+                                        <!-- THời gian ca làm (7) -->
                                         <div v-for="val in ChangeCaLam()" :key="val" class="i_desc titleTable">
+                                            <!-- giá trị ca làm mỗi nhân viên -->
                                             <div v-for="(value, index) in ValueCaLam" :key ="index" v-if="value != null"  >
-                                                    <div class="hidebutton" v-if="val === value.WS_date && item.User_id === value.User_id">
-                                                        <button type="button" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
+                                                <!-- thêm modal ca làm -->
+                                                    <div data-toggle="modal" data-target="#EditModal" class="hidebutton" v-if="val === value.WS_date && item.User_id === value.User_id">
+                                                        <button v-on:click="EditCaLam(item.User_id, val)" type="button" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
                                                     </div>
                                             </div>
                                             <button v-on:click ="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
@@ -73,7 +76,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <modelCalam  v-bind:getCaLamProp =" getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage" ></modelCalam>
+                                <!-- Add CaLam -->
+                                <modelCalam  v-bind:getCaLamProp ="getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage" ></modelCalam>
+                                <!-- Edit Calam -->
+                                <EditModal ref="editCalam" v-bind:getCaLamProp ="getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage" ></EditModal>
                         </div>
                    </div>
                    <!-- end list view -->
@@ -86,22 +92,17 @@
 </template>
 <script>
 import addModal from './addModal.vue';
+import EditModal from './EditModalCalam.vue';
 import modelCalam from './modelCalam.vue';
 import moment from 'moment';
 export default {
     components: {
-        addModal, modelCalam
+        addModal, modelCalam,EditModal
     },
     data(){
         return {
-            dateValueNow:'',
-            numWeek : '',
-            numYear: '',
-            idCaLam: {
-                WS_date: '',
-                User_id: '',
-                idComp : ''
-            },
+            dateValueNow:'',  numWeek : '', numYear: '',
+            idCaLam: { WS_date: '', User_id: '',  idComp : '' },
             Option : [
                 {id : 1, value : 'Theo tuần'},
                 {id : 2, value : 'Theo tháng'},
@@ -123,7 +124,6 @@ export default {
         this.$store.dispatch('SetNumWeek',[this.numWeek, this.numYear]);
         this.getTimeNow();
         // this.$store.dispatch('SetDateCaLam',[this.numWeek, this.numYear]);
-
     },
     mounted(){
         //calendar
@@ -142,11 +142,11 @@ export default {
                     let year = moment(dataObj[0]).format('YYYY');
                     this.numYear = year;
                     this.$store.dispatch('SetDateCaLam',[this.numWeek, this.numYear]);
+                    this.setVal();
                     return this.$store.dispatch('SetNumWeek',[weekNumber,year]);
                 }
             ]
         });
-        
     },
     methods: {
         //Get time now 
@@ -177,7 +177,6 @@ export default {
             // code
             // em gọi axios chỗ này ne, em mún truyền cái gì vào cũng đc hết
         },
-        
         ChangeCaLam(){
             return this.$store.getters.getDatecaLam;
         },
@@ -186,6 +185,14 @@ export default {
             this.idCaLam['User_id'] = valueID;
             this.idCaLam['WS_date'] = date;
             this.idCaLam['idComp'] = this.company;
+            this.$store.dispatch('allCaLam');
+        },
+        // Sửa ca làm cho nhân viên khi truyền xuống modelCalam 
+        EditCaLam(valueID, date){
+            this.idCaLam['User_id'] = valueID;
+            this.idCaLam['WS_date'] = date;
+            this.idCaLam['idComp'] = this.company;
+            this.$refs.editCalam.getCaLamUser();
             this.$store.dispatch('allCaLam');
         },
         //ca làm đã đăng ký
@@ -206,11 +213,11 @@ export default {
                 return this.ValueCaLam = date
             })
         },
+        //xử lý khi đóng thêm ca làm sẽ load lại
         HandelPage(){
             this.changeEmpComp();
-        }
-
-        
+            this.$refs.editCalam.getCaLamUser();
+        },
     },
     computed: {
         // get all company
@@ -219,12 +226,9 @@ export default {
         },
         getCaLam(){
             return this.$store.getters.getCaLam;
-        }
-
+        },
     },
     watch:{
-
-
         // company(newVal, oldVal) {
         //     console.log(newVal, oldVal)
         //     if(newVal) {
@@ -232,7 +236,6 @@ export default {
         //         this.hamAxios(newVal);
         //     }
         // },
-        
     }
 }
 </script>
@@ -300,10 +303,8 @@ export default {
                                         width: 100%; border: 1px solid #28a745; color: #28a745
                                 }
                             }
-                        }
-                        
+                        }   
                     }
-
                 }
                 // end content
             }

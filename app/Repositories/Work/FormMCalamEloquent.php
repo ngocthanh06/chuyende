@@ -8,6 +8,7 @@ use DB;
 use Image;
 use App\Models\FormM;
 use App\Models\WorkShifts;
+use App\User;
 class FormMCalamEloquent implements FormMCaLamInterface
 {
      
@@ -33,10 +34,24 @@ class FormMCalamEloquent implements FormMCaLamInterface
         ]);
 
     }
-
+    // lây hết nhân viên trong công ty
     public function countCalam($request){
-        return $request;
+        // lây hết nhân viên trong công ty
+        $User = User::where('idComp', $request->id)->get();
+        $Day = $request->date;
+        $Calam = [];
+        foreach($Day as $d){
+            foreach($User as $U){
+                $Calam [] = DB::table('formm')->join('workshifts','formm.FormM_id','workshifts.FormM_id')->where('workshifts.User_id', $U->User_id)->where('workshifts.WS_date', $d)->get();
+            }
+        }
+        return $Calam;
     }
+    // Sửa ca làm
+    public function editCalamUser($request){
+        return WorkShifts::with('FormM')->where('User_id', $request->User_id)->where('WS_date', $request->WS_date)->get();
+    }
+
     
     
     

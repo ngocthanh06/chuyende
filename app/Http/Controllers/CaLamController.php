@@ -19,11 +19,6 @@ class CaLamController extends Controller
         return $this->CaLam->all();   
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         return $this->CaLam->postWorkShift($request);
@@ -32,31 +27,21 @@ class CaLamController extends Controller
     {
         return $this->CaLam->getAll($id);
     }
-    public function edit($id)
-    {
-        //
-    }
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    public function destroy($id)
-    {
-        //
-    }
+    // lấy số ca làm của nhân viên trong ngày
     public function countCalam(Request $request){
-        // lây hết nhân viên trong công ty
-        $User = User::where('idComp', $request->id)->get();
-        $Day = $request->date;
-        $Calam = [];
-
-        foreach($Day as $d){
-            foreach($User as $U){
-                $Calam [] = DB::table('formm')->join('workshifts','formm.FormM_id','workshifts.FormM_id')->where('workshifts.User_id', $U->User_id)->where('workshifts.WS_date', $d)->get();
-            }
-        }
-
-        return $Calam;
-
+        return $this->CaLam->countCalam($request);
+    }
+    // Sửa ca làm nhân viên
+    public function editCalamUser(Request $request){
+        return $this->CaLam->editCalamUser($request);
+    }
+    //Xóa ca làm
+    public function delCalam(Request $request){
+        $Calam = WorkShifts::find($request->Work_id);
+        $Calam->delete();
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]);
     }
 }

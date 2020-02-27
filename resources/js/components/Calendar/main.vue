@@ -65,29 +65,32 @@
                                         <div v-for="val in ChangeCaLam()" :key="val" class="i_desc titleTable">
                                             <!-- giá trị ca làm mỗi nhân viên -->
                                             <div v-for="(value, index) in ValueCaLam" :key ="index" v-if="value != null"  >
-                                                <!-- thêm modal ca làm -->
-                                                    <div data-toggle="modal" data-target="#EditModal" class="hidebutton" v-if="val === value.WS_date && item.User_id === value.User_id">
-                                                        <button v-on:click="EditCaLam(item.User_id, val)" type="button" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
-                                                    </div>
+                                                <!-- thêm modal ca làm --> 
+                                                    <div class="hidebutton" v-if="val === value.WS_date && item.User_id === value.User_id"> 
+                                                        <button href="#EditModal" data-toggle="modal" data-target="#EditModal" role="button" v-on:click="EditCaLam(item.User_id, val)" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
+                                                    </div> 
                                             </div>
                                             <button v-on:click ="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
                                                           <i aria-label="icon: plus" class="anticon anticon-plus"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg></i>           
                                             </button>
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <!-- Add CaLam -->
                                 <modelCalam  v-bind:getCaLamProp ="getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage" ></modelCalam>
                                 <!-- Edit Calam -->
-                                <EditModal ref="editCalam" v-bind:getCaLamProp ="getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage" ></EditModal>
+                                <EditModal ref="editCalam" v-bind:getCaLamProp ="getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage ="HandelPage" v-on:OpenAdd="OpenAdd" ></EditModal>
+                                <!-- addOnEdit -->
+                                <addchildModel ref="addCalam" v-bind:getCaLamProp ="getCaLam" v-bind:calam ="idCaLam" v-on:HandelPage =" HandelPage"></addchildModel>
                         </div>
                    </div>
                    <!-- end list view -->
                </div>
                <!-- end card-body -->
-            </div>
+            </div> 
             <!-- end card -->
-        </section>
+        </section> 
     </div>
 </template>
 <script>
@@ -95,9 +98,10 @@ import addModal from './addModal.vue';
 import EditModal from './EditModalCalam.vue';
 import modelCalam from './modelCalam.vue';
 import moment from 'moment';
+import addchildModel from './addChildCalam.vue';
 export default {
     components: {
-        addModal, modelCalam,EditModal
+        addModal, modelCalam,EditModal ,addchildModel
     },
     data(){
         return {
@@ -218,6 +222,10 @@ export default {
             this.changeEmpComp();
             this.$refs.editCalam.getCaLamUser();
         },
+        //Call addCalamm khi mở btn cộng trong chỉnh sửa
+        OpenAdd(){
+            this.$refs.addCalam.getCaLamUser();
+        }
     },
     computed: {
         // get all company

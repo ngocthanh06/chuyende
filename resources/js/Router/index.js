@@ -30,17 +30,17 @@ export default new VueRouter({
     base: process.env.MIX_PUBLISH_APP_URL,
     routes: [
         {path: '/login', component: login, name: 'login'},
-        {path: '/logout', component: logout},
-        {path: '/hello', component:Setting},
-        {path:'/employers' ,component: Employers},
-        {path: '/addEmployer', component: AddEmployer},
-        {path: '/edit-Employer/:id',component: EditEmployer},
-        {path: '/Set-Calendar',component: MainCalendar},
-        {path: '/Show-Calam', component : ShowCaLam},
-        {path: '/Add-Calam', component : AddCalam},
-        {path: '/Edit-Calam', component : EditCaLam},
-        {path: '/demo',component : Demo},
-        {path: '/ad-calendar', component: adCalendar}
+        {path: '/logout', component: logout, name : 'logout'},
+        {path: '/hello', component:Setting , name: 'hello'},
+        {path:'/employers' ,component: Employers, name: 'employer'},
+        {path: '/addEmployer', component: AddEmployer, name: 'addEmployer'},
+        {path: '/edit-Employer/:id',component: EditEmployer },
+        {path: '/Set-Calendar',component: MainCalendar, name: 'SetCalendar'},
+        {path: '/Show-Calam', component : ShowCaLam, name: 'ShowCalam'},
+        {path: '/Add-Calam', component : AddCalam, name: 'AddCalam'},
+        {path: '/Edit-Calam', component : EditCaLam, name: 'EditCalam'},
+        {path: '/demo',component : Demo, name: 'demo'},
+        {path: '/ad-calendar', component: adCalendar, name: 'adCalendar'}
         
     ],
     mode: 'history',

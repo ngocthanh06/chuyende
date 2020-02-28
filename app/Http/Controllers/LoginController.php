@@ -36,23 +36,22 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     { 
-        // $user = User::where('Username', $request->Username)->first();
-        // return $user->Password;
-
-        // if(Hash::check($request->Password, $user->Password)) {
-        //     return 'đúng';
-        // } else {
-        //     return 'Sai';
-        // }
         $data = [
-            'Username' => $request->Username,
-            'Password' => $request->Password
+            'username' => $request->Username,
+            'password' => $request->Password
         ];
-
         if(Auth::attempt($data)){ 
-            return 'thành công';
+            return response()->json(
+                    [
+                        'code' => '200',
+                        'messages' => 'Đăng nhập thành công'
+                    ]
+                );
         }
-        else return 'thất bại';
+        else return response()->json([
+            'code' => '404',
+            'messages' => 'Sai tên đăng nhập hoặc mật khẩu'
+        ]);
     }
 
     /**

@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Employer::class, function (Faker $faker) {
     return [
         'User_fullname' => $faker->name,
-        'Username' => rand(1,100),
+        'username' => rand(1,100),
         'Birthday' => $faker->date('y-m-d'),
         'sex' => 1,
         'User_add' => $faker->title,

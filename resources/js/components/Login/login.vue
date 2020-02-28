@@ -71,22 +71,21 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
               try{ 
-                    axios.post('/api/login', this.ruleForm).then((res)=>{ 
-                      console.log(res.data)
-                      // if(res.data.code == 200)
-                      // {
-                      //   // this.$router.push('/employers');
-                      //   this.$message({
-                      //   type: 'success',
-                      //   message: 'Thêm nhân viên thành công'
-                      //   }); 
-                      // }
-                      // else{
-                      //     this.$message({
-                      //     type: 'warning',
-                      //     message: 'Lỗi'
-                      //     }); 
-                      // }
+                    axios.post('/api/login', this.ruleForm).then((res)=>{
+                      if(res.data.code == 200)
+                      {
+                        this.$router.push({name: 'SetCalendar'});
+                        this.$message({
+                        type: 'success',
+                        message: res.data.messages
+                        }); 
+                      }
+                      else{
+                          this.$message({
+                          type: 'warning',
+                          message: res.data.messages
+                          }); 
+                      }
                     })             
                 }catch(e){
                   console.log(e)

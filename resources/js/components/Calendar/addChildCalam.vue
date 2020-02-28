@@ -32,7 +32,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in getCaLamProp" :key="item">
+                                    <tr v-for="item in getCaLamProp">
                                         <th scope="row">{{item.FormM_name}}</th>
                                         <td>{{item.FormM_Work}}</td>
                                         <td>{{item.FormM_TimeIn}}</td>

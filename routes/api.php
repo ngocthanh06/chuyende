@@ -35,3 +35,6 @@ Route::resource('/CaLam','CaLamController');
 Route::post('/countCaLam','CaLamController@countCalam');
 Route::post('/editCalamUser', 'CaLamController@editCalamUser');
 Route::post('/delCalam', 'CaLamController@delCalam');
+
+//Login
+Route::resource('/login','LoginController');

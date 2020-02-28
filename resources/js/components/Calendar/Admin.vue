@@ -23,14 +23,6 @@
                                     </select>
                                 </div>
                                 <!-- end theo tuần -->
-                                <!-- chọn công ty -->
-                                <div class="form-group flatpickr">
-                                    <select v-on:change="changeEmpComp()" v-model="company" class="form-control" id="exampleFormControlSelect1">
-                                        <option value=""  disabled selected hidden>Chọn công ty</option>
-                                        <option v-for="items in getCompanies" :key="items.idComp" :value="items.idComp">{{items.nameComp}}</option>
-                                    </select>
-                                </div>
-                                <!-- <end công ty -->
                             </div>
                             <!-- end left -->
                             <div class="ttRight">
@@ -61,21 +53,7 @@
                                             </a>
                                             <span>{{item.User_fullname}}</span>
                                         </div>
-                                        <div v-for="val in ChangeCaLam()" :key="val" class="i_desc titleTable">
-
-                                            
-                                          
-                                            
-                                            <!-- <div v-for="(value, index) in ValueCaLam" :key ="index">
-                                                <div v-for="(va, dex) in value" :key ="dex">
-                                                    <div v-if="val === va.WS_date && item.User_id === va.User_id" >
-                                                        <button v-on:click ="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button">
-                                                          <span>Đã đăng ký</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div> -->
+                                        <div v-for="val in ChangeCaLam()" :key="val" class="i_desc titleTable"> 
                                             <button v-on:click ="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
                                                           <i aria-label="icon: plus" class="anticon anticon-plus"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg></i>           
                                             </button>

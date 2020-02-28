@@ -24,13 +24,12 @@ import adCalendar from '../components/Calendar/Admin.vue';
 import Demo from '../components/thanh.vue';
 //Calendat
 // import SetCalendar from '../components/Calendar/Setcalendar.vue';
-
 vue.use(VueRouter);
 
 export default new VueRouter({
     base: process.env.MIX_PUBLISH_APP_URL,
     routes: [
-        {path: '/login', component: login},
+        {path: '/login', component: login, name: 'login'},
         {path: '/logout', component: logout},
         {path: '/hello', component:Setting},
         {path:'/employers' ,component: Employers},

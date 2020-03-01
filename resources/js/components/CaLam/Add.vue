@@ -5,10 +5,9 @@
                 <router-link class="btn btn-danger" to="/employers">Trở lại</router-link>
     </div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-       <el-form-item label="Tên ca làm" prop="formM_name">
-        <el-select v-model="ruleForm.formM_name" placeholder="Chọn tên ca làm">
-            <el-option label="Zone one" value="shanghai"></el-option>
-        </el-select>
+       <el-form-item label="Tên ca làm" prop="formM_name"> 
+            <el-input v-model="ruleForm.formM_name"></el-input>
+        </el-form-item> 
         <div class="modal" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">

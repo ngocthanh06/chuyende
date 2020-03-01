@@ -19,6 +19,7 @@ class FormM extends Migration
             $table->text('FormM_Work')->nullable();
             $table->text('FormM_TimeIn')->nullable();
             $table->text('FormM_TimeOut')->nullable();
+            $table->integer('Form_limited')->nullable();
             $table->text('FormM_desc')->nullable();
             $table->timestamps();
         });

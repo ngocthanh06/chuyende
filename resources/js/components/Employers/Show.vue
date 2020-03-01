@@ -13,7 +13,7 @@
                             <el-table-column label="STT" type="index" width="50"> </el-table-column>
                             <el-table-column label="Họ Và Tên" prop="User_fullname"> </el-table-column>
                             <el-table-column label="Chức vụ" prop="Role_id"> </el-table-column>
-                            <el-table-column label="Tên Tài Khoản" prop="Username"> </el-table-column>
+                            <el-table-column label="Tên Tài Khoản" prop="username"> </el-table-column>
                             <el-table-column label="Giới Tính" :formatter="ChangeSex" prop='sex'> </el-table-column>
                             <el-table-column label="Di Động" prop="User_phone"> </el-table-column>
                             <el-table-column label="TK Ngân Hàng" prop="User_bank"> </el-table-column>
@@ -23,8 +23,8 @@
                                 <el-input v-model="search" size="mini" placeholder="Type to search"/>
                             </template>
                             <template slot-scope="scope">
-                                <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/${scope.row.User_id}`">Edit</router-link>
-                                <el-button size="mini" type="danger" @click="handleDelete(scope.row.User_id, scope.row)">Delete</el-button>
+                                <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/${scope.row.User_id}`">Sửa</router-link>
+                                <el-button size="mini" type="danger" @click="handleDelete(scope.row.User_id, scope.row)">Khóa</el-button>
                             </template>
                             </el-table-column>
                         </el-table>      

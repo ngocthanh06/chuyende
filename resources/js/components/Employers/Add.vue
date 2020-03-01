@@ -29,6 +29,11 @@
                     <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày Sinh" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Birthday" style="width: 100%;"></el-date-picker>
                 </el-form-item>
           </el-col>
+          <el-col :span="8">
+                <el-form-item label="Ngày làm việc" required prop="Date_start">
+                    <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày bắt đầu làm việc" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Date_start" style="width: 100%;"></el-date-picker>
+                </el-form-item>
+          </el-col>
         </el-form-item>
         
         
@@ -88,6 +93,7 @@
             User_image:'',
             User_add: '',
             User_phone: '',
+            Date_start: '',
             User_bank: '',
         }),
         rules: {
@@ -118,7 +124,10 @@
             { required: true, message: 'Giới tính chưa được chọn', trigger: 'change' }
           ],
           Birthday: [
-            { type: 'string', required: true, message: 'Bạn chưa chọn ngày sinh', trigger: 'change' }
+            { type: 'string', required: true, message: 'Bạn chưa chọn ngày sinh', trigger: 'blur' }
+          ],
+          Date_start: [
+            { type: 'string', required: true, message: 'Bạn chưa chọn ngày bắt đầu làm việc cho nhân viên', trigger: 'blur' }
           ],
           
         }

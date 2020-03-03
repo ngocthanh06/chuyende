@@ -4,21 +4,15 @@ window.Vue = require('vue');
 import Layout from './components/Layouts/main.vue';
 import route from './Router';
 import UI from 'element-ui';
+import VueRouter from 'vue-router';
 //vuex
 import vuex from 'vuex';
 Vue.use(vuex);
 import storeData from './Store';
 const store = new vuex.Store(storeData);
 import lang from 'element-ui/lib/locale/lang/vi'
-import locale from 'element-ui/lib/locale'
-//Scheldule
-// import '@progress/kendo-ui';
-// import '@progress/kendo-theme-default/dist/all.css';
-// import { Scheduler } from '@progress/kendo-scheduler-vue-wrapper'
-// import { SchedulerResource } from '@progress/kendo-scheduler-vue-wrapper'
-// import { SchedulerView } from '@progress/kendo-scheduler-vue-wrapper'
-// import { SchedulerInstaller } from '@progress/kendo-scheduler-vue-wrapper'
-
+import locale from 'element-ui/lib/locale' 
+import {initialize} from './helper/general';
 
 //DatePicker
 import flatpickr from 'flatpickr'
@@ -35,6 +29,8 @@ Vue.use(route);
 Vue.use(vuex);
 Vue.use(UI);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+ 
+// initialize(store, router);
 
 const app = new Vue({
     el: '#app',

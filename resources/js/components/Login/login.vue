@@ -13,14 +13,14 @@
           <div class="card-body">
            
            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-              <el-form-item label="Tên đăng nhập" prop="Username">
-                <el-input v-model="ruleForm.Username"></el-input>
+              <el-form-item label="Tên đăng nhập" prop="username">
+                <el-input v-model="ruleForm.username"></el-input>
               </el-form-item>
-              <el-form-item label="Mật khẩu" prop="Password">
-                <el-input type="password" v-model="ruleForm.Password" autocomplete="off"></el-input>
+              <el-form-item label="Mật khẩu" prop="password">
+                <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">Đăng nhập</el-button>
+                <el-button type="primary" @click="authenticate()">Đăng nhập</el-button>
                 <el-button @click="resetForm('ruleForm')">Hủy</el-button>
               </el-form-item>
             </el-form>
@@ -36,6 +36,7 @@
     </section>
 </template>
 <script>
+import {login} from '../../helper/auth';
   export default {
     data() { 
       var validatePass = (rule, value, callback) => {
@@ -50,16 +51,16 @@
       }; 
       return {
         ruleForm: {
-          Password: '',
-          Username: '',
+          password: '',
+          username: '',
         },
         rules: {
-          Password: [
+          password: [
             { validator: validatePass, trigger: 'blur' },
             {required: true, message: 'Mật Khẩu không được để trống', trigger: 'blur'},
             { min: 4, message: 'Phải từ 4 ký tự trở lên', trigger: 'blur' }
           ], 
-          Username: [
+          username: [
             { required: true, message: 'Tên đăng nhập không được để trống', trigger: 'blur' },
             { min: 4, message: 'Phải từ 4 ký tự trở lên', trigger: 'blur' }
           ],
@@ -67,37 +68,26 @@
       };
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-              try{ 
-                    axios.post('/api/login', this.ruleForm).then((res)=>{
-                      if(res.data.code == 200)
-                      {
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
+      authenticate() {
+                this.$store.dispatch('login');
+                login(this.ruleForm)
+                    .then((res) => {
+                        this.$store.commit("loginSuccess", res); 
                         this.$router.push({name: 'SetCalendar'});
                         this.$message({
                         type: 'success',
-                        message: res.data.messages
+                        message: 'Đăng nhập thành công'
                         }); 
-                      }
-                      else{
-                          this.$message({
+                    })
+                    .catch((error) => { 
+                         this.$message({
                           type: 'warning',
-                          message: res.data.messages
+                          message: error
                           }); 
-                      }
-                    })             
-                }catch(e){
-                  console.log(e)
-                } 
-          } else {
-            console.log('error submit!!');
-            return false;
-            }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+                    });
       }
     }
   }

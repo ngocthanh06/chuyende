@@ -3,8 +3,10 @@
 namespace App\Http\Middleware; 
 use Auth;
 use Closure;
-
-class AuthMiddleware
+use JWTAuth;
+use Exception;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+class AuthMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,12 +17,17 @@ class AuthMiddleware
      */
     public function handle($request, Closure $next,$guard = null)
     {
-        // if (JWTAuth::getToken() && JWTAuth::parseToken()->authenticate()) {
-        //     $user = JWTAuth::parseToken()->authenticate();
-        // } else {
-        //     return response()->json(['error' => 'user_not_found'], 404);
-        // }
-        // return $next($request);
-        dd(Auth());
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (Exception $e) {
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
+                return response()->json([ 'message' => 'Token không hợp lệ', 'status' => 401, ], 422);
+            }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
+                return response()->json(['message' => 'Token hết hạn',  'status' => 401, ], 422);
+            }else{
+                return response()->json(['message' => 'Token không tìm thấy', 'status' => 401, ], 422);
+            }
+        }
+        return $next($request); 
     }
 }

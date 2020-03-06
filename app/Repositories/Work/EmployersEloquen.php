@@ -59,16 +59,16 @@ class EmployersEloquen implements EmployersInterface
         $value['sex'] == 'Nam' ? $employer['sex'] = 1 : $employer['sex'] = 2;
         if(!Hash::check($employer['password'],Hash::make($value->password)))
             $employer['password'] =  hash::make($value->password);
-        $employer['Birthday'] = $value->Birthday; 
-        $employer['Date_start'] = $value->Date_start;
-        $employer['Role_id'] = $value->Role_id;
-        $employer['User_add'] = $value->User_add;
-        $employer['User_bank'] = $value->User_bank;
-        $employer['User_fullname'] = $value->User_fullname;
-        // $employer['User_image'] = $value->User_image;
-        $employer['User_phone'] = $value->User_phone;
-        $employer['idComp'] = $value->idComp;  
-        $employer['email'] = $value->email;
+            $employer['Birthday'] = $value->Birthday; 
+            $employer['Date_start'] = $value->Date_start;
+            $employer['Role_id'] = $value->Role_id;
+            $employer['User_add'] = $value->User_add;
+            $employer['User_bank'] = $value->User_bank;
+            $employer['User_fullname'] = $value->User_fullname;
+            // $employer['User_image'] = $value->User_image;
+            $employer['User_phone'] = $value->User_phone;
+            $employer['idComp'] = $value->idComp;  
+            $employer['email'] = $value->email;
 
         // $employer = $value;
         $employer->update();

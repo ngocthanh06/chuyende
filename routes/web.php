@@ -17,6 +17,6 @@ Route::get('/', function () {
 
 
 
-
+// Auth::routes();
 //Path nên dược đặt dưới cùng
 Route::any('{path}', 'HomeController@index')->where(['path' => '.*']);

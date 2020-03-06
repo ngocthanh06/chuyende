@@ -69,7 +69,7 @@ export default {
     },
     methods: {
         HandelPage(){
-            this.$emit('HandelPage')
+            this.$emit('HandelPage') 
         },
         Accept(){
             if(this.selected.length != 0){

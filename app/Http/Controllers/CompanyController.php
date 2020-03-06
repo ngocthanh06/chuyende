@@ -23,6 +23,14 @@ class CompanyController extends Controller
         return $this->company->getAll();
     }
 
+    /*
+    * 
+    */
+
+    public function getLimit($limit){
+        return $this->company->getLimit($limit); 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +49,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->company->store($request);
     }
 
     /**

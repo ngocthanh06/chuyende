@@ -14,9 +14,22 @@ class CaLamController extends Controller
     public function __construct(FormMCaLamInterface $CaLam){
         $this->CaLam = $CaLam;
     }
-    public function index(Request $request)
-    {
+    public function index()
+    { 
         return $this->CaLam->all();   
+    }
+    //Thêm ca làm 
+    public function add(Request $request){
+        return $this->CaLam->addCalam($request); 
+    }
+    //Lấy ca làm với id
+    public function getcalam($id){
+        return $this->CaLam->getcalam($id);
+    }
+
+    //post edit ca làm
+    public function editCalam($id, Request $request){
+        return $this->CaLam->editCalam($id, $request);
     }
 
     public function store(Request $request)

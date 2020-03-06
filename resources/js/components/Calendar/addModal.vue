@@ -35,9 +35,9 @@
                                     <el-option label="Quản lý" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
-                                <el-form-item label="Công ty" prop="idComp" required>
-                                    <el-select v-model="ruleForm.idComp" placeholder="Chọn chức vụ cho nhân viên">
-                                    <el-option label="Chọn công ty" value=""></el-option>
+                                <el-form-item label="Chi nhánh( Nếu có)" prop="idComp">
+                                    <el-select v-model="ruleForm.idComp" placeholder="Chọn chi nhánh làm việc cho nhân viên">
+                                    <el-option label="Chọn chi nhánh" value=""></el-option>
                                     <el-option v-for="item in getCompanies" :key="item.idComp" :label="item.nameComp" :value="item.idComp"></el-option>
                                     </el-select>
                                 </el-form-item>

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/editEmployer/{id}', 'EmployersController@Edit');
     Route::get('/empCompany/{id}','EmployersController@EmpCompany');
     Route::post('/addEmployersSpead','EmployersController@AddSpead'); 
+    Route::post('/getsNgayLvNv', 'EmployersController@getsNgayLvNv');
     
     //List CaLam
     Route::resource('/CaLam','CaLamController');

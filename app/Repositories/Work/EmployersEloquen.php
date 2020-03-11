@@ -7,6 +7,8 @@ use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Models\Employer;
 use DB;
 use Hash;
+use App\User;
+use \App\Models\FormM;
 class EmployersEloquen implements EmployersInterface
 {
      //get all list employers
@@ -99,6 +101,56 @@ class EmployersEloquen implements EmployersInterface
             'code' => '200',
             'messages' => 'Thành công'
         ]);
+   }
+
+   public function getsNgayLvNv($request){
+       //form->workshift(where date)->users(where idC)
+       $companyId = $request->idComp;
+       $date = $request->date;
+
+       $formMs = FormM::with(
+                        array('workshifts' => function($q) use ($date, $companyId) {
+                            // $q->with(
+                            //     array('user' => function($p) use ($companyId) {
+                            //         $p->where('idComp', $companyId);
+                            //         // $p->whereNotNull();
+                            //     })
+                            // );
+                            $q->whereHas('user', function($p) use ($companyId) {
+                                    $p->where('idComp', $companyId);
+                                    // $p->whereNotNull();
+                                }
+                            );
+                            // $q->where('FormM_id', 'f');
+                            $q->whereIn('workshifts.WS_date', $date);
+                        })
+                    )
+                    ->get();
+
+                    // hình thức -> nhiều ca làm
+                    // một ca làm -> 1 user
+
+        // $formMs = FormM::with('workshifts')->whereHas('workshifts',
+        //             function($q) use ($date, $companyId) {
+        //                 $q->with('user')
+        //                 ->whereHas('user',
+        //                     function($p) use ($companyId) {
+        //                         $p->where('idComp', $companyId);
+        //                     }
+        //                 )
+        //                 ->whereIn('workshifts.WS_date', $date);
+        //                 // $q->where('FormM_id', 'f');
+        //         })
+        //         ->get();
+
+         
+        // $work = User::where('idComp', $request->idComp)
+        //         ->with(array('workshifts' 
+        //         => function($q) use ($date){
+        //             $q->whereIn('workshifts.WS_date',$date);}))
+        //         ->get()
+        //         ->toArray(); 
+       return $formMs;
    }
     
     

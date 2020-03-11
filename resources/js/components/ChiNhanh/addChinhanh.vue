@@ -80,8 +80,7 @@ export default {
           this.$refs[formName].validate((valid) => {
           if (valid) {
                 try{
-                    this.ruleForm.post('/api/company').then((res)=>{ 
-                      console.log(res.data)
+                    this.ruleForm.post('/api/company').then((res)=>{  
                       if(res.data.code == 200)
                       {
                         this.$message({
@@ -89,18 +88,14 @@ export default {
                         message: 'Thêm ca làm thành công'
                         }); 
                         this.resetForm('ruleForm'); 
-                        this.$router.push('/Show-Calam');
-                      }
-                      else{
-                        console.log(res);
-                          this.$message({
+                        this.$router.push('/getChinhanh');
+                      } 
+                    })             
+                }catch(e){
+                    this.$message({
                           type: 'warning',
                           message: 'Lỗi'
                           }); 
-                      }
-                    })             
-                }catch(e){
-                    console.log(e);
                 }  
           } else {
             console.log('error submit!!'); 
@@ -108,11 +103,7 @@ export default {
         });
       },
       resetForm(formName) { 
-        this.ruleForm.FormM_name = '';
-        this.ruleForm.FormM_Work = '';
-        this.ruleForm.time_in = '';
-        this.ruleForm.time_out = '';
-        this.ruleForm.FormM_desc = '';
+        this.$refs[formName].resetFields();
       },
         
     },

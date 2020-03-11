@@ -59,7 +59,8 @@
         getCompany(){
             this.loading = true;
             let uri = `/api/getCompany/${this.pagiSize}?page=${this.currentPage}`;
-            axios.get(uri).then((res)=>{ 
+            axios.get(uri).then((res)=>{
+               // console.log(res) 
                         this.tableData = res.data.data;
                         this.total = res.data.total; 
                         this.loading = false;

@@ -31,6 +31,8 @@ import getChiNhanh from '../components/ChiNhanh/showChinhanh.vue';
 import editChinhanh from '../components/ChiNhanh/editChinhanh.vue';
 import addChinhanh from '../components/ChiNhanh/addChinhanh.vue';
 // import SetCalendar from '../components/Calendar/Setcalendar.vue';
+//Show lịch nhân viên
+import getLichNv from '../components/LichLamViec/showLich.vue';
 const routes = [
     { path: '/login', component: login, name: 'login' },
     { path: '/hello', component: Setting, name: 'hello' },
@@ -49,7 +51,7 @@ const routes = [
     { path: '/getChinhanh', component: getChiNhanh, name: 'getChinhnanh', meta: { requiresAuth: true } },
     { path: '/editChiNhanh/:id', component: editChinhanh, name: 'editChinhanh', meta: { requiresAuth: true } },
     { path: '/addChinhanh', component: addChinhanh, name: 'addChinhnanh', meta: { requiresAuth: true } },
-
+    { path: '/getLichNv', component: getLichNv, name: 'getLichNv', meta: { requiresAuth: true } },
 ];
 const router = new VueRouter({
     mode: 'history',
@@ -71,7 +73,7 @@ router.beforeEach((to, from, next) => {
         if (currentUser.Role_id == 1) { next('/ad-calendar') }
         else next();
     }
-    else if (to.path == '/login' && currentUser) {
+    else if (to.path == '/login' && localStorage.access_token) {
         next('/home');
     }
     else {
@@ -92,17 +94,15 @@ export function setAuthorization() {
         function (response) {
             return response;
         },
-        function (err) {
-    
-            console.log(err)
+        function (err) { 
             // expired token error
-            if (err && err.response && err.response.status === 401) {
+            if (err && err.response && err.response.status === 422) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('user');
-                router.push({
-                    path: '/login'
-                });
-                return;
+                alert(err.response.message);
+                return router.push({
+                    name: 'login'
+                }); 
             }
             // validate error
             if (err && err.response && err.response.status === 422) {

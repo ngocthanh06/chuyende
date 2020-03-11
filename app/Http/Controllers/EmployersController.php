@@ -52,4 +52,8 @@ class EmployersController extends Controller
         return $this->employer->add($request);
         // return $this->employer->AddSpead($request);
     }
+
+    public function getsNgayLvNv(Request $request){
+        return $this->employer->getsNgayLvNv($request);
+    }
 }

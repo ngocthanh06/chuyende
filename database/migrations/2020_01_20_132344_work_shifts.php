@@ -21,6 +21,8 @@ class WorkShifts extends Migration
             $table->time('WS_time_out')->nullable();
             $table->date('WS_date')->nullable();
             $table->text('Work_desc')->nullable();
+            $table->boolean('Work_active')->nullable();
+            $table->boolean('status')->nullable()->default(0);
             $table->timestamps();
         });
     }

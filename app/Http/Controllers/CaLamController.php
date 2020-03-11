@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\TodoInterfaceWork\FormMCaLamInterface;
-
+use App\Models\WorkShifts;
+use App\User;
+use DB;
 class CaLamController extends Controller
 {
 
@@ -12,80 +14,47 @@ class CaLamController extends Controller
     public function __construct(FormMCaLamInterface $CaLam){
         $this->CaLam = $CaLam;
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
+    public function index()
+    { 
         return $this->CaLam->all();   
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    //Thêm ca làm 
+    public function add(Request $request){
+        return $this->CaLam->addCalam($request); 
+    }
+    //Lấy ca làm với id
+    public function getcalam($id){
+        return $this->CaLam->getcalam($id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //post edit ca làm
+    public function editCalam($id, Request $request){
+        return $this->CaLam->editCalam($id, $request);
+    }
+
     public function store(Request $request)
     {
         return $this->CaLam->postWorkShift($request);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         return $this->CaLam->getAll($id);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    // lấy số ca làm của nhân viên trong ngày
+    public function countCalam(Request $request){
+        return $this->CaLam->countCalam($request);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    // Sửa ca làm nhân viên
+    public function editCalamUser(Request $request){
+        return $this->CaLam->editCalamUser($request);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    //Xóa ca làm
+    public function delCalam(Request $request){
+        $Calam = WorkShifts::find($request->Work_id);
+        $Calam->delete();
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]);
     }
 }

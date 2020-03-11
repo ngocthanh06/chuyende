@@ -12,4 +12,14 @@ interface FormMCaLamInterface
 
    public function postWorkShift($request);
    
+   public function countCalam($request);
+
+   public function editCalamUser($request);
+
+   public function addCalam($request);
+
+   public function getcalam($id);
+
+   public function editCalam($id, $request);
+
 }

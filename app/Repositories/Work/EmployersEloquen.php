@@ -7,12 +7,14 @@ use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Models\Employer;
 use DB;
 use Hash;
+use App\User;
+use \App\Models\FormM;
 class EmployersEloquen implements EmployersInterface
 {
      //get all list employers
     public function getAll($limit){
         try{
-            return Employer::paginate($limit);
+            return Employer::where('active',1)->paginate($limit);
         }catch(Exception $e){
             return response()->json([
                 'code' => 500,
@@ -24,7 +26,8 @@ class EmployersEloquen implements EmployersInterface
     public function del($id){
         try{
             $del = Employer::find($id);
-            $del->delete();
+            $del['active'] = 0;
+            $del->save();
             return response()->json([
                 'code' => 200,
                 'messages'=>'Thành công'
@@ -39,7 +42,7 @@ class EmployersEloquen implements EmployersInterface
     //Add
     public function add($request){
         $request['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
-        $request['Password'] = Hash::make($request["Password"]);
+        $request['password'] = Hash::make($request["Password"]);
         Employer::create($request->all());
         // return $request;
         return response()->json([
@@ -53,10 +56,28 @@ class EmployersEloquen implements EmployersInterface
        return Employer::find($id);
     }
     // Edit
-    public function Edit($id, $value){
+    public function Edit($id, $value){ 
         $employer = Employer::find($id);
-        $employer = $value;
-        return $employer;
+        $value['sex'] == 'Nam' ? $employer['sex'] = 1 : $employer['sex'] = 2;
+        if(!Hash::check($employer['password'],Hash::make($value->password)))
+            $employer['password'] =  hash::make($value->password);
+            $employer['Birthday'] = $value->Birthday; 
+            $employer['Date_start'] = $value->Date_start;
+            $employer['Role_id'] = $value->Role_id;
+            $employer['User_add'] = $value->User_add;
+            $employer['User_bank'] = $value->User_bank;
+            $employer['User_fullname'] = $value->User_fullname;
+            // $employer['User_image'] = $value->User_image;
+            $employer['User_phone'] = $value->User_phone;
+            $employer['idComp'] = $value->idComp;  
+            $employer['email'] = $value->email;
+
+        // $employer = $value;
+        $employer->update();
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]); 
         
     }
      
@@ -69,17 +90,67 @@ class EmployersEloquen implements EmployersInterface
    public function AddSpead($request){
         $user = new Employer();
         $user['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
-        $user['Password'] = Hash::make($request["Password"]);
+        $user['password'] = Hash::make($request["Password"]);
         $user['User_phone'] = $request->User_phone;
         $user['idComp'] = $request->idComp;
         $user['User_fullname'] = $request->User_fullname;
-        $user['username'] = $request->username;
+        $user['username'] = $request->Username;
         $user['Role_id'] = $request->Role_id;
         $user->save();
         return response()->json([
             'code' => '200',
             'messages' => 'Thành công'
         ]);
+   }
+
+   public function getsNgayLvNv($request){
+       //form->workshift(where date)->users(where idC)
+       $companyId = $request->idComp;
+       $date = $request->date;
+
+       $formMs = FormM::with(
+                        array('workshifts' => function($q) use ($date, $companyId) {
+                            // $q->with(
+                            //     array('user' => function($p) use ($companyId) {
+                            //         $p->where('idComp', $companyId);
+                            //         // $p->whereNotNull();
+                            //     })
+                            // );
+                            $q->whereHas('user', function($p) use ($companyId) {
+                                    $p->where('idComp', $companyId);
+                                    // $p->whereNotNull();
+                                }
+                            );
+                            // $q->where('FormM_id', 'f');
+                            $q->whereIn('workshifts.WS_date', $date);
+                        })
+                    )
+                    ->get();
+
+                    // hình thức -> nhiều ca làm
+                    // một ca làm -> 1 user
+
+        // $formMs = FormM::with('workshifts')->whereHas('workshifts',
+        //             function($q) use ($date, $companyId) {
+        //                 $q->with('user')
+        //                 ->whereHas('user',
+        //                     function($p) use ($companyId) {
+        //                         $p->where('idComp', $companyId);
+        //                     }
+        //                 )
+        //                 ->whereIn('workshifts.WS_date', $date);
+        //                 // $q->where('FormM_id', 'f');
+        //         })
+        //         ->get();
+
+         
+        // $work = User::where('idComp', $request->idComp)
+        //         ->with(array('workshifts' 
+        //         => function($q) use ($date){
+        //             $q->whereIn('workshifts.WS_date',$date);}))
+        //         ->get()
+        //         ->toArray(); 
+       return $formMs;
    }
     
     

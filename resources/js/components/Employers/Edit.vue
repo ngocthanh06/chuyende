@@ -8,25 +8,33 @@
         <el-form-item label="Họ Và Tên" prop="User_fullname">
             <el-input v-model="ruleForm.User_fullname"></el-input>
         </el-form-item>
-        <el-form-item  label="Tên Tài Khoản" prop="Username" required>
-            <el-input :class="{ 'is-invalid': ruleForm.errors.has('Username') }" v-model="ruleForm.Username"></el-input>
-            <has-error :form="ruleForm" field="Username"></has-error>
+        <el-form-item  label="Tên Tài Khoản" prop="username" required>
+            <el-input  :class="{ 'is-invalid': ruleForm.errors.has('username') }" v-model="ruleForm.username"></el-input>
+            <has-error :form="ruleForm" field="username"></has-error>
         </el-form-item>
-        <el-form-item required label="Mật Khẩu" prop="Password">
-            <el-input type="password" v-model="ruleForm.Password" autocomplete="off"></el-input>
+        <el-form-item required label="Mật Khẩu" prop="password">
+            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Chức vụ" prop="Role_id" required>
+        <el-col :span="8">
             <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
             <el-option label="Nhân viên" value="1"></el-option>
             <el-option label="Quản lý" value="2"></el-option>
             </el-select>
+        </el-col> 
         </el-form-item>
         <el-form-item label="Ngày Sinh" required>
-            <el-col :span="11">
+            <el-col :span="8">
             <el-form-item prop="Birthday">
                 <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày Sinh" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Birthday" style="width: 100%;"></el-date-picker>
-            </el-form-item>
-            </el-col>
+            </el-form-item> 
+            </el-col> 
+          <el-col :span="8">
+                <el-form-item label="Ngày làm việc" required prop="Date_start">
+                    <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày bắt đầu làm việc" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Date_start" style="width: 100%;"></el-date-picker>
+                </el-form-item>
+          </el-col>
+        </el-form-item>
         </el-form-item>
         <el-form-item label="Giới Tính" x prop="sex">
             <el-radio-group  v-model="ruleForm.sex" >
@@ -51,7 +59,7 @@
             </div>
         </el-form-item>
         <el-form-item>
-            <el-button type="success"  @click="submitForm('ruleForm',ruleForm)">Tạo mới</el-button>
+            <el-button type="success"  @click="submitForm('ruleForm',ruleForm)">Lưu</el-button>
             <el-button @click="resetForm('ruleForm')">Reset</el-button>
         </el-form-item>
 </el-form>
@@ -77,13 +85,14 @@
         ruleForm: new Form( {
             Role_id:'',
             User_fullname:'',
-            Username: '',
+            username: '',
             Birthday:'',
             sex: '',
-            Password:'',
+            password:'',
             User_image:'',
             User_add: '',
             User_phone: '',
+            Date_start: '',
             User_bank: '',
         }),
         rules: {
@@ -94,11 +103,11 @@
           Role_id: [
             { required: true, message: 'Bạn chưa chọn chức vụ', trigger: 'change' }
           ],
-          Username: [
-            { required: true, message: 'Tên tài khoản không được để trống', trigger: 'blur' },
+          username: [
+            { required: true, disabled: true, message: 'Tên tài khoản không được để trống', trigger: 'blur' },
             { min: 3, max: 100, message: 'Ký tự phải từ 3 và không vượt quá 100', trigger: 'blur' }
           ],
-          Password: [
+          password: [
             { required: true, message: 'Mật khẩu không được để trống', trigger: 'blur' },
             { validator: validatePass, trigger: 'blur' }
           ],
@@ -114,7 +123,10 @@
             { required: true, message: 'Giới tính chưa được chọn', trigger: 'change' }
           ],
           Birthday: [
-            { type: 'string', required: true, message: 'Bạn chưa chọn ngày sinh', trigger: 'change' }
+            { type: 'string', required: true, message: 'Bạn chưa chọn ngày sinh', trigger: 'blur' }
+          ],
+          Date_start: [
+            { type: 'string', required: true, message: 'Bạn chưa chọn ngày bắt đầu làm việc cho nhân viên', trigger: 'blur' }
           ],
           
         }
@@ -126,7 +138,7 @@
         this.loading = true;
           this.$refs[formName].validate((valid) => {
           if (valid) {
-                try{ 
+                try{
                     this.ruleForm.post(`/api/editEmployer/${this.$route.params.id}`).then((res)=>{
                         console.log(res);
                       if(res.data.code == 200)
@@ -179,20 +191,24 @@
                 reader.readAsDataURL(file);
       },
       //Lấy thông tin người dùng 
-      async getUser(){
-        let json = await axios.get(`/api/getEmployer/${this.$route.params.id}`);
+      async getUser(){ 
+        let json = await axios.get(`/api/getEmployer/${this.$route.params.id}`); 
+        json.data.sex == 1 ? json.data.sex = 'Nam': json.data.sex = 'Nữ';  
         this.ruleForm.fill(json.data);
       },
       //Hiển thị ảnh
       changeImage(){
             let img = this.ruleForm.User_image;
+            if(img === ""){
+              return this.ruleForm.User_image = 'noneUser.png';
+            }
             if(img === null){
               return this.ruleForm.User_image = 'noneUser.png';
             }
             if(img.length>100){
                 return this.ruleForm.User_image;
             }           
-            else{
+            else {
                 return `/upload/${this.ruleForm.User_image}`;
             }
         }

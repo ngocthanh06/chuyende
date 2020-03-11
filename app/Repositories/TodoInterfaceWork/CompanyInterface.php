@@ -8,5 +8,8 @@ interface CompanyInterface
 {
    //get all list Company
    public function getAll();
-   
+
+   public function getLimit($limit);
+
+   public function store($request);
 }

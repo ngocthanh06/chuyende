@@ -1,47 +1,97 @@
 <template>
-  <section>
-    <btn type="primary" @click="open=true">Launch Demo Modal</btn>
-    <modal v-model="open" title="Modal 1" @hide="callback" ref="modal" id="modal-demo">
-      <h4>Text in a modal</h4>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-      <h4>Popover in a modal</h4>
-      <p>
-        This
-        <btn v-popover:modal-demo="{title:'Title',content:'Some popover content...'}">button</btn>
-        should trigger a popover on click.
-      </p>
-      <h4>Tooltips in a modal</h4>
-      <p>
-        <a role="button" v-tooltip:modal-demo="'Tooltip'">This link</a>
-        <span>and</span>
-        <a role="button" v-tooltip:modal-demo="'Tooltip'">that link</a>
-        <span>should have tooltips on hover.</span>
-      </p>
-      <hr>
-      <h4>Overflowing text to show scroll behavior</h4>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-    </modal>
-  </section>
+<div>
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-a">
+  Launch demo modal a
+</button>
+
+<div class="modal fade" id="modal-a" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-b">
+  Launch another demo modal b
+</button>
+<p class="my-3">
+Not good for fade In.
+</p>
+<p class="my-3">
+who help to improve?
+</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-b" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-c">
+  Launch another demo modal c
+</button>
+<p class="my-3">
+But good enough for static modal
+</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="modal-c" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<p class="my-3">That's all.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 </template>
 <script>
   export default {
     data () {
       return {
-        open: false
+       
       }
     },
     methods: {
-      callback (msg) {
-        this.$notify(`Modal dismissed with msg '${msg}'.`)
-      }
+      
+    },
+    computed: {
+      
     }
   }
 </script>

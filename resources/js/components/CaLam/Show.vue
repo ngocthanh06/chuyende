@@ -18,8 +18,10 @@
                      <el-table-column prop="FormM_TimeOut" sortable label="Giờ ra"> </el-table-column>
                      <el-table-column height="" prop="FormM_desc" label="Ghi chú"> </el-table-column>
                      <el-table-column prop="date" label="Tùy chọn">
-                        <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/`">Edit</router-link>
+                     <template slot-scope="scope">
+                        <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Calam/${scope.row.FormM_id}`">Edit</router-link>
                         <el-button size="mini" type="danger">Delete</el-button>
+                     </template>
                      </el-table-column>
                   </el-table>
                </div>

@@ -11,13 +11,14 @@ use Auth;
 class CompanyEloquent implements CompanyInterface
 {
      //get all list Company
-    public function getAll(){
+    public function getAll(){ 
         return Company::all();    
     }
        
     public function getLimit($limit){ 
-        try{
-            return auth()->user();
+        try{ 
+            // return auth()->user();
+            // trường hợp lấy chi nhánh người dùng quản lý
             return Company::paginate($limit);
         }catch(Exception $e){
             return response()->json([
@@ -28,7 +29,11 @@ class CompanyEloquent implements CompanyInterface
     }
 
     public function store($request){
-        
+        Company::create($request->all());
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]);
     }
     
     

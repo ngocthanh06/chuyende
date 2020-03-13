@@ -12,4 +12,8 @@ class WorkShifts extends Model
     public function FormM(){
         return $this->belongsTo(FormM::class,'FormM_id','FormM_id');
     }
+
+    public function user() {
+        return $this->belongsTo('\App\User','User_id','User_id');
+    }
 }

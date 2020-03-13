@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section id="calendar">
+    <section class="calendar">
       <div class="card">
         <div class="card-body">
           <div class="list-view">
@@ -369,7 +369,8 @@ export default {
 };
 </script>
 <style lang="scss">
-#calendar {
+ 
+.calendar {
   .card-body {
     flex: 1 1 auto;
     padding: 1.92rem 2.3rem;

@@ -31,7 +31,7 @@ class EmployersController extends Controller
         {
            $request['User_image'] = $this->support->UploadImg($request['User_image']);
         }
-        else 
+        else
             $request['User_image'] = '';
         return $this->employer->add($request);
     }
@@ -51,5 +51,11 @@ class EmployersController extends Controller
     public function AddSpead(AddSpeadEmployer $request){
         return $this->employer->add($request);
         // return $this->employer->AddSpead($request);
+    }
+
+    public function getsNgayLvNv(Request $request){
+        return $this->employer->getsNgayLvNv($request);
+    }
+    public function demoPost(Request $request){
     }
 }

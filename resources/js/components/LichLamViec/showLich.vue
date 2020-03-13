@@ -44,9 +44,9 @@
             </div>
             <!-- end title -->
             <div class="content">
-              <div class="ctTitleSearch"> 
+              <div class="ctTitleSearch">
                 <div class="titleTableSearch" style="background: #f6f6f6 ; color: #000; border-color: #e3e3e3; border-bottom: 1px solid" >
-                  <div class="name-Search" style="margin: 0 auto;"> 
+                  <div class="name-Search" style="margin: 0 auto;">
                     <span > Ca làm / Buổi </span>
                   </div>
                 </div>
@@ -55,43 +55,40 @@
                 </div>
               </div>
               <div class="ctLists">
-                
+
                 <div class="L_item" v-for="(calam,key) in ChangeCaLam" :key="key">
-                  
-                  <div class="i_name titleTableSearch"> 
+
+                  <div class="i_name titleTableSearch">
                     <span style="margin: 0 auto">{{calam.FormM_name}}</span>
                   </div>
                   <!-- số ngày 7 -->
-                  <template v-for="(item, dex) in getDatecaLam" >
-                    <div :key="dex" class="i_desc titleTable">   
-                      <div  class="checkElement"  v-if="calam.workshifts != ''"> 
-                                       <!-- <template  v-for="(c1, vk1) in calam.workshifts">   -->
-                                          <!-- <div :key="vk1" > -->
-                                              <!-- <span v-if="c1.WS_date === item">  
-                                                a
-                                              </span> -->
-                                              {{ length(calam.workshifts,item) }} 
-                                          <!-- </div>   -->
-                                      <!-- </template>     -->
-                                  
-                               
-                      </div>  
-                      <button v-else data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
-                              <i aria-label="icon: plus" class="anticon anticon-plus"> 
-                                  <svg viewBox="64 64 896 896" focusable="false" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true" >
-                                    <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
-                                    <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
-                                  </svg>
-                                </i>
-                       </button>
-                      
-                    </div>
-                  </template> 
+                  <div v-for="(item, dex) in getDatecaLam" :key="dex" class="i_desc titleTable">
+                        <div class="checkElement" v-if="calam.workshifts != ''">
+                            <button role="button" @click="detailsCalam(calam.workshifts, item)" class="btn btn-pill btn-outline-success" href="#detail" data-toggle="modal" data-target="#detail">
+                                  <div class="ElementsWork" v-for="(c1, vk1) in calam.workshifts" :key="vk1" >
+                                      <svg  v-if="c1.WS_date === item"  style="color:rgb(0,0,0)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <polyline points="17 11 19 13 23 9"></polyline>
+                                      </svg>
+                                  </div>
+                              </button>
+                        </div>
+
+                      <button v-else type="button" class="add_btn" >
+                          <i aria-label="icon: plus" class="anticon anticon-plus">
+                              <svg viewBox="64 64 896 896" focusable="false" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true" >
+                                  <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
+                                  <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
+                              </svg>
+                          </i>
+                      </button>
+                  </div>
                   <!-- Lịch -->
-                  <!-- <detailLich v-bind:getsInv="infoCaNv"></detailLich> -->
+                   <detailLich v-bind:getsInv="infoCaNv"></detailLich>
                 </div>
 
-              </div>   
+              </div>
             </div>
           </div>
           <!-- end list view -->
@@ -102,10 +99,10 @@
     </section>
   </div>
 </template>
-<script> 
-import moment from "moment"; 
+<script>
+import moment from "moment";
 import detailLich from "./detailLich";
-export default { 
+export default {
   components:{
     detailLich
     },
@@ -113,7 +110,7 @@ export default {
     return {
       dateValueNow: "",
       numWeek: "",
-      numYear: "", 
+      numYear: "",
       Option: [
         { id: 1, value: "Theo tuần" },
         { id: 2, value: "Theo tháng" }
@@ -136,7 +133,7 @@ export default {
       ],
       company: "",
       ValueCaLam: [],
-      infoCaNv : [], 
+      infoCaNv : [],
     };
   },
   created() {
@@ -146,9 +143,13 @@ export default {
     this.getTimeNow();
     this.$store.dispatch('allCaLam');
     // this.$store.dispatch('SetDateCaLam',[this.numWeek, this.numYear]);
-    
+
+  },
+  updated(){
+
   },
   mounted() {
+
     //calendar
     flatpickr("#datepicker", {
       locate: "vi",
@@ -164,11 +165,12 @@ export default {
           this.numWeek = weekNumber;
           let year = moment(dataObj[0]).format("YYYY");
           this.numYear = year;
-          this.$store.dispatch("SetDateCaLam", [this.numWeek, this.numYear]); 
+          this.$store.dispatch("SetDateCaLam", [this.numWeek, this.numYear]);
           return this.$store.dispatch("SetNumWeek", [weekNumber, year]);
         }
       ]
     });
+
   },
   methods: {
     //Get time now
@@ -180,44 +182,32 @@ export default {
       this.numYear = moment().year();
       return (this.numWeek = moment().week());
     },
-    
-    // get employer in company
-    getEmpCom() {
-      return this.$store.getters.getEmployerComp;
-    },
+
+
     // change employer when change choose company orther
-    changeEmpComp() {  
-      this.loading = true;  
+    changeEmpComp() {
+      this.loading = true;
       this.$store.dispatch('SetDateCaLam', [this.numWeek, this.numYear]);
       axios.post('/api/getsNgayLvNv',{idComp: this.company, date: this.getDatecaLam}).then(res => {
           this.ValueCaLam = res.data;
-          // console.log(res.data)
-      }).catch();                       
+      }).catch();
     },
-     
-    diLam(val){
-      this.infoCaNv = val;
+
+    detailsCalam(val, date){
+        let value =[];
+        val.forEach(response => {
+            if(response.WS_date === date){
+                value.push(response);
+            }
+        })
+        this.infoCaNv = value;
     },
-    kiemtraCalam(c, id) {
-      if(c && c.length) {
-        c.forEach((e, i) => {
-          if(e.FormM_id == id) {
-            return true;
-          }
-        });
-        return true;
-      }
-      return false;
-    }, 
-    length(th,day){ 
-      // console.log(document.getElementsByClassName('checkElement').length);
-      // console.log($('.checkElement').children().length);   
-      th.forEach(res => {
-          if(res.WS_date === day)
-          return 'a';
-      }) 
-      // return 'a'
-    }
+
+    kiemtraCalam(val, date) {
+
+    },
+
+
 
   },
   computed: {
@@ -225,9 +215,6 @@ export default {
     getCompanies() {
       return this.$store.getters.getCompany;
     },
-    getCaLam() {
-      return this.$store.getters.getCaLam;
-    },  
     ChangeCaLam() {
       return this.ValueCaLam;
     },
@@ -236,8 +223,8 @@ export default {
     },
     getDatecaLam(){
       return this.$store.getters.getDatecaLam;
-    }, 
-    
+    },
+
   },
 };
 </script>
@@ -245,5 +232,9 @@ export default {
 <style scoped>
   #getLichNv >>> .titleTable:first-child{border-left: 1px solid #e3e3e3; }
   #getLichNv >>> .titleTable .btn-dangky{border-color: #5b8c85; color: #5b8c85; width: 100%}
-  #getLichNv >>> .titleTableSearch{background: #5b8c85; border-color: #000; color: #fff} 
+  #getLichNv >>> .titleTableSearch{background: #5b8c85; border-color: #000; color: #fff}
+  #getLichNv >>> .titleTable .checkElement{width: 100%}
+  #getLichNv >>> .titleTable .checkElement .btn-outline-success {width: 100%; display: block; text-align: center; border-color: none; border: none}
+  #getLichNv >>> .titleTable .checkElement .btn-outline-success:hover{background: #38c172}
+  #getLichNv >>> .titleTable .checkElement .ElementsWork{display: inline-block}
 </style>

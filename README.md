@@ -23,3 +23,6 @@ Setting:
 
 <code> npm i </code>
 
+- Step 4:
+
+<code> php artisan jwt:secret </code>

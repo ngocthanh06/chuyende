@@ -92,7 +92,7 @@
           .catch((err) => {
             this.$message({
               type: 'warning',
-              message: err.response.error
+              message: 'Sai tên đăng nhập hoặc mật khẩu'
             });
               // return rej('Sai tên đăng nhập hoặc mật khẩu');
           })

@@ -65,6 +65,10 @@ class EmployersController extends Controller
         return $this->employer->delCawhereID($request);
     }
 
+    public function getListUser(Request $request){
+        return $this->employer->getListUser($request);
+    }
+
     public function demoPost(Request $request){
     }
 

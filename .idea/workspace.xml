@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e8bd2f3-1a3a-432f-bfbc-b050bb8f3826" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/TodoInterfaceWork/EmployersInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/TodoInterfaceWork/EmployersInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/Work/EmployersEloquen.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Work/EmployersEloquen.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/LichLamViec/detailLich.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/LichLamViec/detailLich.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/LichLamViec/showLich.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/LichLamViec/showLich.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +29,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/resources/js/components/LichLamViec/showLich.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="447">
-                  <caret line="200" column="43" lean-forward="true" selection-start-line="200" selection-start-column="43" selection-end-line="200" selection-end-column="43" />
+                <state relative-caret-position="405">
+                  <caret line="203" column="10" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="10" />
                   <folding>
                     <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -82,8 +86,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/resources/js/components/LichLamViec/detailLich.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="343">
-                  <caret line="93" column="23" lean-forward="true" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
+                <state relative-caret-position="323">
+                  <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
                   <folding>
                     <element signature="n#style#0;n#span#0;n#h5#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#span#1;n#h5#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -100,18 +104,7 @@
             <entry file="file://$PROJECT_DIR$/routes/api.php">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="340">
-                  <caret line="40" column="29" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="29" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/resources/js/components/Calendar/Admin.vue">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <folding>
-                    <element signature="n#template#0;n#!!top" />
-                  </folding>
+                  <caret line="41" column="66" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
                 </state>
               </provider>
             </entry>
@@ -119,8 +112,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EmployersController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="561">
-                  <caret line="59" column="31" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="31" />
+                <state relative-caret-position="714">
+                  <caret line="68" column="54" selection-start-line="68" selection-start-column="54" selection-end-line="68" selection-end-column="54" />
                 </state>
               </provider>
             </entry>
@@ -129,7 +122,7 @@
             <entry file="file://$PROJECT_DIR$/app/Repositories/TodoInterfaceWork/EmployersInterface.php">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="493">
-                  <caret line="29" selection-start-line="29" selection-end-line="29" />
+                  <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
                 </state>
               </provider>
             </entry>
@@ -137,7 +130,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/Repositories/Work/EmployersEloquen.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="294">
+                <state relative-caret-position="190">
                   <caret line="129" column="30" selection-start-line="129" selection-start-column="19" selection-end-line="129" selection-end-column="30" />
                   <folding>
                     <element signature="e#42#100#0#PHP" expanded="true" />
@@ -170,11 +163,14 @@
       <find>OpenAdd</find>
       <find>detailLich</find>
       <find>getCaLamUser</find>
-      <find>HandelPage</find>
       <find>addModal</find>
       <find>getCLamUser</find>
       <find>idCa</find>
       <find>changeEmpComp</find>
+      <find>HandelPage</find>
+      <find>getListUser</find>
+      <find>getsArrUser</find>
+      <find>handleClose</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,12 +183,12 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Models/Employer.php" />
         <option value="$PROJECT_DIR$/app/User.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/Calendar/EditModalCalam.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/Calendar/main.vue" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/EmployersController.php" />
         <option value="$PROJECT_DIR$/app/Repositories/TodoInterfaceWork/EmployersInterface.php" />
         <option value="$PROJECT_DIR$/app/Repositories/Work/EmployersEloquen.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/Calendar/EditModalCalam.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/Calendar/main.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/LichLamViec/showLich.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/LichLamViec/detailLich.vue" />
       </list>
@@ -448,7 +444,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26585000" />
+    <option name="totallyTimeSpent" value="33201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
@@ -556,37 +552,6 @@
     <entry file="file://$PROJECT_DIR$/resources/js/components/Calendar/itemUser.vue">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="40" column="29" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EmployersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="59" column="31" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/TodoInterfaceWork/EmployersInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Work/EmployersEloquen.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="129" column="30" selection-start-line="129" selection-start-column="19" selection-end-line="129" selection-end-column="30" />
-          <folding>
-            <element signature="e#42#100#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/Calendar/addChildCalam.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -639,10 +604,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/Calendar/Admin.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="191" column="14" lean-forward="true" selection-start-line="191" selection-start-column="14" selection-end-line="191" selection-end-column="14" />
+          <folding>
+            <element signature="n#template#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/TodoInterfaceWork/EmployersInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EmployersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="68" column="54" selection-start-line="68" selection-start-column="54" selection-end-line="68" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="41" column="66" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Work/EmployersEloquen.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="129" column="30" selection-start-line="129" selection-start-column="19" selection-end-line="129" selection-end-column="30" />
+          <folding>
+            <element signature="e#42#100#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/LichLamViec/showLich.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="200" column="43" lean-forward="true" selection-start-line="200" selection-start-column="43" selection-end-line="200" selection-end-column="43" />
+        <state relative-caret-position="405">
+          <caret line="203" column="10" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="10" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -660,8 +666,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/LichLamViec/detailLich.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="93" column="23" lean-forward="true" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
+        <state relative-caret-position="323">
+          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
           <folding>
             <element signature="n#style#0;n#span#0;n#h5#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#h5#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />

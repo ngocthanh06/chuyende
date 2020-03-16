@@ -137,7 +137,7 @@ export default {
       company: "",
       ValueCaLam: [],
       infoCaNv : [],
-      NameDateCalam : { value: [], date: '',nameCa: '' , idCa: '' }
+      NameDateCalam : { value: [], date: '',nameCa: '' , idCa: '', idComp: '' }
     };
   },
   created() {
@@ -208,12 +208,9 @@ export default {
         this.NameDateCalam['date']= date,
         this.NameDateCalam['nameCa'] = nameClam,
         this.NameDateCalam['idCa'] = idCa
+        this.NameDateCalam['idComp'] = this.company;
+        this.$refs.editClam.getListUser();
         this.$refs.editClam.getClamUser();
-        // axios.post('/api/getsArrUser', {val: val, date: date}).then(res=>{
-        //     this.infoCaNv = res.data;
-        //     calam.push({nameCa: nameClam , idCa: idCa , dateCa : date});
-        //     this.NameDateCalam = calam;
-        // }).catch(()=>'err');
 
     },
 
@@ -223,7 +220,7 @@ export default {
         //xử lý khi đóng thêm ca làm sẽ load lại
     HandelPage() {
       this.changeEmpComp();
-      this.$refs.editClam.getClamUser();
+      this.$refs.editClam.getListUser();
     },
 
 

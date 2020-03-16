@@ -27,5 +27,6 @@ interface EmployersInterface
 
     public  function delCawhereID($request);
 
+    public function getListUser($request);
 
 }

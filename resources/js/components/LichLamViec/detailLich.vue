@@ -92,14 +92,25 @@ export default {
             this.$emit('OpenAdd');
         },
         handleClose() {
+            this.Calam = []
         },
 
         //get Calam user
         getClamUser(){
-            console.log(this.detailCa)
             axios.post('/api/getsArrUser',{val: this.detailCa.value, date: this.detailCa.date}).then(res=>{
                 this.Calam = res.data;
             })
+        },
+
+        getListUser(){
+            axios.post('/api/getListUser', {idComp: this.detailCa.idComp, date: this.detailCa.date, FormM_id : this.detailCa.idCa })
+                .then(res=>{
+                    axios.post('/api/getsArrUser',{val: res.data, date: this.detailCa.date}).then(res=>{
+                        this.Calam = res.data;
+                    })
+                })
+                .catch(()=>{'err'})
+
         },
         //delete Calam User
         delCaLam(command){
@@ -109,6 +120,7 @@ export default {
                     axios.post('/api/delCawhereID/',{value :command.value, date: command.date, idCa : command.idCa }).then(res=>{
                         if(res.status === 200) { this.HandelPage() }
                     });
+                    // this.HandelPage()
                     this.$message({ type: 'success', message: 'Ca làm đã được hủy'});
                     })
                     .catch(() => { this.$message({ type: 'info', message: 'Không thể hủy ca làm'});

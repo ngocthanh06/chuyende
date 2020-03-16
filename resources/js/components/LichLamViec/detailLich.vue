@@ -11,7 +11,7 @@
                 <div class="modal-body ant-modal-body">
                 <div class="row m-0 timekeeping-list-date-cell-container">
                     <!-- showcalam -->
-                    <div v-for="(val, item) in getsInv" :key="item" class="col-6 modal-shift-wrapper d-flex">
+                    <div v-for="(val, item) in Calam" :key="item" class="col-6 modal-shift-wrapper d-flex">
                         <div class="cell-content large" style="border-color: rgba(102, 102, 102, 0.467); background-color: rgba(102, 102, 102, 0.133);">
                             <div class="name">{{val.User_fullname}}</div>
                             <span class="clock-in-out-time text-secondary font-size-10">Điểm danh (Vào: -:- - Ra: -:-)</span>
@@ -33,7 +33,7 @@
                                 </button>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item :command="{text: 'nghiphep', value: val}" icon="el-icon-edit-outline">Tạo yêu cầu nghỉ phép</el-dropdown-item>
-                                    <el-dropdown-item :command="{text: 'del', value: val, idCa: detailCa[0]['idCa'], date: detailCa[0]['dateCa'] }" icon="el-icon-delete" style="color: red">Xóa</el-dropdown-item>
+                                    <el-dropdown-item :command="{text: 'del', value: val, idCa: detailCa.idCa , date: detailCa.date }" icon="el-icon-delete" style="color: red">Xóa</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                             </div>
@@ -79,7 +79,7 @@ export default {
             default: {}
         },
         detailCa: {
-            type: Array,
+            type: Object,
             default: {}
         }
     },
@@ -95,14 +95,14 @@ export default {
         },
 
         //get Calam user
-         getCLamUser(){
-            axios.post('/api/getsArrUser',{val: this.getsInv, date: this.detailCa[0]['dateCa']}).then(res=>{
-                this.getsInv = res.data;
+        getClamUser(){
+            console.log(this.detailCa)
+            axios.post('/api/getsArrUser',{val: this.detailCa.value, date: this.detailCa.date}).then(res=>{
+                this.Calam = res.data;
             })
         },
         //delete Calam User
         delCaLam(command){
-           console.log(command);
             if(command.text === 'del'){
                 this.$confirm('Bạn muốn hủy ca làm ? Tiếp tục?', 'Thông báo', {
                     confirmButtonText: 'OK',  cancelButtonText: 'Cancel',  type: 'warning' }).then(() => {

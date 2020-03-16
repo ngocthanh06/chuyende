@@ -84,15 +84,14 @@
                           </i>
                       </button>
                   </div>
-                  <!-- Lịch -->
-                   <detailLich ref="editClam"
-                               v-on:HandelPage=" HandelPage"
-                               v-bind:getsInv="infoCaNv"
-                               v-bind:detailCa="NameDateCalam" >
-                   </detailLich>
                 </div>
-
               </div>
+                <!-- Lịch -->
+                <detailLich ref="editClam"
+                            v-on:HandelPage=" HandelPage"
+                            v-bind:getsInv="infoCaNv"
+                            v-bind:detailCa="NameDateCalam" >
+                </detailLich>
             </div>
           </div>
           <!-- end list view -->
@@ -138,8 +137,7 @@ export default {
       company: "",
       ValueCaLam: [],
       infoCaNv : [],
-      NameDateCalam: [],
-        demo: ''
+      NameDateCalam : { value: [], date: '',nameCa: '' , idCa: '' }
     };
   },
   created() {
@@ -206,11 +204,16 @@ export default {
       * */
     detailsCalam(val, date, nameClam, idCa){
         let calam = [];
-        axios.post('/api/getsArrUser', {val: val, date: date}).then(res=>{
-            this.infoCaNv = res.data;
-            calam.push({nameCa: nameClam , idCa: idCa , dateCa : date});
-            this.NameDateCalam = calam;
-        }).catch(()=>'err');
+        this.NameDateCalam['value'] = val,
+        this.NameDateCalam['date']= date,
+        this.NameDateCalam['nameCa'] = nameClam,
+        this.NameDateCalam['idCa'] = idCa
+        this.$refs.editClam.getClamUser();
+        // axios.post('/api/getsArrUser', {val: val, date: date}).then(res=>{
+        //     this.infoCaNv = res.data;
+        //     calam.push({nameCa: nameClam , idCa: idCa , dateCa : date});
+        //     this.NameDateCalam = calam;
+        // }).catch(()=>'err');
 
     },
 
@@ -220,7 +223,7 @@ export default {
         //xử lý khi đóng thêm ca làm sẽ load lại
     HandelPage() {
       this.changeEmpComp();
-      this.$refs.editClam.getCLamUser();
+      this.$refs.editClam.getClamUser();
     },
 
 

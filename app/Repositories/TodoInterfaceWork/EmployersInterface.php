@@ -20,9 +20,12 @@ interface EmployersInterface
    public function EmpCompany($id);
    //Add Employer Spead
    public function AddSpead($request);
-
+   //get date work employer
    public function getsNgayLvNv($request);
+   //get arr User
+    public function getsArrUser($request);
 
+    public  function delCawhereID($request);
 
 
 }

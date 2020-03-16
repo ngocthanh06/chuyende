@@ -290,13 +290,13 @@ export default {
       return this.$store.getters.getEmployerComp;
     },
     // change employer when change choose company orther
-    changeEmpComp() { 
+    changeEmpComp() {
       this.loading = true;
       this.$store.dispatch("SetDateCaLam", [this.numWeek, this.numYear]);
       this.$store.dispatch("allEmployerComp", this.company);
       this.setVal();
     },
-    hamAxios(companyId) { 
+    hamAxios(companyId) {
       // code
       // em gọi axios chỗ này ne, em mún truyền cái gì vào cũng đc hết
     },
@@ -320,7 +320,7 @@ export default {
     },
     //ca làm đã đăng ký
     setVal() {
-       
+
       let count = 0;
       let date = [];
       axios
@@ -369,7 +369,7 @@ export default {
 };
 </script>
 <style lang="scss">
- 
+
 .calendar {
   .card-body {
     flex: 1 1 auto;

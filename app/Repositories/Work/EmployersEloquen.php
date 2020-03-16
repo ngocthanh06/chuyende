@@ -9,6 +9,7 @@ use DB;
 use Hash;
 use App\User;
 use \App\Models\FormM;
+use App\Models\WorkShifts;
 class EmployersEloquen implements EmployersInterface
 {
      //get all list employers
@@ -124,6 +125,34 @@ class EmployersEloquen implements EmployersInterface
 
         // }
         return $formMs;
+   }
+
+   public function getsArrUser($request){
+        $date = $request['date'];
+        $value = $request['val'];
+        $user = [];
+
+        foreach($value as $val){
+            if($val['WS_date']== $date){
+                $user[] = User::find($val['User_id']);
+            }
+        }
+        return $user;
+   }
+
+   public function delCawhereID($request){
+        $idCalam = $request['idCa'];
+        $date = $request['date'];
+        $value = $request['value'];
+
+        $calam = WorkShifts::where('FormM_id', $idCalam)
+                            ->Where('User_id', $value['User_id'])
+                            ->Where('WS_date', $date)->first();
+        $calam->delete();
+        return response()->json([
+           'code' => '200',
+           'messages' => 'Thành công'
+        ]);
    }
 
 

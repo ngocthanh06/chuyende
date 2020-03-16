@@ -105,7 +105,7 @@ export default {
             if(command.text === 'del'){
                 this.$confirm('Bạn muốn hủy ca làm ? Tiếp tục?', 'Thông báo', {
                     confirmButtonText: 'OK',  cancelButtonText: 'Cancel',  type: 'warning' }).then(() => {
-                    axios.post('/api/delCalam/',{Work_id:command.value}).then(res=>{ 
+                    axios.post('/api/delCalam/',{Work_id:command.value}).then(res=>{
                         if(res.status === 200) { this.HandelPage() } });
                     this.$message({ type: 'success', message: 'Ca làm đã được hủy'});
                     })

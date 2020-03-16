@@ -38,6 +38,8 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/addEmployersSpead','EmployersController@AddSpead');
     Route::post('/getsNgayLvNv', 'EmployersController@getsNgayLvNv');
     Route::post('/demoPost','EmployersController@demoPost');
+    Route::post('/getsArrUser','EmployersController@getsArrUser');
+    Route::post('/delCawhereID','EmployersController@delCawhereID');
 
     //List CaLam
     Route::resource('/CaLam','CaLamController');

@@ -56,6 +56,17 @@ class EmployersController extends Controller
     public function getsNgayLvNv(Request $request){
         return $this->employer->getsNgayLvNv($request);
     }
+
+    public function getsArrUser(Request $request){
+        return $this->employer->getsArrUser($request);
+    }
+
+    public function delCawhereID(Request $request){
+        return $this->employer->delCawhereID($request);
+    }
+
     public function demoPost(Request $request){
     }
+
+
 }

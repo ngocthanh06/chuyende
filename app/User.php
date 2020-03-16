@@ -53,7 +53,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function workshifts() {
+    public function workshifts()
+    {
         return $this->hasMany('App\Models\WorkShifts', 'User_id', 'User_id');
     }
 }

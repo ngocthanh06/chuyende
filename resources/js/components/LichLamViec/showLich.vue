@@ -64,7 +64,7 @@
                   <!-- số ngày 7 -->
                   <div v-for="(item, dex) in getDatecaLam" :key="dex" class="i_desc titleTable">
                         <div class="checkElement" v-if="calam.workshifts != ''">
-                            <button role="button" @click="detailsCalam(calam.workshifts, item)" class="btn btn-pill btn-outline-success" href="#detail" data-toggle="modal" data-target="#detail">
+                            <button role="button" @click="detailsCalam(calam.workshifts, item, calam.FormM_name, calam.FormM_id)" class="btn btn-pill btn-outline-success" href="#detail" data-toggle="modal" data-target="#detail">
                                   <div class="ElementsWork" v-for="(c1, vk1) in calam.workshifts" :key="vk1" >
                                       <svg  v-if="c1.WS_date === item"  style="color:rgb(0,0,0)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
                                         <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -85,7 +85,11 @@
                       </button>
                   </div>
                   <!-- Lịch -->
-                   <detailLich v-bind:getsInv="infoCaNv"></detailLich>
+                   <detailLich ref="editClam"
+                               v-on:HandelPage=" HandelPage"
+                               v-bind:getsInv="infoCaNv"
+                               v-bind:detailCa="NameDateCalam" >
+                   </detailLich>
                 </div>
 
               </div>
@@ -134,6 +138,8 @@ export default {
       company: "",
       ValueCaLam: [],
       infoCaNv : [],
+      NameDateCalam: [],
+        demo: ''
     };
   },
   created() {
@@ -193,20 +199,29 @@ export default {
       }).catch();
     },
 
-    detailsCalam(val, date){
-        let value =[];
-        val.forEach(response => {
-            if(response.WS_date === date){
-                value.push(response);
-            }
-        })
-        this.infoCaNv = value;
+      /*
+      * detail: Push workshift -> infoCaLam
+      * request: arr [] workshift
+      * response: push arr-> this.infoCalamNV
+      * */
+    detailsCalam(val, date, nameClam, idCa){
+        let calam = [];
+        axios.post('/api/getsArrUser', {val: val, date: date}).then(res=>{
+            this.infoCaNv = res.data;
+            calam.push({nameCa: nameClam , idCa: idCa , dateCa : date});
+            this.NameDateCalam = calam;
+        }).catch(()=>'err');
+
     },
 
     kiemtraCalam(val, date) {
 
     },
-
+        //xử lý khi đóng thêm ca làm sẽ load lại
+    HandelPage() {
+      this.changeEmpComp();
+      this.$refs.editClam.getCLamUser();
+    },
 
 
   },

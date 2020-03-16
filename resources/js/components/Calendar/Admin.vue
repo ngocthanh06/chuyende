@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section id="calendar">
+        <section class="calendar">
             <div class="card">
                <div class="card-body">
                    <div class="list-view">
@@ -218,7 +218,4 @@ export default {
         },
     }, 
 }
-</script>
-<style lang="scss">
-   
-</style>
+</script> 

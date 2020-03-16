@@ -7,17 +7,17 @@ use Illuminate\Http\Request;
 | API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
+| Here is where you can register API routes for your application. These``
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
-Route::group([ 'middleware' => 'api','prefix' => 'auth'], function ($router) { 
+Route::group([ 'middleware' => 'api','prefix' => 'auth'], function ($router) {
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::get('user', 'AuthController@user'); 
+    Route::get('user', 'AuthController@user');
 });
 
 
@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['middleware' => 'jwt.verify'], function ($router) { 
+Route::group(['middleware' => 'jwt.verify'], function ($router) {
     //List Employers
     Route::get('/allemployers/{limit}','EmployersController@index');
     Route::get('/deleteEmployer/{id}', 'EmployersController@destroy');
@@ -35,8 +35,10 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/addEmployer', 'EmployersController@add');
     Route::post('/editEmployer/{id}', 'EmployersController@Edit');
     Route::get('/empCompany/{id}','EmployersController@EmpCompany');
-    Route::post('/addEmployersSpead','EmployersController@AddSpead'); 
-    
+    Route::post('/addEmployersSpead','EmployersController@AddSpead');
+    Route::post('/getsNgayLvNv', 'EmployersController@getsNgayLvNv');
+    Route::post('/demoPost','EmployersController@demoPost');
+
     //List CaLam
     Route::resource('/CaLam','CaLamController');
     Route::post('/addCalam','CaLamController@add');
@@ -56,7 +58,7 @@ Route::resource('/login','LoginController');
 
 
 
- 
-    
+
+
 
 

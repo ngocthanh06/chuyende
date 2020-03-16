@@ -20,5 +20,9 @@ interface EmployersInterface
    public function EmpCompany($id);
    //Add Employer Spead
    public function AddSpead($request);
-   
+
+   public function getsNgayLvNv($request);
+
+
+
 }

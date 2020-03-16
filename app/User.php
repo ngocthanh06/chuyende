@@ -18,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
     protected $primaryKey = 'User_id';
 
     protected $fillable = [ 
-        'username', 'Phone' , 'password',
+        'username', 'Phone' , 'idComp'
     ];
 
     /**
@@ -51,5 +51,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function workshifts() {
+        return $this->hasMany('App\Models\WorkShifts', 'User_id', 'User_id');
     }
 }

@@ -7,6 +7,8 @@ use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Models\Employer;
 use DB;
 use Hash;
+use App\User;
+use \App\Models\FormM;
 class EmployersEloquen implements EmployersInterface
 {
      //get all list employers
@@ -18,9 +20,9 @@ class EmployersEloquen implements EmployersInterface
                 'code' => 500,
                 'message' => 'Không có dữ liệu'
             ]);
-        };        
+        };
     }
-    //delete 
+    //delete
     public function del($id){
         try{
             $del = Employer::find($id);
@@ -35,7 +37,7 @@ class EmployersEloquen implements EmployersInterface
                 'code' => 500,
                 'message' => 'Không có dữ liệu'
             ]);
-        };  
+        };
     }
     //Add
     public function add($request){
@@ -54,12 +56,12 @@ class EmployersEloquen implements EmployersInterface
        return Employer::find($id);
     }
     // Edit
-    public function Edit($id, $value){ 
+    public function Edit($id, $value){
         $employer = Employer::find($id);
         $value['sex'] == 'Nam' ? $employer['sex'] = 1 : $employer['sex'] = 2;
         if(!Hash::check($employer['password'],Hash::make($value->password)))
             $employer['password'] =  hash::make($value->password);
-            $employer['Birthday'] = $value->Birthday; 
+            $employer['Birthday'] = $value->Birthday;
             $employer['Date_start'] = $value->Date_start;
             $employer['Role_id'] = $value->Role_id;
             $employer['User_add'] = $value->User_add;
@@ -67,7 +69,7 @@ class EmployersEloquen implements EmployersInterface
             $employer['User_fullname'] = $value->User_fullname;
             // $employer['User_image'] = $value->User_image;
             $employer['User_phone'] = $value->User_phone;
-            $employer['idComp'] = $value->idComp;  
+            $employer['idComp'] = $value->idComp;
             $employer['email'] = $value->email;
 
         // $employer = $value;
@@ -75,15 +77,15 @@ class EmployersEloquen implements EmployersInterface
         return response()->json([
             'code' => '200',
             'messages' => 'Thành công'
-        ]); 
-        
+        ]);
+
     }
-     
+
     //Get Employer with Company
     public function EmpCompany($id){
         return Employer::where('idComp',$id)->get();
-    }  
-    
+    }
+
    //Add Employer Spead
    public function AddSpead($request){
         $user = new Employer();
@@ -100,6 +102,31 @@ class EmployersEloquen implements EmployersInterface
             'messages' => 'Thành công'
         ]);
    }
-    
-    
+
+   public function getsNgayLvNv($request){
+       //form->workshift(where date)->users(where idC)
+       $companyId = $request->idComp;
+       $date = $request->date;
+
+       $formMs = FormM::with(
+                        array('workshifts' => function($q) use ($date, $companyId) {
+                            $q->whereHas('user', function($p) use ($companyId) {
+                                    $p->where('idComp', $companyId);
+                                }
+                            );
+                            $q->whereIn('workshifts.WS_date', $date);
+                        })
+                    )
+                    ->get();
+
+
+        // foreach($formM as $val){
+
+        // }
+        return $formMs;
+   }
+
+
+
+
 }

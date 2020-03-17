@@ -155,13 +155,21 @@ class EmployersEloquen implements EmployersInterface
    }
 
    public function getListUser($request){
-        return DB::table('users')
+        $value = [];
+        $user = DB::table('users')
                 ->join('workshifts','users.User_id', 'workshifts.User_id')
                 ->where([['users.idComp', $request['idComp']],
                     ['workshifts.WS_date', $request['date']],
                     ['workshifts.FormM_id', $request['FormM_id']]
                     ])->get();
-   }
+       for($i = 0; $i < count($user); $i++){
+           if($user[$i]->WS_date == $request['date']){
+               $value[] = User::find($user[$i]->User_id);
+           }
+       }
+        return $value;
+
+    }
 
 
 

@@ -3,7 +3,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" v-if="detailCa[0]" id="myModal">Nhân viên <span style="color: red; text-transform: uppercase" >{{detailCa[0]['nameCa']}}</span> ngày <span style="color:red">  {{ detailCa[0]['dateCa']}}</span></h5>
+                        <h5 class="modal-title" v-if="detailCa" id="myModal">Nhân viên <span style="color: red; text-transform: uppercase" >{{detailCa['nameCa']}}</span> ngày <span style="color:red">  {{ detailCa['date']}}</span></h5>
                         <button type="button" @click="handleClose" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                          </button>
@@ -42,7 +42,7 @@
                     <!-- endshowcalam -->
                     <!-- addcalam -->
                     <div class="col-6 modal-shift-wrapper add-shift-button-wrapper">
-                        <button type="button" @click="OpenAdd()" href="#myModalChild" data-target="#myModalChild" data-toggle="modal" class="ant-btn add-shift-button ant-btn-dashed">
+                        <button type="button" @click="OpenAdd()" href="#addCalamforUser" data-target="#addCalamforUser" data-toggle="modal" class="ant-btn add-shift-button ant-btn-dashed">
                             <i aria-label="icon: plus" class="anticon anticon-plus">
                             <svg viewBox="64 64 896 896" focusable="false" class="" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                 <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path>

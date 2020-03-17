@@ -75,7 +75,7 @@
                               </button>
                         </div>
 
-                      <button v-else type="button" class="add_btn" >
+                      <button v-else @click="detailsCalam(calam.workshifts, item, calam.FormM_name, calam.FormM_id)" href="#detail" data-toggle="modal" data-target="#detail" type="button" class="add_btn" >
                           <i aria-label="icon: plus" class="anticon anticon-plus">
                               <svg viewBox="64 64 896 896" focusable="false" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true" >
                                   <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
@@ -90,8 +90,14 @@
                 <detailLich ref="editClam"
                             v-on:HandelPage=" HandelPage"
                             v-bind:getsInv="infoCaNv"
+                            v-on:OpenAdd="OpenAdd"
                             v-bind:detailCa="NameDateCalam" >
                 </detailLich>
+                <!--add addCalamforUser-->
+                <addCalamforUser>
+                  ref="addCalam"
+                  v-on:HandelPage=" HandelPage"
+                </addCalamforUser>
             </div>
           </div>
           <!-- end list view -->
@@ -105,9 +111,10 @@
 <script>
 import moment from "moment";
 import detailLich from "./detailLich";
+import addCalamforUser from './addCalamforUser';
 export default {
   components:{
-    detailLich
+    detailLich, addCalamforUser
     },
   data() {
     return {
@@ -177,6 +184,11 @@ export default {
 
   },
   methods: {
+
+    //Call addCalamm khi mở btn cộng trong chỉnh sửa
+    OpenAdd() {
+      // this.$refs.addCalam.getCaLamUser();
+    },
     //Get time now
     getTimeNow() {
       return (this.dateValueNow = `Tuần: ${moment().weeks()} - ${moment().year()}`);

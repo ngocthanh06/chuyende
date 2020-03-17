@@ -209,7 +209,6 @@ export default {
         this.NameDateCalam['nameCa'] = nameClam,
         this.NameDateCalam['idCa'] = idCa
         this.NameDateCalam['idComp'] = this.company;
-        this.$refs.editClam.getListUser();
         this.$refs.editClam.getClamUser();
 
     },

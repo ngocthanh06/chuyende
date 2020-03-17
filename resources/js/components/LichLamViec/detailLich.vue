@@ -105,9 +105,7 @@ export default {
         getListUser(){
             axios.post('/api/getListUser', {idComp: this.detailCa.idComp, date: this.detailCa.date, FormM_id : this.detailCa.idCa })
                 .then(res=>{
-                    axios.post('/api/getsArrUser',{val: res.data, date: this.detailCa.date}).then(res=>{
                         this.Calam = res.data;
-                    })
                 })
                 .catch(()=>{'err'})
 

@@ -21,6 +21,9 @@ class EmployersController extends Controller
     public function index($limit){
         return $this->employer->getAll($limit);
     }
+    public function getEmployersByCompany(Request $request){
+        return $this->employer->getEmployersByCompany($request);
+    }
     //Delete employer
     public function destroy($id){
         return $this->employer->del($id);

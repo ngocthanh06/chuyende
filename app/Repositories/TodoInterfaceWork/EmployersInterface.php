@@ -29,4 +29,6 @@ interface EmployersInterface
 
     public function getListUser($request);
 
+    public function getEmployersByCompany($request);
+
 }

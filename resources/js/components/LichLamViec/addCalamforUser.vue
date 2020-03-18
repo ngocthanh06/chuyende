@@ -66,36 +66,37 @@
             data: generateData(),
                 data: generateData(),
                 value: [1],
-                value4: [1],  
+                value4: [1],
             }
         },
+        props: {
+            infoCaLam: {
+                type: Object,
+                default: {}
+            }
+        },
+
         methods: {
             handleChange(value, direction, movedKeys) {
                 console.log(value, direction, movedKeys);
             },
-            checked(val){
-                if(this.Calam.length <= this.count){
-                    this.Calam.forEach(res => {
-                        if(res.FormM_id === val.FormM_id){
-                            $(`#add${val.FormM_id}`).prop('checked',true);
-                            $(`#add${val.FormM_id}`).attr('disabled',true);
-                        }
+            //Lấy toàn bộ nhân viên trong công ty chưa đăng ký
+            //ngày/id công ty/
+            handleGetEmpByComp(){
+                axios.post('/api/getEmployersByCompany', {idComp: this.infoCaLam.idComp, date: this.infoCaLam.date, FormM_id : this.infoCaLam.idCa})
+                    .then(res=>{
+                        console.log(res.data);
                     })
-                }
-                // return check;
-
+                    .catch(()=>{'err'})
             },
             HandelPage(){
                 this.$emit('HandelPage')
             },
             Accept(){
-
                     this.handleClose();
             },
             handleCloseCalam() {
-                $('#addCalamTable').find(':input').prop('checked',false);
-                $('#addCalamTable').find(':input').attr('disabled',false);
-                return this.Calam = [];
+
             },
 
         },

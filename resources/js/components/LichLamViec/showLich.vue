@@ -94,9 +94,10 @@
                             v-bind:detailCa="NameDateCalam" >
                 </detailLich>
                 <!--add addCalamforUser-->
-                <addCalamforUser>
+                <addCalamforUser
                   ref="addCalam"
-                  v-on:HandelPage=" HandelPage"
+                  v-bind:infoCaLam="NameDateCalam"
+                  v-on:HandelPage=" HandelPage" >
                 </addCalamforUser>
             </div>
           </div>
@@ -187,7 +188,7 @@ export default {
 
     //Call addCalamm khi mở btn cộng trong chỉnh sửa
     OpenAdd() {
-      // this.$refs.addCalam.getCaLamUser();
+      this.$refs.addCalam.handleGetEmpByComp();
     },
     //Get time now
     getTimeNow() {

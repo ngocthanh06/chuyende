@@ -42,6 +42,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/getListUser','EmployersController@getListUser');
     Route::post('/delCawhereID','EmployersController@delCawhereID');
     Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany');
+    Route::post('/postWorkshifts','WorkshiftsController@postWorkshifts');
 
     //List CaLam
     Route::resource('/CaLam','CaLamController');

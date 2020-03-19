@@ -126,7 +126,7 @@ class EmployersEloquen implements EmployersInterface
         // }
         return $formMs;
    }
-
+   //Lấy danh sách người dùng đã đăng ký ca làm trong ngày
    public function getsArrUser($request){
         $date = $request['date'];
         $value = $request['val'];
@@ -138,7 +138,7 @@ class EmployersEloquen implements EmployersInterface
         }
         return $user;
    }
-
+//    Xóa ca làm người dùng trong ngày
    public function delCawhereID($request){
         $idCalam = $request['idCa'];
         $date = $request['date'];
@@ -153,7 +153,7 @@ class EmployersEloquen implements EmployersInterface
            'messages' => 'Thành công'
         ]);
    }
-
+//    lấy danh sách người dùng đã tồn tại ca làm việc trong ngày
    public function getListUser($request){
         $value = [];
         $user = DB::table('users')
@@ -170,28 +170,13 @@ class EmployersEloquen implements EmployersInterface
         return $value;
 
     }
-
+    // Lấy tất cả danh sách nhân viên trong công ty
     public function getEmployersByCompany($request){
-        $emp = User::where('idComp', $request['idComp'])->get();
-        $user = $this->getListUser($request);
-        $val = [];
-//        foreach($emp as $e){
-//            foreach($user as $u){
-//                if($u['User_id'] == $e['User_id']){
-//                    $val[] = $e;
-//                }
-//            }
-//        }
-//        if(count($emp) > count($user)){
-//            for($i = 0; $i < count($emp); $i++){
-//                if($emp[$i] != $user[$i])
-//                {
-//                    $val[$i] = $emp[$i];
-//                }
-//            }
-//        }
-        return $val;
-    }
-
+        $emp = User::where('idComp', $request['idComp'])->get()->toArray(); 
+       return $emp;
+    } 
+    
+    
+    
 
 }

@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SupportInterface::class, SupportEloquent::class);
         $this->app->singleton(CompanyInterface::class, CompanyEloquent::class);
         $this->app->singleton(WorkShilftsInterface::class, WorkShiftsEloquent::class);
-        $this->app->singleton(WorkShilftsInterface::class, WorkShiftsEloquent::class);
         $this->app->singleton(FormMCaLamInterface::class, FormMCalamEloquent::class);
     }
 

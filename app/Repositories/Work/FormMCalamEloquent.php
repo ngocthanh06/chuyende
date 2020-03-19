@@ -57,6 +57,7 @@ class FormMCalamEloquent implements FormMCaLamInterface
             'messages' => 'Thành công'
         ]);
     }
+    //add danh sách ca làm 
     public function postWorkShift($request){
         foreach($request['FormM_id'] as $item){
             $work = new WorkShifts();

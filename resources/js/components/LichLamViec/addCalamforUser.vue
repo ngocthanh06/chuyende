@@ -21,10 +21,9 @@
                                     <div style="text-align: center; margin: 20px 0">
                                         <el-transfer
                                                 style="text-align: left; display: inline-block"
-                                                v-model="value4"
+                                                v-model="value"
                                                 filterable
-                                                :left-default-checked="[2, 3]"
-                                                :right-default-checked="[1]"
+                                                :left-default-checked="limitLeft" 
                                                 :titles="['Chưa đăng ký', 'Đã đăng ký']"
                                                 :button-texts="['Hủy bỏ', 'Đăng ký']"
                                                 :format="{
@@ -50,23 +49,12 @@
 </template>
 <script>
     export default {
-        data(){
-            const generateData = _ => {
-                const data = [];
-                for (let i = 1; i <= 15; i++) {
-                    data.push({
-                        key: i,
-                        label: `Option ${ i }`,
-                        disabled: i % 4 === 0
-                    });
-                }
-                return data;
-            };
+        data(){ 
             return {
-            data: generateData(),
-                data: generateData(),
-                value: [1],
-                value4: [1],
+            data: [],
+            value: [], 
+            limitLeft : [],
+            valRight: [],
             }
         },
         props: {
@@ -78,25 +66,61 @@
 
         methods: {
             handleChange(value, direction, movedKeys) {
-                console.log(value, direction, movedKeys);
+                // console.log(value, direction, movedKeys); 
+                if(direction === 'right')
+                     this.valRight = movedKeys; ;
             },
             //Lấy toàn bộ nhân viên trong công ty chưa đăng ký
             //ngày/id công ty/
             handleGetEmpByComp(){
-                axios.post('/api/getEmployersByCompany', {idComp: this.infoCaLam.idComp, date: this.infoCaLam.date, FormM_id : this.infoCaLam.idCa})
+                let val = [];
+                this.handleIssetEmp();
+                axios.post('/api/getEmployersByCompany', {idComp: this.infoCaLam.idComp})
                     .then(res=>{
-                        console.log(res.data);
+                        res.data.forEach(response => {
+                            if(this.limitLeft.indexOf(response.User_id) != -1)
+                                var a = response.User_id;  
+                            val.push({
+                                key:  response.User_id,
+                                label: response.User_fullname,
+                                disabled: a % response.User_id == 0 
+                            });
+                        })
+                        this.data = val; 
                     })
                     .catch(()=>{'err'})
+            },
+            handleIssetEmp(){ 
+                let valNew = []; 
+                axios.post('/api/getListUser', {idComp: this.infoCaLam.idComp, date: this.infoCaLam.date, FormM_id : this.infoCaLam.idCa })
+                .then(res=>{ 
+                        res.data.forEach(res => {
+                            valNew.push(res.User_id); 
+                        });
+                        this.limitLeft = valNew;
+                        this.value = valNew
+                })
+                .catch(()=>{'err'})
             },
             HandelPage(){
                 this.$emit('HandelPage')
             },
             Accept(){
-                    this.handleClose();
+                axios.post('/api/postWorkshifts',{FormM_id:this.infoCaLam.idCa, User_id: this.valRight, WS_date: this.infoCaLam.date })
+                .then(res => {
+                    this.HandelPage();
+                })
+                    this.handleCloseCalam();
             },
             handleCloseCalam() {
-
+                this.data = [],
+                this.value = [],
+                this.valRight = [], 
+                this.limitLeft = [],
+                this.limitRight = []
+            },
+            HandelPage(){
+                this.$emit('HandelPage')
             },
 
         },

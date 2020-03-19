@@ -99,7 +99,7 @@ export function setAuthorization() {
             if (err && err.response && err.response.status === 422) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('user');
-                alert(err.response.message);
+                alert('Đăng nhập hết hạn');
                 return router.push({
                     name: 'login'
                 }); 

@@ -8,4 +8,5 @@ interface WorkShilftsInterface
 {
    public function getAll($limit);
    public function postWorkshifts($request);
+   public function checkWorkshiftsWhere($request);
 }

@@ -55,7 +55,7 @@
                 </div>
               </div>
               <div class="ctLists">
-
+                  <!-- fulltime/ca sáng/ca chiều -->
                 <div class="L_item" v-for="(calam,key) in ChangeCaLam" :key="key">
 
                   <div class="i_name titleTableSearch">
@@ -63,7 +63,8 @@
                   </div>
                   <!-- số ngày 7 -->
                   <div v-for="(item, dex) in getDatecaLam" :key="dex" class="i_desc titleTable">
-                        <div class="checkElement" v-if="calam.workshifts != ''">
+                        <!-- button -->
+                        <div class="checkElement" v-if="calam.workshifts != '' ">
                             <button role="button" @click="detailsCalam(calam.workshifts, item, calam.FormM_name, calam.FormM_id)" class="btn btn-pill btn-outline-success" href="#detail" data-toggle="modal" data-target="#detail">
                                   <div class="ElementsWork" v-for="(c1, vk1) in calam.workshifts" :key="vk1" >
                                       <svg  v-if="c1.WS_date === item"  style="color:rgb(0,0,0)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
@@ -101,11 +102,26 @@
                 </addCalamforUser>
             </div>
           </div>
+          <!-- nofitication -->
+            <div class="notice" style="margin:15px 0;">
+              <b style="color: red; font-size: 16px">Ghi chú:</b><span> Chủ cửa hàng hoặc quản lý có thể kiểm tra tình trạng hoặc thêm nhân viên tại đây.</span>
+              <ul style="list-style-type:none; padding: 0">
+                <li>
+                  <svg style="color:rgb(0,0,0)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <polyline points="17 11 19 13 23 9"></polyline>
+                  </svg>
+                  <span>: Số nhân viên làm việc trong 1 ca</span></li> 
+              </ul>
+            </div>
+      <!-- endnofitication -->
           <!-- end list view -->
         </div>
         <!-- end card-body -->
       </div>
       <!-- end card -->
+      
     </section>
   </div>
 </template>
@@ -190,18 +206,29 @@ export default {
     OpenAdd() {
       this.$refs.addCalam.handleGetEmpByComp();
     },
-    //Get time now
+    /*
+      * detail: get time now
+      * request: 
+      * response: string date
+      * */
     getTimeNow() {
       return (this.dateValueNow = `Tuần: ${moment().weeks()} - ${moment().year()}`);
     },
-    // get number week
+    /*
+      * detail: get number week
+      * request: 
+      * response: int number
+      * */
     getNumWeek() {
       this.numYear = moment().year();
       return (this.numWeek = moment().week());
     },
-
-
-    // change employer when change choose company orther
+ 
+    /*
+      * detail: change employer when change choose company orther
+      * request: 
+      * response: 
+      * */
     changeEmpComp() {
       this.loading = true;
       this.$store.dispatch('SetDateCaLam', [this.numWeek, this.numYear]);
@@ -229,7 +256,11 @@ export default {
     kiemtraCalam(val, date) {
 
     },
-        //xử lý khi đóng thêm ca làm sẽ load lại
+    /*
+    * detail: handle when click close form 
+    * request: arr [] workshift
+    * response: Reload value by added
+    * */
     HandelPage() {
       this.changeEmpComp();
       this.$refs.editClam.getListUser();

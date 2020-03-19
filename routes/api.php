@@ -41,9 +41,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/getsArrUser','EmployersController@getsArrUser');
     Route::post('/getListUser','EmployersController@getListUser');
     Route::post('/delCawhereID','EmployersController@delCawhereID');
-    Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany');
-    Route::post('/postWorkshifts','WorkshiftsController@postWorkshifts');
-
+    Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany'); 
     //List CaLam
     Route::resource('/CaLam','CaLamController');
     Route::post('/addCalam','CaLamController@add');
@@ -56,6 +54,9 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     // /List Company
     Route::resource('/company', 'CompanyController');
     Route::get('/getCompany/{limit}', 'CompanyController@getLimit');
+    //workshifts
+    Route::post('/postWorkshifts','WorkshiftsController@postWorkshifts');
+    Route::post('/checkWorkshiftsWhere','WorkshiftsController@checkWorkshiftsWhere');
 });
 
 //Login

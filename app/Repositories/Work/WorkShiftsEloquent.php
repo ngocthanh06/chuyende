@@ -28,6 +28,9 @@ class WorkShiftsEloquent implements WorkShilftsInterface
         ]);
 
     }
+    public function checkWorkshiftsWhere($request){
+        return count(Workshifts::where([['WS_date', $request['date']],['FormM_id', $request['FormM_id']]])->get());
+    }
     
     
     

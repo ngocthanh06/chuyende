@@ -72,9 +72,8 @@ class EmployersController extends Controller
         return $this->employer->getListUser($request);
     }
 
-   
-    public function demoPost(Request $request){
-    }
+    
+    
 
 
 }

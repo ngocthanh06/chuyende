@@ -32,7 +32,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in getCaLamProp">
+                                    <tr v-for="(item, key) in getCaLamProp" :key="key">
                                         <th scope="row">{{item.FormM_name}}</th>
                                         <td>{{item.FormM_Work}}</td>
                                         <td>{{item.FormM_TimeIn}}</td>
@@ -124,7 +124,7 @@ export default {
                             }); 
                     }
                 });
-                this.handleClose(); 
+                this.handleCloseCalam(); 
             };
         },
         //get Calam user
@@ -140,73 +140,93 @@ export default {
             $('#addCalamTable').find(':input').attr('disabled',false); 
             return this.Calam = [];
         },
-        getTime(val){
-            if($(`#add${val.FormM_id}`).is(':checked') === true){
-                this.Calam.push(val);
-                //Check time work 
-                if(this.Calam.length > 1 && val.FormM_Work >= 8)
-                {
-                    this.$alert('<b>Bạn đã đăng ký ca làm <i style="color: red">PARTTIME</i> nên không không thể đăng ký thêm <i style="color: red">FULLTIME</i></b>', 'Thông báo', {
+        getTime(val) {
+            let date = this.calam.WS_date;
+            let FormM_id = val.FormM_id;
+            axios.post('/api/checkWorkshiftsWhere', {
+                date: date,
+                FormM_id: FormM_id
+            }).then(res => {
+                if (res.data < 5) {
+                    if ($(`#add${val.FormM_id}`).is(':checked') === true) {
+                        this.Calam.push(val);
+                        //Check time work 
+                        if (this.Calam.length > 1 && val.FormM_Work >= 8) {
+                            this.$alert('<b>Bạn đã đăng ký ca làm <i style="color: red">PARTTIME</i> nên không không thể đăng ký thêm <i style="color: red">FULLTIME</i></b>', 'Thông báo', {
                                 dangerouslyUseHTMLString: true,
                                 confirmButtonText: 'OK',
                                 callback: action => {
-                                    $(`#add${val.FormM_id}`).prop('checked',false);
-                                    this.Calam = this.Calam.filter( name => name !== val);
+                                    $(`#add${val.FormM_id}`).prop('checked', false);
+                                    this.Calam = this.Calam.filter(name => name !== val);
                                     this.$message({
                                         type: 'success',
                                         message: `Lựa chọn gần đây đã được hủy`
                                     });
-                            }
-                        });
-                }
-                else if(this.Calam.length > 1 ){
-                    if(this.Calam[0].form_m.FormM_Work >= 8){
-                        this.$alert('<b>Bạn đã đăng ký <i style="color: red">FULLTIME</i> nên không còn ca phù hợp</b>', 'Thông báo', {
-                                confirmButtonText: 'OK',
-                                dangerouslyUseHTMLString: true,
-                                callback: action => {
-                                    $(`#add${val.FormM_id}`).prop('checked',false);
-                                    this.Calam = this.Calam.filter( name => name !== val);
-                                    this.$message({
+                                }
+                            });
+                        } else if (this.Calam.length > 1) {
+                            if (this.Calam[0].form_m.FormM_Work >= 8) {
+                                this.$alert('<b>Bạn đã đăng ký <i style="color: red">FULLTIME</i> nên không còn ca phù hợp</b>', 'Thông báo', {
+                                    confirmButtonText: 'OK',
+                                    dangerouslyUseHTMLString: true,
+                                    callback: action => {
+                                        $(`#add${val.FormM_id}`).prop('checked', false);
+                                        this.Calam = this.Calam.filter(name => name !== val);
+                                        this.$message({
                                             type: 'success',
                                             message: `Lựa chọn gần đây đã được hủy`
                                         });
-                                }
-                        });
-                    }    
-                }
-          }
-          else{ 
-              if(this.Calam.length === this.count){
-                  this.Calam.forEach(res => {
-                      if(res.FormM_id == val.FormM_id){
-                            $(`#add${val.FormM_id}`).prop('checked',true);
-                            this.$notify.error({
-                                title: 'Error',
-                                message: 'BẠN KHÔNG THỂ HỦY CA LÀM VIỆC ĐÃ ĐƯỢC TỰ CHỌN TỪ TRƯỚC'
-                            });
-                      }
-                  })
-              }
-              else{
-                  this.$alert('<b>Bạn muốn <i style="color: red">HỦY</i> ca làm việc này ?</b>', 'Thông báo', {
-                            confirmButtonText: 'OK',
-                            dangerouslyUseHTMLString: true,
-                     }).then(()=>{ 
-                                this.Calam = this.Calam.filter( name => name !== val);
-                                this.$message({
-                                        type: 'success',
-                                        message: `Lựa chọn gần đây đã được hủy`
+                                    }
                                 });
-                     }).catch(()=>{  $(`#add${val.FormM_id}`).prop('checked',true); 
-                                this.$message({  
-                                    type: 'info', 
-                                    message: 'Thao tác không thành công' 
-                                    });  
+                            }
+                        }
+                    } else {
+                        if (this.Calam.length === this.count) {
+                            this.Calam.forEach(res => {
+                                if (res.FormM_id == val.FormM_id) {
+                                    $(`#add${val.FormM_id}`).prop('checked', true);
+                                    this.$notify.error({
+                                        title: 'Error',
+                                        message: 'BẠN KHÔNG THỂ HỦY CA LÀM VIỆC ĐÃ ĐƯỢC TỰ CHỌN TỪ TRƯỚC'
+                                    });
+                                }
+                            })
+                        } else {
+                            this.$alert('<b>Bạn muốn <i style="color: red">HỦY</i> ca làm việc này ?</b>', 'Thông báo', {
+                                confirmButtonText: 'OK',
+                                dangerouslyUseHTMLString: true,
+                            }).then(() => {
+                                this.Calam = this.Calam.filter(name => name !== val);
+                                this.$message({
+                                    type: 'success',
+                                    message: `Lựa chọn gần đây đã được hủy`
+                                });
+                            }).catch(() => {
+                                $(`#add${val.FormM_id}`).prop('checked', true);
+                                this.$message({
+                                    type: 'info',
+                                    message: 'Thao tác không thành công'
+                                });
                             });
-                         } 
-                     }
-              }
+                        }
+                    }
+                } else {
+                    this.$alert('<b>Ca làm đã vượt quá giới hạn cho phép !! </br> <i style="color: red">Bạn có thể liên hệ chủ hoặc quản lý để được bổ sung.!</i></b>', 'Thông báo', {
+                        dangerouslyUseHTMLString: true,
+                        confirmButtonText: 'OK',
+                        callback: action => {
+                            $(`#add${val.FormM_id}`).prop('checked', false);
+                            this.Calam = this.Calam.filter(name => name !== val);
+                            this.$message({
+                                type: 'success',
+                                message: `Lựa chọn gần đây đã được hủy`
+                            });
+                        }
+                    });
+                }
+
+            })
+        }
     },
     computed: {
     }

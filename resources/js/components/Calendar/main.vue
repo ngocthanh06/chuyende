@@ -191,6 +191,22 @@
               ></addchildModel>
             </div>
           </div>
+           <!-- nofitication -->
+            <div class="notice" style="margin:15px 0;">
+              <b style="color: red; font-size: 16px">Ghi chú:</b><span> Nhân viên làm việc có thể đăng ký lịch ca làm việc của mình tại đây sao cho phù hợp.</span>             
+              <ul style="list-style-type:none; padding: 0">
+                <li>
+                  <span>- Nhân viên có thể đăng ký nhiều ca cùng 1 lúc.!</span>
+                </li>
+                <li>
+                  <span>- Nhân viên làm việc fulltime không thể đăng ký các ca còn lại.! Ngược lại, nhân viên làm theo ca không thể đăng ký thêm ca làm fulltime</span>
+                </li>
+                <li>
+                  <span>- Giới hạn mỗi ca làm gồm 5 nhân viên. Có thể liên hệ chủ cửa hàng hoặc quản lý để bổ sung khi bạn không đăng ký được!</span>
+                </li> 
+              </ul>
+            </div>
+      <!-- endnofitication -->
           <!-- end list view -->
         </div>
         <!-- end card-body -->

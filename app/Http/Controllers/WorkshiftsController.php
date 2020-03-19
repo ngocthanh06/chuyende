@@ -14,4 +14,8 @@ class WorkshiftsController extends Controller
     public function postWorkshifts(Request $request){
         return $this->workshilfts->postWorkshifts($request); 
     }
+
+    public function checkWorkshiftsWhere(Request $request){
+        return $this->workshilfts->checkWorkshiftsWhere($request);
+    }
 }

@@ -26,8 +26,8 @@
                                 <el-form-item  label="Số điện thoại" prop="User_phone" required>
                                     <el-input v-on:change="ChangePassAndUser()" placeholder="Nhập số điện thoại" :class="{ 'is-invalid':  ruleForm.errors.has('User_phone') }" v-model.number="ruleForm.User_phone"></el-input>
                                     <has-error :form="ruleForm" field="User_phone"></has-error>
-                                    <el-input style="display:none" :class="{ 'is-invalid':  ruleForm.errors.has('Username') }"></el-input>
-                                    <has-error :form="ruleForm" field="Username"></has-error>
+                                    <el-input style="display:none" :class="{ 'is-invalid':  ruleForm.errors.has('username') }"></el-input>
+                                    <has-error :form="ruleForm" field="username"></has-error>
                                 </el-form-item>
                                 <el-form-item label="Chức vụ" prop="Role_id" required>
                                     <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
@@ -35,7 +35,7 @@
                                     <el-option label="Quản lý" value="2"></el-option>
                                     </el-select>
                                 </el-form-item>
-                                <el-form-item label="Chi nhánh( Nếu có)" prop="idComp">
+                                <el-form-item label="Chi nhánh( Nếu có)" prop="idComp" required="">
                                     <el-select v-model="ruleForm.idComp" placeholder="Chọn chi nhánh làm việc cho nhân viên">
                                     <el-option label="Chọn chi nhánh" value=""></el-option>
                                     <el-option v-for="item in getCompanies" :key="item.idComp" :label="item.nameComp" :value="item.idComp"></el-option>
@@ -91,7 +91,7 @@ export default {
             sex: '',
             idComp:'',
             Password:'',
-            Username: '',
+            username: '',
         }),
         rules: {
           User_fullname: [
@@ -108,6 +108,9 @@ export default {
           sex: [
             { required: true, message: 'Giới tính chưa được chọn', trigger: 'change' }
           ],
+          idComp: [
+            {required: true, message: 'Bạn chưa chọn chi nhánh', trigger: 'change'}
+          ]
           
         }
       };
@@ -159,7 +162,7 @@ export default {
       },
       ChangePassAndUser(){
           this.ruleForm.Password = this.ruleForm.User_phone;
-          this.ruleForm.Username = this.ruleForm.User_phone;
+          this.ruleForm.username = this.ruleForm.User_phone;
       },
       
     },

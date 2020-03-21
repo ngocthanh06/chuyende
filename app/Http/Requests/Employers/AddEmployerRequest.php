@@ -22,13 +22,13 @@ class AddEmployerRequest extends FormRequest
     public function rules()
     {
         return [
-            'Username' => 'unique:users',           
+            'username' => 'unique:users',           
         ];
     }
 
     public function messages(){
         return [
-            'Username.unique' => 'Tên tài khoản đã tồn tại',
+            'username.unique' => 'Tên tài khoản đã tồn tại',
         ];
     }
     

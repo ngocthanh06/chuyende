@@ -94,9 +94,9 @@ export function setAuthorization() {
         function (response) {
             return response;
         },
-        function (err) { 
+        function (err) {  
             // expired token error
-            if (err && err.response && err.response.status === 422) {
+            if (err && err.response.errors === null && err.response.status === 422) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('user');
                 alert('Đăng nhập hết hạn');
@@ -105,10 +105,10 @@ export function setAuthorization() {
                 }); 
             }
             // validate error
-            if (err && err.response && err.response.status === 422) {
+            if (err && err.response && err.response.status === 401) {
                 return Promise.reject(err.response.data);
             }
-            return Promise.reject(err);
+            return Promise.reject(err); 
         }
     );
 }

@@ -33,7 +33,7 @@
                                 </button>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item :command="{text: 'nghiphep', value: val}" icon="el-icon-edit-outline">Tạo yêu cầu nghỉ phép</el-dropdown-item>
-                                    <el-dropdown-item :command="{text: 'del', value: val.Work_id}" icon="el-icon-delete" style="color: red">Xóa</el-dropdown-item>
+                                    <el-dropdown-item v-if="val.status == 0" :command="{text: 'del', value: val.Work_id}" icon="el-icon-delete" style="color: red">Xóa</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                             </div>

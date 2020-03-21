@@ -145,7 +145,8 @@ export default {
             let FormM_id = val.FormM_id;
             axios.post('/api/checkWorkshiftsWhere', {
                 date: date,
-                FormM_id: FormM_id
+                FormM_id: FormM_id,
+                idComp: this.calam.idComp
             }).then(res => {
                 if (res.data < 5) {
                     if ($(`#add${val.FormM_id}`).is(':checked') === true) {

@@ -118,9 +118,9 @@
               <div class="ctLists">
                 <div v-for="(item, index) in getEmpCom()" :key="index" class="L_item">
                   <div class="i_name titleTableSearch">
-                    <a class="logo" href="#">
+                    <router-link class="logo" :to="`/edit-Employer/${item.User_id}`" >
                       <img src="https://chat.tanca.io:3001/avatar/+84783449848" />
-                    </a>
+                    </router-link>
                     <span>{{item.User_fullname}}</span>
                   </div>
                   <!-- THời gian ca làm (7) -->

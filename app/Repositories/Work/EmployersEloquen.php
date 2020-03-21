@@ -82,9 +82,9 @@ class EmployersEloquen implements EmployersInterface
 
     }
 
-    //Get Employer with Company
+    //Get Employer with Company with role = 1
     public function EmpCompany($id){
-        return Employer::where('idComp',$id)->get();
+        return Employer::where([['idComp',$id],['Role_id', 1]])->get();
     }
 
    //Add Employer Spead
@@ -95,7 +95,7 @@ class EmployersEloquen implements EmployersInterface
         $user['User_phone'] = $request->User_phone;
         $user['idComp'] = $request->idComp;
         $user['User_fullname'] = $request->User_fullname;
-        $user['username'] = $request->Username;
+        $user['username'] = $request->username;
         $user['Role_id'] = $request->Role_id;
         $user->save();
         return response()->json([

@@ -8,9 +8,9 @@
         <el-form-item label="Họ Và Tên" prop="User_fullname">
             <el-input v-model="ruleForm.User_fullname"></el-input>
         </el-form-item>
-        <el-form-item  label="Tên Tài Khoản" prop="Username" required>
-            <el-input :class="{ 'is-invalid': ruleForm.errors.has('Username') }" v-model="ruleForm.Username"></el-input>
-            <has-error :form="ruleForm" field="Username"></has-error>
+        <el-form-item  label="Tên Tài Khoản" prop="username" required>
+            <el-input :class="{ 'is-invalid': ruleForm.errors.has('username') }" v-model="ruleForm.username"></el-input>
+            <has-error :form="ruleForm" field="username"></has-error>
         </el-form-item>
         <el-form-item required label="Mật Khẩu" prop="Password">
             <el-input type="password" v-model="ruleForm.Password" autocomplete="off"></el-input>
@@ -37,7 +37,7 @@
         </el-form-item>
         
         
-        <el-form-item label="Giới Tính" x prop="sex">
+        <el-form-item label="Giới Tính" prop="sex">
             <el-radio-group  v-model="ruleForm.sex" >
             <el-radio  label="Nam"></el-radio>
             <el-radio label="Nữ"></el-radio>
@@ -86,7 +86,7 @@
         ruleForm: new Form( {
             Role_id:'',
             User_fullname:'',
-            Username: '',
+            username: '',
             Birthday:'',
             sex: '',
             Password:'',
@@ -104,7 +104,7 @@
           Role_id: [
             { required: true, message: 'Bạn chưa chọn chức vụ', trigger: 'change' }
           ],
-          Username: [
+          username: [
             { required: true, message: 'Tên tài khoản không được để trống', trigger: 'blur' },
             { min: 3, max: 100, message: 'Ký tự phải từ 3 và không vượt quá 100', trigger: 'blur' }
           ],

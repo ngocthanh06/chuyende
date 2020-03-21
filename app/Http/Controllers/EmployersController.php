@@ -43,7 +43,7 @@ class EmployersController extends Controller
         return $this->employer->get($id);
     }
     // Edit
-    public function Edit($id, EditEmployerRequest $request ){
+    public function Edit(EditEmployerRequest $request, $id){
         return $this->employer->Edit($id, $request);
     }
     //get list with comp

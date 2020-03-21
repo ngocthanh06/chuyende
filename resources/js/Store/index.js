@@ -66,7 +66,7 @@ export default {
             context.commit('commitDateCalam',numsDay);
         },
         
-        //Lấy nhân viên với điều kiện công ty
+        //Lấy nhân viên với điều kiện công ty chỉ lấy nhân vi
         allEmployerComp(context, id){
             axios.get(`api/empCompany/${id}`).then((res)=>{ context.commit('commitEmpComp',res.data) });
         },

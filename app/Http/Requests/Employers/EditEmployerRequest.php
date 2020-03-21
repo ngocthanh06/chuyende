@@ -24,12 +24,12 @@ class EditEmployerRequest extends FormRequest
     public function rules()
     {
         return [
-            'Username' => 'unique:users,Username,'.$this->segment(3).',User_id',
+            'username' => 'unique:users,username,'.$this->segment(3).',User_id',
         ];
     }
     public function messages(){
         return[
-            'Username.unique' => 'Tên tài khoản đã tồn tại',
+            'username.unique' => 'Tên tài khoản đã tồn tại',
         ];
     }
 }

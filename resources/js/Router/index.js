@@ -108,6 +108,18 @@ export function setAuthorization() {
             if (err && err.response && err.response.status === 401) {
                 return Promise.reject(err.response.data);
             }
+            // if (err && err.response && err.response.status === 401) {
+            //     localStorage.removeItem('access_token');
+            //     localStorage.removeItem('user');
+            //     alert('Đăng nhập hết hạn');
+            //     return router.push({
+            //         name: 'login'
+            //     }); 
+            // }
+            // // validate error
+            // if (err && err.response && err.response.status === 422) {
+            //     return Promise.reject(err.response.data);
+            // }
             return Promise.reject(err); 
         }
     );

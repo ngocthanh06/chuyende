@@ -1,6 +1,6 @@
 import moment from 'moment';
 import auth from './auth';
-
+import form from './form';
 export default {
     state: {
        district: [],
@@ -9,6 +9,7 @@ export default {
        EmployerComp : [],
        DateCaLam: [],
        CaLam : [],  
+       Role: [],
     },
     //xử lý thao tác chức năng
     getters: {
@@ -18,6 +19,7 @@ export default {
         getEmployerComp(state){return state.EmployerComp},
         getDatecaLam(state){return state.DateCaLam},
         getCaLam(state){return state.CaLam}, 
+        getRole(state){return state.Role}, 
     },
     //Diễn tả 1 hành động
     actions: {
@@ -75,6 +77,9 @@ export default {
         allCaLam(context){
             axios.get('/api/CaLam').then((res)=>{ context.commit('commitCaLam', res.data)})
         }, 
+        allRole(context){
+            axios.get(`/api/Role`).then((res)=>{ context.commit('commitRole',res.data) });
+        },
        
     },
     //Trạng thái không thể thay đổi trực tiếp mà chỉ thay đổi thông qua commit
@@ -86,12 +91,13 @@ export default {
         commitEmpComp(state,data){state.EmployerComp = data},
         commitDateCalam(state, data){state.DateCaLam = data},
         commitCaLam(state,data){state.CaLam = data},
+        commitRole(state,data){state.Role = data},
          
         
     },
 
     modules:{
-        auth
+        auth, form
     }
 
 }

@@ -15,6 +15,8 @@ import lang from 'element-ui/lib/locale/lang/vi'
 import locale from 'element-ui/lib/locale'   
 //v-form
 import {Form, HasError, AlertError} from 'vform';
+import formStore from './Store/form';
+const storeform = new vuex.Store(formStore);
 window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
@@ -30,7 +32,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router:route, 
-    store,
+    store,storeform,
     template: '<Layout></Layout>',
     components:{
         // Scheduler

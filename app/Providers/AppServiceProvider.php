@@ -8,6 +8,8 @@ use App\Repositories\TodoInterfaceWork\SupportInterface;
 use App\Repositories\TodoInterfaceWork\CompanyInterface;
 use App\Repositories\TodoInterfaceWork\FormMCaLamInterface;
 use App\Repositories\TodoInterfaceWork\WorkShilftsInterface;
+use App\Repositories\TodoInterfaceWork\AttendanceInterface;
+use App\Repositories\Work\AttendanceEloquent;
 use App\Repositories\Work\WorkShiftsEloquent;
 use App\Repositories\Work\FormMCalamEloquent;
 use App\Repositories\Work\CompanyEloquent;
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CompanyInterface::class, CompanyEloquent::class);
         $this->app->singleton(WorkShilftsInterface::class, WorkShiftsEloquent::class);
         $this->app->singleton(FormMCaLamInterface::class, FormMCalamEloquent::class);
+        $this->app->singleton(AttendanceInterface::class, AttendanceEloquent::class);
     }
 
     /**

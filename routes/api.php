@@ -28,6 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => 'jwt.verify'], function ($router) {
+    //Role
+    Route::get('/Role','RoleController@all');
     //List Employers
     Route::get('/allemployers/{limit}','EmployersController@index');
     Route::get('/deleteEmployer/{id}', 'EmployersController@destroy');
@@ -49,14 +51,19 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/editCalam/{id}', 'CalamController@editCalam');
     Route::post('/countCaLam','CaLamController@countCalam');
     Route::post('/editCalamUser', 'CaLamController@editCalamUser');
-    Route::post('/delCalam', 'CaLamController@delCalam');
-
+    Route::post('/delCalam', 'CaLamController@delCalam'); 
     // /List Company
     Route::resource('/company', 'CompanyController');
     Route::get('/getCompany/{limit}', 'CompanyController@getLimit');
     //workshifts
     Route::post('/postWorkshifts','WorkshiftsController@postWorkshifts');
     Route::post('/checkWorkshiftsWhere','WorkshiftsController@checkWorkshiftsWhere');
+    Route::post('/diemdanh','WorkshiftsController@diemdanh');
+    Route::get('/getWorkshifts/{id}','WorkshiftsController@getWorkshifts');
+    
+    // attendance
+    Route::post('/getAttendanceWhereId','AttendanceController@getAttendanceWhereId');
+    Route::post('/getsWorkAttendance','AttendanceController@getsWorkAttendance');
 });
 
 //Login

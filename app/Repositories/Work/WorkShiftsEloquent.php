@@ -35,6 +35,23 @@ class WorkShiftsEloquent implements WorkShilftsInterface
                 ->join('users', 'workshifts.User_id', 'users.User_id')
                 ->where([['workshifts.WS_date', $request['date']],['workshifts.FormM_id', $request['FormM_id']],['users.idComp', $request['idComp']]])->count();
     }
+    public function diemdanh($request){
+        $workshifts = Workshifts::find($request->Work_id);
+        $workshifts['WS_time_in'] = $request['WS_time_in'];
+        $workshifts['WS_time_out'] = $request['WS_time_out'];
+        $workshifts['status'] = $request['status'];
+        $workshifts['Work_desc'] = $request['Work_desc'];
+        $workshifts->save();
+        return response()->json([
+            'code' => '200',
+            'messages' => 'Thành công'
+        ]);
+    }
+    
+    public function getWorkshifts($id){
+        return Workshifts::find($id);
+    }
+
     
     
     

@@ -15,10 +15,12 @@ class Attendance extends Migration
     {
         Schema::create('Attendance', function (Blueprint $table) {
             $table->Increments('Att_id');
-            $table->integer('User_id')->nullable();
+            $table->integer('Workshifts_id')->nullable();
             $table->text('Att_desc')->nullable();
             $table->dateTime('Att_time')->nullable();
-            $table->boolean('Att_status')->nullable();
+            $table->integer('Att_status')->nullable();
+            $table->text('Att_accept')->nullable();
+            $table->integer('User_accept')->nullable();
             $table->timestamps();
         });
     }

@@ -82,11 +82,16 @@
               </div>
             </div>
             <!-- Lịch -->
-            <detailLich ref="editClam" v-on:HandelPage=" HandelPage" v-bind:getsInv="infoCaNv" v-on:OpenAdd="OpenAdd" v-bind:detailCa="NameDateCalam">
+            <detailLich ref="editClam" v-on:diemdanh="diemdanh" v-on:HandelPage=" HandelPage" v-bind:getsInv="infoCaNv" v-on:OpenAdd="OpenAdd" v-bind:detailCa="NameDateCalam">
             </detailLich>
             <!--add addCalamforUser-->
             <addCalamforUser ref="addCalam" v-bind:infoCaLam="NameDateCalam" v-on:HandelPage=" HandelPage">
             </addCalamforUser>
+
+            <!-- điểm danh -->
+             <diemdanh ref="diemdanh" v-on:openPhep="openPhep" v-bind:calam="idCaLam"></diemdanh>
+          <!-- checkphep -->
+            <checkPhep ref="checkPhep" v-on:openPhep="openPhep"></checkPhep>
           </div>
         </div>
         <!-- nofitication -->
@@ -117,13 +122,21 @@
 import moment from "moment";
 import detailLich from "./detailLich";
 import addCalamforUser from './addCalamforUser';
+import diemdanh from '../diemDanh/diemdanh.vue';
+import checkPhep from '../diemDanh/checkPhep';
 export default {
   components: {
     detailLich,
-    addCalamforUser
+    addCalamforUser,
+     diemdanh,checkPhep
   },
   data() {
     return {
+      idCaLam: {
+        WS_date: "",
+        User_id: "",
+        idComp: ""
+      },
       dateValueNow: "",
       numWeek: "",
       numYear: "",
@@ -211,7 +224,29 @@ export default {
 
   },
   methods: {
-
+    /**
+     *  Call Điểm danh 
+     *  work_id: Work_id
+     *  time:  WS_date
+     *  response: mở form phép
+     */
+    openPhep(work_id, time) { 
+      this.$refs.checkPhep.getAttendance(work_id, time)
+    },
+    /**
+     *  Call Điểm danh 
+     *  val: User_id
+     *  work:  idComp
+     *  response: gán giá trị -> lấy work_id bằng async để call điểm danh
+     */
+    async diemdanh(val, work) { 
+      this.idCaLam.User_id = val;
+      this.idCaLam.idComp = work;
+      let workshift = await axios.post('/api/workshilftsByformDateUser',{User_id : val, WS_date: this.NameDateCalam.date, FormM_id: this.NameDateCalam.idCa });
+      this.$refs.diemdanh.nameDate(this.NameDateCalam.idCa, workshift.data.Work_id);
+      this.$refs.diemdanh.checkPhep(workshift.data.Work_id);
+      this.$refs.diemdanh.diemDanh(workshift.data.Work_id);
+    }, 
     //Call addCalamm khi mở btn cộng trong chỉnh sửa
     OpenAdd() {
       this.$refs.addCalam.handleGetEmpByComp();
@@ -255,12 +290,13 @@ export default {
      * request: arr [] workshift
      * response: push arr-> this.infoCalamNV
      * */
-    detailsCalam(val, date, nameClam, idCa) { 
-      this.NameDateCalam['value'] = val,
-      this.NameDateCalam['date'] = date,
-      this.NameDateCalam['nameCa'] = nameClam,
-      this.NameDateCalam['idCa'] = idCa
+    detailsCalam(val, date, nameClam, idCa) {
+      this.NameDateCalam['value'] = val;
+      this.NameDateCalam['date'] = date;
+      this.NameDateCalam['nameCa'] = nameClam;
+      this.NameDateCalam['idCa'] = idCa;
       this.NameDateCalam['idComp'] = this.company;
+      this.idCaLam.WS_date = date; 
       this.$refs.editClam.getClamUser();
 
     },

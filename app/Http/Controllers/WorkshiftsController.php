@@ -27,5 +27,8 @@ class WorkshiftsController extends Controller
         return $this->workshilfts->getWorkshifts($id);
     }
 
+    public function workshilftsByformDateUser(Request $request){
+        return $this->workshilfts->workshilftsByformDateUser($request);
+    }
     
 }

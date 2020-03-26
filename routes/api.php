@@ -60,6 +60,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/checkWorkshiftsWhere','WorkshiftsController@checkWorkshiftsWhere');
     Route::post('/diemdanh','WorkshiftsController@diemdanh');
     Route::get('/getWorkshifts/{id}','WorkshiftsController@getWorkshifts');
+    Route::post('/workshilftsByformDateUser','WorkshiftsController@workshilftsByformDateUser');
     
     // attendance
     Route::post('/getAttendanceWhereId','AttendanceController@getAttendanceWhereId');

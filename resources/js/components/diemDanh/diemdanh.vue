@@ -51,170 +51,189 @@
 </template>
 
 <script>
- import moment from "moment";
- export default {
-   created() {
-     this.nameDate();
-   },
-   data() {
-     return ({
-       form: {
-         WS_time_in: '',
-         WS_time_out: '',
-         status: '',
-         Work_id: '',
-         Work_desc: ''
-       },
-       attendance: '',
-       disable: {
-         attendance1: false,
-         attendance2: false,
-         attendance3: false
-       },
-       FormM_name: [],
-     });
-   },
-   props: {
-     calam: {
-       type: Object,
-       default: {}
-     },
-   },
-   methods: {
-     handleClose() {
-       this.attendance = '',
-         this.FormM_name = [],
-         this.disable.attendance1 = false,
-         this.disable.attendance2 = false,
-         this.disable.attendance3 = false
-     },
-     onSubmit() {
-       axios.post('/api/diemdanh', this.form).then(res => {
-         if (res.data.code === '200') { 
-           this.$message({
-             message: 'Điểm danh thành công!',
-             type: 'success'
-           });
-         }
-       })
-     },
-     nameDate(val, work) {
-       axios.get(`/api/CalamID/${val}`).then(res => {
-         this.FormM_name = res.data;
-         this.form.WS_time_in = res.data.FormM_TimeIn;
-         this.form.WS_time_out = res.data.FormM_TimeOut;
-         this.form.Work_id = work;
-       });
-     },
+import moment from "moment";
+export default {
+  created() {
+    this.nameDate();
+  },
+  data() {
+    return ({
+      form: {
+        WS_time_in: '',
+        WS_time_out: '',
+        status: '',
+        Work_id: '',
+        Work_desc: ''
+      },
+      attendance: '',
+      disable: {
+        attendance1: false,
+        attendance2: false,
+        attendance3: false
+      },
+      FormM_name: [],
+    });
+  },
+  props: {
+    calam: {
+      type: Object,
+      default: {}
+    },
+  },
+  methods: {
+    handleClose() {
+      this.attendance = '',
+        this.FormM_name = [],
+        this.disable.attendance1 = false,
+        this.disable.attendance2 = false,
+        this.disable.attendance3 = false
+    },
+    /**
+     *  main->$refs->diemDanh
+     *  request: form
+     */
+    onSubmit() {
+      axios.post('/api/diemdanh', this.form).then(res => {
+        if (res.data.code === '200') {
+          this.$message({
+            message: 'Điểm danh thành công!',
+            type: 'success'
+          });
+        }
+      })
+    },
+    /**
+     *  main->$refs->diemDanh
+     *  val: idCa/Form_id
+     *  work:  work_id
+     *  response: list FormM_name
+     */
+    nameDate(val, work) {
+      axios.get(`/api/CalamID/${val}`).then(res => {
+        this.FormM_name = res.data;
+        this.form.WS_time_in = res.data.FormM_TimeIn;
+        this.form.WS_time_out = res.data.FormM_TimeOut;
+        this.form.Work_id = work;
+      });
+    },
 
-     diemDanh(work) { 
-       axios.get(`/api/getWorkshifts/${work}`).then(res => {
-         this.form.status = res.data.status;
-       })
-     },
+    /**
+     *  main->$refs->diemDanh
+     *  work:  work_id
+     *  response: list form
+     */
+    diemDanh(work) {
+      axios.get(`/api/getWorkshifts/${work}`).then(res => {
+        this.form = res.data;
+      })
+    },
+    /**
+     *  main->$refs->diemDanh
+     *  work:  work_id
+     *  response: check phép
+     */
+    checkPhep(work) {
+      axios.post('/api/getAttendanceWhereId', {
+        Workshifts_id: work,
+        Att_time: this.calam.WS_date
+      }).then(res => {
+        if (res.data === '') {
+          this.disable.attendance3 = true;
+          this.disable.attendance2 = true;
+          this.disable.attendance1 = true;
+        }
+        if (res.data != null && res.data.Att_status === 0) {
+          this.attendance = 0;
+          this.disable.attendance1 = true;
+          this.disable.attendance2 = true;
+        }
+        if (res.data != null && res.data.Att_status === 1) {
+          this.attendance = 1;
+          this.disable.attendance2 = true;
+          this.disable.attendance3 = true;
+        }
+        if (res.data != null && res.data.Att_status === 2) {
+          this.attendance = 2;
+          this.disable.attendance1 = true;
+          this.disable.attendance3 = true;
+        }
+      })
+    },
 
-     checkPhep(work) {
-       axios.post('/api/getAttendanceWhereId', {
-         Workshifts_id: work,
-         Att_time: this.calam.WS_date
-       }).then(res => {
-         if (res.data === '') {
-           this.disable.attendance3 = true;
-           this.disable.attendance2 = true;
-           this.disable.attendance1 = true;
-         }
-         if (res.data != null && res.data.Att_status === 0) {
-           this.attendance = 0;
-           this.disable.attendance1 = true;
-           this.disable.attendance2 = true;
-         }
-         if (res.data != null && res.data.Att_status === 1) {
-           this.attendance = 1;
-           this.disable.attendance2 = true;
-           this.disable.attendance3 = true;
-         }
-         if (res.data != null && res.data.Att_status === 2) {
-           this.attendance = 2;
-           this.disable.attendance1 = true;
-           this.disable.attendance3 = true;
-         }
-       })
-     },
+    // checkPhep(work,status){
+    //   this.form.status = status;
+    //   axios.post('/api/getAttendanceWhereId',{Workshifts_id: work, Att_time: this.calam.WS_date}).then(res=>{
+    //         if(res.data === ''){
+    //           this.disable.attendance3 = true; 
+    //           this.disable.attendance2 = true;
+    //           this.disable.attendance1 = true;
+    //         }
+    //         if(res.data != null && res.data.Att_status === 1){
+    //             this.attendance = 0;
+    //             this.disable.attendance1 = true;
+    //             this.disable.attendance2 = true; 
+    //             this.form.status = 1;
+    //         }
 
-     // checkPhep(work,status){
-     //   this.form.status = status;
-     //   axios.post('/api/getAttendanceWhereId',{Workshifts_id: work, Att_time: this.calam.WS_date}).then(res=>{
-     //         if(res.data === ''){
-     //           this.disable.attendance3 = true; 
-     //           this.disable.attendance2 = true;
-     //           this.disable.attendance1 = true;
-     //         }
-     //         if(res.data != null && res.data.Att_status === 1){
-     //             this.attendance = 0;
-     //             this.disable.attendance1 = true;
-     //             this.disable.attendance2 = true; 
-     //             this.form.status = 1;
-     //         }
+    //         // chưa điểm danh 
+    //         // if(res.data === '' && this.form.status === 0){
+    //         //   this.attendance = 2;
+    //         //   this.disable.attendance2 = false;
+    //         //   this.disable.attendance1 = true;
+    //         //   this.disable.attendance3 = true; 
+    //         // } 
+    //         // if(res.data != null && res.data.Att_status === 0 && this.form.status === 0 ){
+    //         //     this.attendance = 0;
+    //         //     this.disable.attendance1 = true;
+    //         //     this.disable.attendance2 = true; 
+    //         // }
+    //         //  if(res.data != null && res.data.Att_status === 1 && this.form.status === 0 ){
+    //         //     this.attendance = 1;//Có phép
+    //         //     this.disable.attendance3 = true; 
+    //         //     this.disable.attendance2 = true; 
+    //         // }
+    //         // if(res.data != null && res.data.Att_status === 2 &&  this.form.status === 0){
+    //         //     this.attendance = 2;
+    //         //     this.disable.attendance1 = true;
+    //         //     this.disable.attendance3 = true;  
+    //         // } 
+    //         // //nghỉ có phép
+    //         // if(res.data != null && res.data.Att_status === 1 &&  this.form.status === 1){
+    //         //     this.attendance = 1;//Có phép
+    //         //     this.disable.attendance3 = true; 
+    //         //     this.disable.attendance2 = true; 
+    //         // } 
+    //         // //nghỉ làm không chưa duyệt phép
+    //         // if(res.data != null && res.data.Att_status === 0 &&  this.form.status === 1){
+    //         //     this.attendance = 0;
+    //         //     this.disable.attendance1 = true;
+    //         //     this.disable.attendance2 = true;  
+    //         // } 
+    //         // //nghỉ làm không phép
+    //         // if(res.data != null && res.data.Att_status === 2 &&  this.form.status === 1){
+    //         //     this.attendance = 2;
+    //         //     this.disable.attendance1 = true;
+    //         //     this.disable.attendance3 = true;  
+    //         // } 
+    //         // // đang duyệt
+    //         // if(res.data != null && this.form.status === 2){
+    //         //   this.disable.attendance3 = true;
+    //         //   this.disable.attendance2 = true;
+    //         //   this.disable.attendance1 = true; 
+    //         // }
 
-     //         // chưa điểm danh 
-     //         // if(res.data === '' && this.form.status === 0){
-     //         //   this.attendance = 2;
-     //         //   this.disable.attendance2 = false;
-     //         //   this.disable.attendance1 = true;
-     //         //   this.disable.attendance3 = true; 
-     //         // } 
-     //         // if(res.data != null && res.data.Att_status === 0 && this.form.status === 0 ){
-     //         //     this.attendance = 0;
-     //         //     this.disable.attendance1 = true;
-     //         //     this.disable.attendance2 = true; 
-     //         // }
-     //         //  if(res.data != null && res.data.Att_status === 1 && this.form.status === 0 ){
-     //         //     this.attendance = 1;//Có phép
-     //         //     this.disable.attendance3 = true; 
-     //         //     this.disable.attendance2 = true; 
-     //         // }
-     //         // if(res.data != null && res.data.Att_status === 2 &&  this.form.status === 0){
-     //         //     this.attendance = 2;
-     //         //     this.disable.attendance1 = true;
-     //         //     this.disable.attendance3 = true;  
-     //         // } 
-     //         // //nghỉ có phép
-     //         // if(res.data != null && res.data.Att_status === 1 &&  this.form.status === 1){
-     //         //     this.attendance = 1;//Có phép
-     //         //     this.disable.attendance3 = true; 
-     //         //     this.disable.attendance2 = true; 
-     //         // } 
-     //         // //nghỉ làm không chưa duyệt phép
-     //         // if(res.data != null && res.data.Att_status === 0 &&  this.form.status === 1){
-     //         //     this.attendance = 0;
-     //         //     this.disable.attendance1 = true;
-     //         //     this.disable.attendance2 = true;  
-     //         // } 
-     //         // //nghỉ làm không phép
-     //         // if(res.data != null && res.data.Att_status === 2 &&  this.form.status === 1){
-     //         //     this.attendance = 2;
-     //         //     this.disable.attendance1 = true;
-     //         //     this.disable.attendance3 = true;  
-     //         // } 
-     //         // // đang duyệt
-     //         // if(res.data != null && this.form.status === 2){
-     //         //   this.disable.attendance3 = true;
-     //         //   this.disable.attendance2 = true;
-     //         //   this.disable.attendance1 = true; 
-     //         // }
+    //     })
 
-     //     })
+    // },
+    openPhep() {
+      this.$emit('openPhep', this.form.Work_id, this.calam.WS_date);
+    }
+  },
+  computed: {
+    date() {
+      return moment(this.calam.WS_date).format('DD/MM/YYYY');
+    },
 
-     // },
-     openPhep() { 
-        this.$emit('openPhep',this.form.Work_id, this.calam.WS_date);
-     }
-   },
-   computed: {
-     date() {
-       return moment(this.calam.WS_date).format('DD/MM/YYYY');
-     },
-
-   },
- }
+  },
+}
 </script>

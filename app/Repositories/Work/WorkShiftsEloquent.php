@@ -52,6 +52,13 @@ class WorkShiftsEloquent implements WorkShilftsInterface
         return Workshifts::find($id);
     }
 
+    public function workshilftsByformDateUser($request){
+        return Workshifts::where([ 
+                        ['User_id', $request['User_id'] ], 
+                        ['WS_date', $request['WS_date'] ],
+                        ['FormM_id' , $request['FormM_id'] ] 
+                            ])->first();
+    }
     
     
     

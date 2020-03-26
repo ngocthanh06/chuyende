@@ -94,7 +94,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Add CaLam -->
             <modelCalam v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage=" HandelPage"></modelCalam>
             <!-- Edit Calam -->
@@ -145,7 +145,9 @@ export default {
     addModal,
     modelCalam,
     EditModal,
-    addchildModel, diemdanh,checkPhep
+    addchildModel,
+    diemdanh,
+    checkPhep
   },
   data() {
     return {
@@ -298,17 +300,25 @@ export default {
       this.$refs.editCalam.getCaLamUser();
     },
     //Call addCalamm khi mở btn cộng trong chỉnh sửa
-    OpenAdd() { 
+    OpenAdd() {
       this.$refs.addCalam.getCaLamUser();
     },
     //Call diemdanh 
-    diemdanh(val, work,status){  
-      this.$refs.diemdanh.nameDate(val,work);
+    //val : id form
+    //work : work_id
+    //status : 
+    diemdanh(val, work, status) {
+      this.$refs.diemdanh.nameDate(val, work);
       this.$refs.diemdanh.checkPhep(work);
       this.$refs.diemdanh.diemDanh(work);
     },
-    openPhep(work_id, time){  
-      
+    /**
+     *  Call Điểm danh 
+     *  work_id: Work_id
+     *  time:  WS_date
+     *  response: mở form phép
+     */
+    openPhep(work_id, time) { 
       this.$refs.checkPhep.getAttendance(work_id, time)
     },
   },

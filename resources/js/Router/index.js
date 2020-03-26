@@ -61,29 +61,25 @@ const router = new VueRouter({
 });
 //Check Login/Louout with Role_id when using Route-Link
 router.beforeEach((to, from, next) => {
-    let routes = ['/employers', '/Show-Calam', '/Set-Calendar']; 
-    //Get value meta router-link
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    //Get value userlogin valid access_token
-    const currentUser = store.state.currentUser;
-    if (requiresAuth && !currentUser) {
-        next('/login');
-    }
-    else if (currentUser && routes.indexOf(to.path) != -1) {
-        if (currentUser.Role_id == 1) { next('/ad-calendar') }
-        else next();
-    }
-    else if (to.path == '/login' && localStorage.access_token) {
-        next('/home');
-    }
-    else {
-        next();
-    }
-    if (store.getters.currentUser) {
-        setAuthorization();
-    }
-})
-// kiểm tra token đăng nhập
+        let routes = ['/employers', '/Show-Calam', '/Set-Calendar'];
+        //Get value meta router-link
+        const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+        //Get value userlogin valid access_token
+        const currentUser = store.state.currentUser;
+        if (requiresAuth && !currentUser) {
+            next('/login');
+        } else if (currentUser && routes.indexOf(to.path) != -1) {
+            if (currentUser.Role_id == 1) { next('/ad-calendar') } else next();
+        } else if (to.path == '/login' && localStorage.access_token) {
+            next('/home');
+        } else {
+            next();
+        }
+        if (store.getters.currentUser) {
+            setAuthorization();
+        }
+    })
+    // kiểm tra token đăng nhập
 export function setAuthorization() {
     var access_token = localStorage.getItem('access_token');
     axios.defaults.headers.common['Authorization'] = 'Bearer' + access_token;
@@ -91,36 +87,24 @@ export function setAuthorization() {
     //Xử lý trạng thái token
     axios.interceptors.response.use(
         //Accept
-        function (response) {
+        function(response) {
             return response;
         },
-        function (err) {  
+        function(err) {
             // expired token error
-            if (err && err.response.errors === null && err.response.status === 422) {
+            if (err && err.response && err.response.status === 401) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('user');
                 alert('Đăng nhập hết hạn');
                 return router.push({
                     name: 'login'
-                }); 
+                });
             }
             // validate error
-            if (err && err.response && err.response.status === 401) {
-                return Promise.reject(err.response.data);
+            if (err && err.response && err.response.status === 422) {
+                return Promise.reject(err);
             }
-            // if (err && err.response && err.response.status === 401) {
-            //     localStorage.removeItem('access_token');
-            //     localStorage.removeItem('user');
-            //     alert('Đăng nhập hết hạn');
-            //     return router.push({
-            //         name: 'login'
-            //     }); 
-            // }
-            // // validate error
-            // if (err && err.response && err.response.status === 422) {
-            //     return Promise.reject(err.response.data);
-            // }
-            return Promise.reject(err); 
+            return Promise.reject(err);
         }
     );
 }

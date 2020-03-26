@@ -16,4 +16,7 @@ class AttendanceController extends Controller
     public function getsWorkAttendance(Request $request){
         return $this->attendance->getsWorkAttendance($request);
     }
+    public function updateAttendance(Request $request){
+        return $this->attendance->updateAttendance($request);
+    }
 }

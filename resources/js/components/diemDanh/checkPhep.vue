@@ -26,9 +26,9 @@
                 <th scope="row">{{key}}</th>
                 <td scope="row">{{item.Att_time}}</td>
                 <td scope="row">{{item.Att_desc}}</td>
-                <td scope="row">{{item.User_accept}}</td>
+                <td scope="row">{{item.user.User_fullname}}</td>
                 <td>
-                  <el-button v-if="item.Att_status === 0" type="Warning" size="mini" @click="handleEdit(scope.$index, scope.row)">Chưa xác nhận</el-button>
+                  <el-button v-if="item.Att_status === 0" type="Warning" size="mini" @click="handleEdit(item.Att_id, item.Att_status)">Chưa xác nhận</el-button>
                   <el-button v-else-if="item.Att_status === 2" size="mini" type="danger" disabled>Không chấp nhận</el-button>
                   <el-button v-else-if="item.Att_status === 1" size="mini" type="warning" disabled >đã xác nhận</el-button>
                 </td>
@@ -52,25 +52,32 @@ export default {
     return {
       tableData: [],
       check: false,
-      loading: true
+      loading: true,
+      work : '',
+      time: ''
     }
   },
   methods: {
-    handleEdit(index, row) {},
+    async handleEdit(id, status) {
+      let user_id = JSON.parse(localStorage.getItem('user')).User_id;
+      let val = await axios.post('/api/updateAttendance',{Att_id: id,Att_status : status ,Att_accept:'',User_accept: user_id});
+        this.$emit('openPhep', this.work, this.time);
+    },
     handleClose() {
       this.loading = true;
       this.tableData = [];
       this.check = true;
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
+      this.work = '',
+      this.time = ''
+    }, 
     async getAttendance(work_id, time) {
+      this.work = work_id; 
+      this.time = time;  
       let val = await axios.post('/api/getsWorkAttendance', {
         Workshifts_id: work_id,
         Att_time: time
       });
-      if (val.data != '') {
+      if (val.data != '') { 
         this.tableData = val.data;
         this.loading = false;
         this.check = false;

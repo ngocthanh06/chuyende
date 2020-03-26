@@ -64,6 +64,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     // attendance
     Route::post('/getAttendanceWhereId','AttendanceController@getAttendanceWhereId');
     Route::post('/getsWorkAttendance','AttendanceController@getsWorkAttendance');
+    Route::post('/updateAttendance','AttendanceController@updateAttendance');
 });
 
 //Login

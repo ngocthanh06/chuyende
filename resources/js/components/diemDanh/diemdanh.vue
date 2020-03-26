@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModal">Điểm danh ca làm <span style="color: #1d68a7"> {{FormM_name.FormM_name}} </span> ngày <span style="color: #1d68a7">{{date}}</span></h5>
+        <h5 class="modal-title" id="myModal">Điểm danh ca làm <span style="color: red"> {{FormM_name.FormM_name}} </span> ngày <span style="color: red">{{date}}</span></h5>
         <button type="button" @click="handleClose" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -90,8 +90,7 @@
      },
      onSubmit() {
        axios.post('/api/diemdanh', this.form).then(res => {
-         if (res.data.code === '200') {
-           this.$emit('diemdanh');
+         if (res.data.code === '200') { 
            this.$message({
              message: 'Điểm danh thành công!',
              type: 'success'

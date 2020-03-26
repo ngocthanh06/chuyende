@@ -104,7 +104,7 @@
             <!-- diemdanh -->
             <diemdanh ref="diemdanh" v-bind:calam="idCaLam" v-on:openPhep="openPhep"></diemdanh>
             <!-- checkphep -->
-            <checkPhep ref="checkPhep"></checkPhep>
+            <checkPhep ref="checkPhep" v-on:openPhep="openPhep"></checkPhep>
           </div>
         </div>
         <!-- nofitication -->
@@ -307,7 +307,8 @@ export default {
       this.$refs.diemdanh.checkPhep(work);
       this.$refs.diemdanh.diemDanh(work);
     },
-    openPhep(work_id, time){ 
+    openPhep(work_id, time){  
+      
       this.$refs.checkPhep.getAttendance(work_id, time)
     },
   },

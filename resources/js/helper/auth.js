@@ -12,10 +12,10 @@ export function login(credentials) {
     })
 }
 
-export function getLocalUser(){
+export function getLocalUser() {
     const userStr = localStorage.getItem('user');
 
-    if(!userStr){
+    if (!userStr) {
         return null
     }
     return JSON.parse(userStr);

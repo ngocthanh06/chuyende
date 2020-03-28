@@ -12,4 +12,9 @@ class Attendance extends Model
     public function user(){
         return $this->belongsTo('App\User', 'User_accept',`User_id`);
     }
+
+    public function workshifts()
+    {
+        return $this->belongsTo('App\Models\WorkShifts', 'Workshifts_id', 'Work_id');
+    }
 }

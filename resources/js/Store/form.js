@@ -1,23 +1,44 @@
-// export default {
+import Axios from "axios";
 
-//   state: {
-//     form: [],
-//  },
-//  //xử lý thao tác chức năng
-//  getters: {
-//      getlistForm(state){return state.form}, 
-//  },
-//  //Diễn tả 1 hành động
-//  actions: { 
-//       allListFrom(context, id){
-//           axios.get(`/api/CalamID/${id}`).then(res=>{context.commit('commitForm', res.data)});
-//       }
-    
-//  },
-//  //Trạng thái không thể thay đổi trực tiếp mà chỉ thay đổi thông qua commit
-//  //Từ action thay đổi gọi xuống commit của mutations thông qua context.commit
-//  mutations: {
-//       commitForm(state,data){state.form = data},  
-//  },
+export default {
+    state: {
+        attendance: [],
+    },
+    // Todo xử lý thao tác chức năng
+    getters: {
+        /**
+         * ? Attendances
+         * @param state
+         */
+        getAttendance(state) {
+            return state.attendance;
+        },
+    },
+    // Todo Diễn tả 1 hành động
+    actions: {
+        /**
+         * ? Attendances
+         * @param context
+         * @param data
+         */
+        async allAttendance(context, data) {
+            let list = await Axios.post('/api/listAttendance', { date: data });
+            context.commit("commitAttendance", list.data);
+        },
 
-// }
+    },
+    // Todo Trạng thái không thể thay đổi trực tiếp mà chỉ thay đổi thông qua commit
+    // Todo Từ action thay đổi gọi xuống commit của mutations thông qua context.commit
+    mutations: {
+        /**
+         * ? Attendances
+         * @param state
+         * @param data
+         */
+        commitAttendance(state, data) {
+            state.attendance = data
+        },
+
+    }
+
+}

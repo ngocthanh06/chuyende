@@ -8,6 +8,7 @@ import storeData from '../Store/auth';
 const store = new vuex.Store(storeData);
 //login
 import login from '../components/Login/login.vue';
+import register from '../components/Login/register.vue';
 //shops
 import Setting from '../components/thanh.vue'
 //Employers
@@ -31,10 +32,13 @@ import getChiNhanh from '../components/ChiNhanh/showChinhanh.vue';
 import editChinhanh from '../components/ChiNhanh/editChinhanh.vue';
 import addChinhanh from '../components/ChiNhanh/addChinhanh.vue';
 // import SetCalendar from '../components/Calendar/Setcalendar.vue';
+//Phép
+import listsPhep from '../components/phep/listPhep';
 //Show lịch nhân viên
 import getLichNv from '../components/LichLamViec/showLich.vue';
 const routes = [
     { path: '/login', component: login, name: 'login' },
+    { path: '/register', component: register, name: 'register' },
     { path: '/hello', component: Setting, name: 'hello' },
     { path: '/employers', component: Employers, name: 'employer', meta: { requiresAuth: true } },
     { path: '/addEmployer', component: AddEmployer, name: 'addEmployer', meta: { requiresAuth: true } },
@@ -52,6 +56,7 @@ const routes = [
     { path: '/editChiNhanh/:id', component: editChinhanh, name: 'editChinhanh', meta: { requiresAuth: true } },
     { path: '/addChinhanh', component: addChinhanh, name: 'addChinhnanh', meta: { requiresAuth: true } },
     { path: '/getLichNv', component: getLichNv, name: 'getLichNv', meta: { requiresAuth: true } },
+    { path: '/listPhep', component: listsPhep, name: 'listPhep', meta: { requiresAuth: true } },
 ];
 const router = new VueRouter({
     mode: 'history',

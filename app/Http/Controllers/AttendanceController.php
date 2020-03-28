@@ -19,4 +19,10 @@ class AttendanceController extends Controller
     public function updateAttendance(Request $request){
         return $this->attendance->updateAttendance($request);
     }
+    public function listAttendance(Request $request){
+        return $this->attendance->listAttendance($request);
+    }
+    public function checkPhep(Request $request){
+        return $this->attendance->checkPhep($request);
+    }
 }

@@ -28,9 +28,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => 'jwt.verify'], function ($router) {
-    //Role
+    /**
+     * Todo Role
+     */
     Route::get('/Role','RoleController@all');
-    //List Employers
+    /**
+     * Todo List Employers
+     */ 
     Route::get('/allemployers/{limit}','EmployersController@index');
     Route::get('/deleteEmployer/{id}', 'EmployersController@destroy');
     Route::get('/getEmployer/{id}', 'EmployersController@get');
@@ -44,7 +48,9 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/getListUser','EmployersController@getListUser');
     Route::post('/delCawhereID','EmployersController@delCawhereID');
     Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany'); 
-    //List CaLam
+    /**
+     * Todo List CaLam
+     */
     Route::resource('/CaLam','CaLamController');
     Route::post('/addCalam','CaLamController@add');
     Route::get('/CalamID/{id}','CaLamController@getcalam');
@@ -52,23 +58,35 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/countCaLam','CaLamController@countCalam');
     Route::post('/editCalamUser', 'CaLamController@editCalamUser');
     Route::post('/delCalam', 'CaLamController@delCalam'); 
-    // /List Company
+    /**
+     * Todo List Company
+     */
     Route::resource('/company', 'CompanyController');
     Route::get('/getCompany/{limit}', 'CompanyController@getLimit');
-    //workshifts
+    /**
+     * Todo workshifts
+     */ 
     Route::post('/postWorkshifts','WorkshiftsController@postWorkshifts');
     Route::post('/checkWorkshiftsWhere','WorkshiftsController@checkWorkshiftsWhere');
     Route::post('/diemdanh','WorkshiftsController@diemdanh');
     Route::get('/getWorkshifts/{id}','WorkshiftsController@getWorkshifts');
     Route::post('/workshilftsByformDateUser','WorkshiftsController@workshilftsByformDateUser');
-    
-    // attendance
+    /**
+     * Todo attendance
+     */
     Route::post('/getAttendanceWhereId','AttendanceController@getAttendanceWhereId');
     Route::post('/getsWorkAttendance','AttendanceController@getsWorkAttendance');
     Route::post('/updateAttendance','AttendanceController@updateAttendance');
+    Route::post('/listAttendance', 'AttendanceController@listAttendance');
+    Route::post('/checkPhep', 'AttendanceController@checkPhep');
+    /**
+     * Todo Demo
+     */ 
+    Route::get('/getIp','HomeController@getIp');
 });
-
-//Login
+    /**
+     * Todo Login
+     */ 
 Route::resource('/login','LoginController');
 
 

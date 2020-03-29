@@ -79,6 +79,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/updateAttendance','AttendanceController@updateAttendance');
     Route::post('/listAttendance', 'AttendanceController@listAttendance');
     Route::post('/checkPhep', 'AttendanceController@checkPhep');
+    Route::post('/createPhep', 'AttendanceController@createPhep' );
     /**
      * Todo Demo
      */ 

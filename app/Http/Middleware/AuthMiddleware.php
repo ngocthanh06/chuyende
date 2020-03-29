@@ -21,11 +21,11 @@ class AuthMiddleware extends BaseMiddleware
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json([ 'message' => 'Token không hợp lệ', 'status' => 422, ], 422);
+                return response()->json([ 'message' => 'Token không hợp lệ', 'status' => 401 ], 401);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['message' => 'Token hết hạn',  'status' => 422, ], 422);
+                return response()->json(['message' => 'Token hết hạn',  'status' => 401 ], 401);
             }else{
-                return response()->json(['message' => 'Token không tìm thấy', 'status' => 422, ], 422);
+                return response()->json(['message' => 'Token không tìm thấy', 'status' => 401 ], 401);
             }
         }
         return $next($request); 

@@ -98,13 +98,15 @@
             <!-- Add CaLam -->
             <modelCalam v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage=" HandelPage"></modelCalam>
             <!-- Edit Calam -->
-            <EditModal ref="editCalam" v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage="HandelPage" v-on:OpenAdd="OpenAdd" v-on:diemdanh="diemdanh"></EditModal>
+            <EditModal ref="editCalam" v-on:createPheps="createPheps" v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage="HandelPage" v-on:OpenAdd="OpenAdd" v-on:diemdanh="diemdanh"></EditModal>
             <!-- addOnEdit -->
             <addchildModel ref="addCalam" v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage=" HandelPage"></addchildModel>
             <!-- diemdanh -->
-            <diemdanh ref="diemdanh" v-bind:calam="idCaLam" v-on:openPhep="openPhep"></diemdanh>
+            <diemdanh ref="diemdanh" v-on:EditCaLam="EditCaLam" v-bind:calam="idCaLam" v-on:openPhep="openPhep"></diemdanh>
             <!-- checkphep -->
             <checkPhep ref="checkPhep" v-on:openPhep="openPhep"></checkPhep>
+            <!-- createPhep -->
+            <createPhep ref="createPhep"></createPhep>
           </div>
         </div>
         <!-- nofitication -->
@@ -140,6 +142,7 @@ import moment from "moment";
 import addchildModel from "./addChildCalam.vue";
 import diemdanh from '../diemDanh/diemdanh.vue';
 import checkPhep from '../diemDanh/checkPhep';
+import createPhep from '../phep/createPhep';
 export default {
   components: {
     addModal,
@@ -147,7 +150,8 @@ export default {
     EditModal,
     addchildModel,
     diemdanh,
-    checkPhep
+    checkPhep,
+    createPhep
   },
   data() {
     return {
@@ -252,10 +256,6 @@ export default {
       this.$store.dispatch("allEmployerComp", this.company);
       this.setVal();
     },
-    hamAxios(companyId) {
-      // code
-      // em gọi axios chỗ này ne, em mún truyền cái gì vào cũng đc hết
-    },
     ChangeCaLam() {
       return this.$store.getters.getDatecaLam;
     },
@@ -318,9 +318,16 @@ export default {
      *  time:  WS_date
      *  response: mở form phép
      */
-    openPhep(work_id, time) { 
+    openPhep(work_id, time) {
       this.$refs.checkPhep.getAttendance(work_id, time)
+      this.$refs.diemdanh.checkPhep(work_id);
+      this.$refs.diemdanh.checkPhep(work_id);
     },
+
+    createPheps(val) {
+      this.$refs.createPhep.valuePhep(val);
+    }
+
   },
   computed: {
     // get all company

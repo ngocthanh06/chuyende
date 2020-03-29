@@ -25,4 +25,7 @@ class AttendanceController extends Controller
     public function checkPhep(Request $request){
         return $this->attendance->checkPhep($request);
     }
+    public function createPhep(Request $request){
+        return $this->attendance->createPhep($request);
+    }
 }

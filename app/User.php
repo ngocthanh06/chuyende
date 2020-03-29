@@ -57,4 +57,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Models\WorkShifts', 'User_id', 'User_id');
     }
+
+    public function company(){
+        return $this->belongsTo('App\Models\Company', 'idComp', 'idComp');
+    }
 }

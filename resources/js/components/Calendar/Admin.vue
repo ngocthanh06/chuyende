@@ -72,9 +72,15 @@
             <!-- Add CaLam -->
             <modelCalam v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage=" HandelPage"></modelCalam>
             <!-- Edit Calam -->
-            <EditModal ref="editCalam" v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage="HandelPage" v-on:OpenAdd="OpenAdd"></EditModal>
+            <EditModal ref="editCalam" v-on:createPheps="createPheps" v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage="HandelPage" v-on:OpenAdd="OpenAdd"  v-on:diemdanh="diemdanh"></EditModal>
             <!-- addOnEdit -->
             <addchildModel ref="addCalam" v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage=" HandelPage"></addchildModel>
+            <!-- diemdanh -->
+            <diemdanh ref="diemdanh" v-bind:calam="idCaLam" v-on:openPhep="openPhep"></diemdanh>
+            <!-- checkphep -->
+            <checkPhep ref="checkPhep" v-on:openPhep="openPhep"></checkPhep>
+            <!-- createPhep -->
+            <createPhep ref="createPhep"></createPhep>
           </div>
         </div>
         <!-- end list view -->
@@ -92,12 +98,18 @@ import EditModal from './EditModalCalam.vue';
 import modelCalam from './modelCalam.vue';
 import moment from 'moment';
 import addchildModel from './addChildCalam.vue';
+import diemdanh from '../diemDanh/diemdanh.vue';
+import checkPhep from '../diemDanh/checkPhep';
+import createPhep from '../phep/createPhep';
 export default {
   components: {
     addModal,
     modelCalam,
     EditModal,
-    addchildModel
+    addchildModel,
+    diemdanh,
+    checkPhep,
+    createPhep
   },
   data() {
     return {
@@ -244,6 +256,30 @@ export default {
     //Call addCalamm khi mở btn cộng trong chỉnh sửa
     OpenAdd() {
       this.$refs.addCalam.getCaLamUser();
+    },
+    //Call diemdanh 
+    //val : id form
+    //work : work_id
+    //status : 
+    diemdanh(val, work, status) {
+      this.$refs.diemdanh.nameDate(val, work);
+      this.$refs.diemdanh.checkPhep(work);
+      this.$refs.diemdanh.diemDanh(work);
+    },
+    /**
+     *  Call Điểm danh 
+     *  work_id: Work_id
+     *  time:  WS_date
+     *  response: mở form phép
+     */
+    openPhep(work_id, time) {
+      this.$refs.checkPhep.getAttendance(work_id, time)
+      this.$refs.diemdanh.checkPhep(work_id);
+      this.$refs.diemdanh.checkPhep(work_id);
+    },
+
+    createPheps(val) {
+      this.$refs.createPhep.valuePhep(val);
     }
   },
   computed: {

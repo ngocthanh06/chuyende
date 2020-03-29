@@ -24,6 +24,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Ngày</th>
                 <th scope="col">Tên nhân viên</th>
+                <th scope="col">Chi nhánh</th>
                 <th scope="col">Nội dung</th>
                 <th scope="col">Người duyệt</th>
                 <th scope="col">Nội dung người duyệt</th>
@@ -36,8 +37,10 @@
                 <td scope="row">{{key+1}}</td>
                 <td scope="row">{{formatDate(item.Att_time)}}</td>
                 <td scope="row">{{item.workshifts.user.User_fullname}}</td>
+                <td scope="row">{{item.workshifts.user.company.nameComp}}</td>
                 <td scope="row">{{item.Att_desc}}</td>
-                <td scope="row">{{item.user.User_fullname}}</td>
+                <td scope="row" v-if="item.user != null">{{item.user.User_fullname}}</td>
+                <td scope="row" v-else></td>
                 <td scope="row">{{item.Att_accept}}</td>
                 <td scope="row">
                   <el-tag v-if="item.Att_status === 0" type="info">

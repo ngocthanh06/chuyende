@@ -71,15 +71,17 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/diemdanh','WorkshiftsController@diemdanh');
     Route::get('/getWorkshifts/{id}','WorkshiftsController@getWorkshifts');
     Route::post('/workshilftsByformDateUser','WorkshiftsController@workshilftsByformDateUser');
+    Route::post('/getsWorkshilftsNV', 'WorkshiftsController@getsWorkshilftsNV');
     /**
      * Todo attendance
-     */
+     */    
     Route::post('/getAttendanceWhereId','AttendanceController@getAttendanceWhereId');
     Route::post('/getsWorkAttendance','AttendanceController@getsWorkAttendance');
     Route::post('/updateAttendance','AttendanceController@updateAttendance');
     Route::post('/listAttendance', 'AttendanceController@listAttendance');
     Route::post('/checkPhep', 'AttendanceController@checkPhep');
     Route::post('/createPhep', 'AttendanceController@createPhep' );
+    Route::post('/getsPhepNV', 'AttendanceController@getsPhepNV');
     /**
      * Todo Demo
      */ 

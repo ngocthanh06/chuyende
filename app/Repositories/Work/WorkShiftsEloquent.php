@@ -57,9 +57,23 @@ class WorkShiftsEloquent implements WorkShilftsInterface
                         ['User_id', $request['User_id'] ], 
                         ['WS_date', $request['WS_date'] ],
                         ['FormM_id' , $request['FormM_id'] ] 
-                            ])->first();
+                        ])
+                        ->first();
     }
     
-    
+    /**
+     * Todo gets all workshilfts each employer
+     * @param request => User_id | month
+     * * response => workshilfts
+     */
+    public function getsWorkshilftsNV($request){ 
+        $user_id = $request->User_id;
+        $month = explode(' - ',$request->month)[0];
+        $year = explode(' - ',$request->month)[1];
+        return Workshifts::with('formm')->where('User_id', $user_id)
+                        ->whereMonth('WS_date',$month)
+                        ->whereYear('WS_date',$year)
+                        ->get();
+    }
     
 }

@@ -34,6 +34,8 @@ import addChinhanh from '../components/ChiNhanh/addChinhanh.vue';
 // import SetCalendar from '../components/Calendar/Setcalendar.vue';
 //Phép
 import listsPhep from '../components/phep/listPhep';
+// user
+import infomation from '../components/Users/infomation';
 //Show lịch nhân viên
 import getLichNv from '../components/LichLamViec/showLich.vue';
 const routes = [
@@ -57,6 +59,8 @@ const routes = [
     { path: '/addChinhanh', component: addChinhanh, name: 'addChinhnanh', meta: { requiresAuth: true } },
     { path: '/getLichNv', component: getLichNv, name: 'getLichNv', meta: { requiresAuth: true } },
     { path: '/listPhep', component: listsPhep, name: 'listPhep', meta: { requiresAuth: true } },
+    { path: '/infomation', component: infomation, name: 'infomation', meta: { requiresAuth: true } },
+    { path: '/infoUser/:id', component: infomation, name: 'infoUser', meta: { requiresAuth: true } },
 ];
 const router = new VueRouter({
     mode: 'history',

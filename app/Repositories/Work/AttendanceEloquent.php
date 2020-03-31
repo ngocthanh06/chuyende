@@ -105,5 +105,21 @@ class AttendanceEloquent implements AttendanceInterface
         }
         return 'false';
     }
+    /**
+     * Todo check isset Attendances on day with 1 workshilfts
+     * @param request => Workshifts_id | Att_time
+     * * response => true | false
+     */
+    public function getsPhepNV($request){
+        $user_id = $request['User_id'];
+        $month = explode(' - ', $request['month'])[0];
+        $year = explode(' - ', $request['month'])[1];
+        return Attendance::with(['user','workshifts' => function ($q) use ($user_id) {
+                            $q->with('FormM');
+                            $q->where('User_id', $user_id);
+                        }])
+                        ->whereMonth('Att_time', $month)->whereYear('Att_time', $year)->get()
+                        ->toArray();
+    }
 }
 

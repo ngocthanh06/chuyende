@@ -12,4 +12,6 @@ interface CompanyInterface
    public function getLimit($limit);
 
    public function store($request);
+
+   public function destroy($id);
 }

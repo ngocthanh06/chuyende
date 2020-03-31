@@ -74,20 +74,25 @@ export default {
      * *Response tableData|valueTable
      */
     async getMonth() {
-      let arr = [];
       let route_id = this.$route.params.id;
       let User_id = this.currentUser.User_id;
       if (route_id) {
-        var val = await axios.post('/api/getsPhepNV', {
-          User_id: route_id,
-          month: this.month
-        });
+        this.getValues(route_id);
       } else {
-        var val = await axios.post('/api/getsPhepNV', {
-          User_id: User_id,
-          month: this.month
-        });
+        this.getValues(User_id);
       }
+    },
+    /**
+     * TODO get API list workshilfts employers
+     * @param user => user_id 
+     * *Response array value
+     */
+    async getValues(user) {
+      let arr = [];
+      var val = await axios.post('/api/getsPhepNV', {
+        User_id: user,
+        month: this.month
+      });
       if (val.data != '') {
         arr = val.data.filter((res) => {
           return res.workshifts != null
@@ -95,7 +100,11 @@ export default {
         this.valueTable = arr;
         this.tableData = arr;
         this.loading = false;
-      } else this.loading = true;
+      } else {
+        this.valueTable = [];
+        this.tableData = [];
+        this.loading = true;
+      }
     },
     /**
      * TODO change tableData when change radio button 

@@ -70,44 +70,55 @@ export default {
      * @param month => month, Year
      * *Response tableData|valueTable
      */
-    async getMonth() { 
+    async getMonth() {
       let route_id = this.$route.params.id;
       let User_id = this.currentUser.User_id;
-      if(route_id){
-        var val = await axios.post('/api/getsWorkshilftsNV', {
-          User_id: route_id,
-          month: this.month
-        });
+      if (route_id) {
+        this.getValues(route_id);
+      } else {
+        this.getValues(User_id);
       }
-      else {
-        var val = await axios.post('/api/getsWorkshilftsNV', {
-          User_id: User_id,
-          month: this.month
-        });
-      }
+    },
+    /**
+     * TODO get API list workshilfts employers
+     * @param user => user_id 
+     * *Response array value
+     */
+    async getValues(user) {
+      let arr = [];
+      var val = await axios.post('/api/getsWorkshilftsNV', {
+        User_id: user,
+        month: this.month
+      });
       if (val.data != '') {
         this.valueTable = val.data;
         this.tableData = val.data;
         this.loading = false;
-      } else this.loading = true;
+      } else {
+        this.tableData = [];
+        this.valueTable = [];
+        this.loading = true;
+      }
     },
     /**
      * TODO change tableData when change radio button 
      */
     changeRadio() {
-      if(this.valueTable != ''){
-      this.tableData = this.valueTable;
-      if (this.radio != 3) {
-        let val = this.tableData.filter((res) => {
-          return res.status == this.radio
-        });
-        this.tableData = val;
-      }
-    }else{this.$message({
+      if (this.valueTable != '') {
+        this.tableData = this.valueTable;
+        if (this.radio != 3) {
+          let val = this.tableData.filter((res) => {
+            return res.status == this.radio
+          });
+          this.tableData = val;
+        }
+      } else {
+        this.$message({
           message: 'Bạn chưa chọn tháng làm việc',
           type: 'warning',
           center: true
-        });}
+        });
+      }
     }
   },
   computed: {

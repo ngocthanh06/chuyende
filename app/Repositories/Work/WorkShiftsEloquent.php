@@ -70,6 +70,10 @@ class WorkShiftsEloquent implements WorkShilftsInterface
         $user_id = $request->User_id;
         $month = explode(' - ',$request->month)[0];
         $year = explode(' - ',$request->month)[1];
+        return Workshifts::with(['user','formm'])->where('User_id', $user_id)
+        ->whereMonth('WS_date',$month)
+        ->whereYear('WS_date',$year)
+        ->get();
         return Workshifts::with('formm')->where('User_id', $user_id)
                         ->whereMonth('WS_date',$month)
                         ->whereYear('WS_date',$year)

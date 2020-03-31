@@ -8,6 +8,7 @@ use App\Models\Company;
 use DB;
 use Hash;
 use Auth;
+use App\User;
 class CompanyEloquent implements CompanyInterface
 {
      //get all list Company
@@ -36,5 +37,14 @@ class CompanyEloquent implements CompanyInterface
         ]);
     }
     
+    public function destroy($id){
+        $listUser = User::where('idComp',$id)->get()->toArray();
+        if(empty($listUser)){
+            $company = Company::find($id);
+            $company->delete();
+            return 'true';
+        }
+        else return 'false';
+    }
     
 }

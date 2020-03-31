@@ -94,6 +94,6 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->company->destroy($id);
     }
 }

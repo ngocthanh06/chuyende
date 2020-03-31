@@ -17,18 +17,17 @@
               <el-table-column label="Di Động" prop="User_phone"></el-table-column>
               <!-- <el-table-column label="TK Ngân Hàng" prop="User_bank"></el-table-column> -->
               <el-table-column label="Chi tiết">
-              <template slot-scope="scope">
-                <el-tooltip class="item" effect="dark" content="Chi tiết nhân viên" placement="top-start">
-                  <router-link size="mini" class="el-button el-button--Success el-button--mini" :to="`/infoUser/${scope.row.User_id}`"><i class="el-icon-takeaway-box"></i></router-link>
-                </el-tooltip>
-              </template>
+                <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" content="Chi tiết nhân viên" placement="top-start">
+                    <router-link size="mini" class="el-button el-button--Success el-button--mini" :to="`/infoUser/${scope.row.User_id}`"><i class="el-icon-takeaway-box"></i></router-link>
+                  </el-tooltip>
+                </template>
               </el-table-column>
               <el-table-column label="Tùy chọn" align="right">
                 <template slot="header" slot-scope="scope">
                   <el-input v-model="search" size="mini" placeholder="Type to search" />
                 </template>
                 <template slot-scope="scope">
-
                   <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/${scope.row.User_id}`">Sửa</router-link>
                   <el-button size="mini" type="danger" @click="handleDelete(scope.row.User_id, scope.row)">Khóa</el-button>
                 </template>

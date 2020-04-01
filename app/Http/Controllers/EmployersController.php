@@ -79,6 +79,12 @@ class EmployersController extends Controller
     public function totalCong(Request $request){
         return $this->employer->totalCong($request);
     }
+    public function allEmployersDangder($limit){
+        return $this->employer->allEmployersDangder($limit);
+    }
+    public function openCompany($id){
+        return $this->employer->openCompany($id);
+    }
 
 
 }

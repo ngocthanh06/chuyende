@@ -9,8 +9,33 @@ use Hash;
 use App\User;
 use \App\Models\FormM;
 use App\Models\WorkShifts;
+use Carbon\Carbon;
 class EmployersEloquen implements EmployersInterface
 {
+    public function allEmployersDangder($limit){
+        try
+        {
+            return Employer::where('active', 0)->paginate($limit);
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['code' => 500, 'message' => 'Không có dữ liệu']);
+        }; 
+    }
+    public function openCompany($id){
+        try
+        {
+            $del = Employer::find($id);
+            $del['active'] = 1;
+            $del->save();
+            return response()
+                ->json(['code' => 200, 'messages' => 'Thành công']);
+        }
+        catch(Exception $e)
+        {
+            return response()->json(['code' => 500, 'message' => 'Không có dữ liệu']);
+        };
+    }
     //get all list employers
     public function getAll($limit)
     {
@@ -29,6 +54,7 @@ class EmployersEloquen implements EmployersInterface
         try
         {
             $del = Employer::find($id);
+            $del['Date_end'] = Carbon::now()->toDateTimeString();
             $del['active'] = 0;
             $del->save();
             return response()

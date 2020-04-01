@@ -16,6 +16,7 @@ import Employers from '../components/Employers/Show.vue';
 import AddEmployer from '../components/Employers/Add.vue';
 import EditEmployer from '../components/Employers/Edit.vue';
 import MainCalendar from '../components/Calendar/main.vue';
+import employerDanger from '../components/Employers/employerDanger';
 //Calam
 import AddCalam from '../components/CaLam/Add.vue';
 import ShowCaLam from '../components/CaLam/Show.vue';
@@ -64,7 +65,7 @@ const routes = [
     { path: '/infomation', component: infomation, name: 'infomation', meta: { requiresAuth: true } },
     { path: '/infoUser/:id', component: infomation, name: 'infoUser', meta: { requiresAuth: true } },
     { path: '/listCong', component: listCong, name: 'listCong', meta: { requiresAuth: true } },
-
+    { path: '/employerDanger', component: employerDanger, name: 'employerDanger', meta: { requiresAuth: true } }
 ];
 const router = new VueRouter({
     mode: 'history',

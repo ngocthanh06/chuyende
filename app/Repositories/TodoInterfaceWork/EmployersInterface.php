@@ -35,5 +35,8 @@ interface EmployersInterface
 
     public function totalCong($request);
 
+    public function allEmployersDangder($limit);
+
+    public function openCompany($id);
     
 }

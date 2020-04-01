@@ -38,9 +38,11 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::get('/allemployers/{limit}','EmployersController@index');
     Route::get('/deleteEmployer/{id}', 'EmployersController@destroy');
     Route::get('/getEmployer/{id}', 'EmployersController@get');
+    Route::get('/allEmployersDangder/{limit}','EmployersController@allEmployersDangder');
+    Route::get('/empCompany/{id}','EmployersController@EmpCompany');
+    Route::get('/openCompany/{id}','EmployersController@openCompany');
     Route::post('/addEmployer', 'EmployersController@add');
     Route::post('/editEmployer/{id}', 'EmployersController@Edit');
-    Route::get('/empCompany/{id}','EmployersController@EmpCompany');
     Route::post('/addEmployersSpead','EmployersController@AddSpead');
     Route::post('/getsNgayLvNv', 'EmployersController@getsNgayLvNv');
     Route::post('/demoPost','EmployersController@demoPost');

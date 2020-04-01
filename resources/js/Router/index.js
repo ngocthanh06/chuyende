@@ -38,6 +38,8 @@ import listsPhep from '../components/phep/listPhep';
 import infomation from '../components/Users/infomation';
 //Show lịch nhân viên
 import getLichNv from '../components/LichLamViec/showLich.vue';
+//Công
+import listCong from '../components/cong/listCong';
 const routes = [
     { path: '/login', component: login, name: 'login' },
     { path: '/register', component: register, name: 'register' },
@@ -61,6 +63,8 @@ const routes = [
     { path: '/listPhep', component: listsPhep, name: 'listPhep', meta: { requiresAuth: true } },
     { path: '/infomation', component: infomation, name: 'infomation', meta: { requiresAuth: true } },
     { path: '/infoUser/:id', component: infomation, name: 'infoUser', meta: { requiresAuth: true } },
+    { path: '/listCong', component: listCong, name: 'listCong', meta: { requiresAuth: true } },
+
 ];
 const router = new VueRouter({
     mode: 'history',

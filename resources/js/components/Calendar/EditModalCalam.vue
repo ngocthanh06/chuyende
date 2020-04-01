@@ -16,7 +16,7 @@
               <div class="name">{{val.form_m.FormM_name}}</div>
               <span class="clock-in-out-time text-secondary font-size-10" v-if="val.status == 0" style="color: #900C3F!important" >Chưa Điểm danh</span>
               <span class="clock-in-out-time text-secondary font-size-10" v-else-if="val.status == 1" style="color: #FF0000 !important"  >Không đi làm</span>
-              <span class="clock-in-out-time text-secondary font-size-10" v-else style="color: #0000FF !important">Đã Điểm danh </br> (Vào: {{val.WS_time_in}} - Ra: {{val.WS_time_out}})</span>
+              <span class="clock-in-out-time text-secondary font-size-10" v-else style="color: #0000FF !important">Đã Điểm danh <br> (Vào: {{val.WS_time_in}} - Ra: {{val.WS_time_out}})</span>
               <div class="overlay-action">
                 <button v-if="checkRole != 1" type="button" class="action" trigger="click" @click="diemdanh(val.FormM_id, val.Work_id, val.status)" href="#diemdanh" data-target="#diemdanh" data-toggle="modal" >
                     <i aria-label="icon: eye" class="anticon anticon-eye">

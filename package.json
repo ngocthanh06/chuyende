@@ -13,12 +13,11 @@
         "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
-        "popper.js": "^1.12",
+        "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.20.1",
+        "sass": "^1.26.3",
         "sass-loader": "7.*",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
@@ -26,10 +25,11 @@
     "dependencies": {
         "element-ui": "^2.13.0",
         "flatpickr": "^4.6.3",
+        "jquery": "^3.4.1",
         "moment": "^2.24.0",
         "vform": "^1.0.1",
-        "vue-router": "^3.1.5",
+        "vue-router": "^3.1.6",
         "vuejs-paginate": "^2.1.0",
-        "vuex": "^3.1.2"
+        "vuex": "^3.1.3"
     }
 }

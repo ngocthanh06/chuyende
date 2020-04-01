@@ -43,7 +43,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" @click="onSubmit()" data-dismiss="modal" aria-hidden="true">Lưu</button>
-        <button class="btn btn-default" @click="handleClose" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-default" @click="handleClose()" data-dismiss="modal" aria-hidden="true">Đóng</button>
       </div>
     </div>
   </div>

@@ -48,6 +48,8 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/getListUser','EmployersController@getListUser');
     Route::post('/delCawhereID','EmployersController@delCawhereID');
     Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany'); 
+    Route::post('/getCongNv', 'EmployersController@getCongNv');
+    Route::post('/totalCong','EmployersController@totalCong');
     /**
      * Todo List CaLam
      */

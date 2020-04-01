@@ -74,10 +74,6 @@ class WorkShiftsEloquent implements WorkShilftsInterface
         ->whereMonth('WS_date',$month)
         ->whereYear('WS_date',$year)
         ->get();
-        return Workshifts::with('formm')->where('User_id', $user_id)
-                        ->whereMonth('WS_date',$month)
-                        ->whereYear('WS_date',$year)
-                        ->get();
     }
     
 }

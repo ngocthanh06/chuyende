@@ -31,7 +31,9 @@ interface EmployersInterface
 
     public function getEmployersByCompany($request);
 
- 
+    public function getCongNv($request);
+
+    public function totalCong($request);
 
     
 }

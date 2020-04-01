@@ -72,8 +72,13 @@ class EmployersController extends Controller
         return $this->employer->getListUser($request);
     }
 
+    public function getCongNv(Request $request){
+        return $this->employer->getCongNv($request);
+    }
     
-    
+    public function totalCong(Request $request){
+        return $this->employer->totalCong($request);
+    }
 
 
 }

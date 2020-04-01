@@ -4,6 +4,10 @@ window.Vue = require('vue');
 import Layout from './components/Layouts/main.vue';
 import route from './Router';
 
+import jQuery from "jquery";
+
+window.jQuery = window.$ = jQuery
+
 import UI from 'element-ui';
 import VueRouter from 'vue-router';
 //vuex

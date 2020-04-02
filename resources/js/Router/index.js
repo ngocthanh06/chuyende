@@ -41,6 +41,10 @@ import infomation from '../components/Users/infomation';
 import getLichNv from '../components/LichLamViec/showLich.vue';
 //Công
 import listCong from '../components/cong/listCong';
+//Chức vụ
+import listChucvu from '../components/chucVu/show';
+import addChucvu from '../components/chucVu/create';
+import editChucvu from '../components/chucVu/edit';
 const routes = [
     { path: '/login', component: login, name: 'login' },
     { path: '/register', component: register, name: 'register' },
@@ -65,7 +69,10 @@ const routes = [
     { path: '/infomation', component: infomation, name: 'infomation', meta: { requiresAuth: true } },
     { path: '/infoUser/:id', component: infomation, name: 'infoUser', meta: { requiresAuth: true } },
     { path: '/listCong', component: listCong, name: 'listCong', meta: { requiresAuth: true } },
-    { path: '/employerDanger', component: employerDanger, name: 'employerDanger', meta: { requiresAuth: true } }
+    { path: '/employerDanger', component: employerDanger, name: 'employerDanger', meta: { requiresAuth: true } },
+    { path: '/listChucvu', component: listChucvu, name: 'listChucvu', meta: { requiresAuth: true } },
+    { path: '/addChucvu', component: addChucvu, name: 'addChucvu', meta: { requiresAuth: true } },
+    { path: '/editChucvu/:id', component: editChucvu, name: 'editChucvu', meta: { requiresAuth: true } },
 ];
 const router = new VueRouter({
     mode: 'history',

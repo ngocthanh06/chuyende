@@ -52,6 +52,10 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany'); 
     Route::post('/getCongNv', 'EmployersController@getCongNv');
     Route::post('/totalCong','EmployersController@totalCong');
+     /**
+     * Todo List Chức vụ
+     */
+    Route::resource('/chucvu','chucvuController');
     /**
      * Todo List CaLam
      */

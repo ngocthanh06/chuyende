@@ -41,6 +41,8 @@ class chucvuController extends Controller
             'Role_name.unique' => 'Tên role đã tồn tại'
         ]);
         $role = new Role();
+        $role['coefficient'] = $request['coefficient'];
+        $role['price'] = $request['price'];
         $role['Role_name'] = $request['Role_name'];
         $role['Role_desc'] = $request['Role_desc'];
         $role->save();        
@@ -78,6 +80,8 @@ class chucvuController extends Controller
     public function update(Request $request, $id)
     {
         $role = Role::find($id);
+        $role['coefficient'] = $request['coefficient'];
+        $role['price'] = $request['price'];
         $role['Role_name'] = $request['Role_name'];
         $role['Role_desc'] = $request['Role_desc'];
         $role->save(); 

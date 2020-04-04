@@ -86,5 +86,8 @@ class EmployersController extends Controller
         return $this->employer->openCompany($id);
     }
 
+    public function userPerMiss(Request $request){
+        return $this->employer->userPerMiss($request);
+    }
 
 }

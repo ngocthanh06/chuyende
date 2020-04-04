@@ -52,6 +52,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/getEmployersByCompany', 'EmployersController@getEmployersByCompany'); 
     Route::post('/getCongNv', 'EmployersController@getCongNv');
     Route::post('/totalCong','EmployersController@totalCong');
+    Route::post('/userPerMiss', 'EmployersController@userPerMiss');
      /**
      * Todo List Chức vụ
      */
@@ -90,6 +91,19 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/checkPhep', 'AttendanceController@checkPhep');
     Route::post('/createPhep', 'AttendanceController@createPhep' );
     Route::post('/getsPhepNV', 'AttendanceController@getsPhepNV');
+
+    /**
+     * Todo prepayment
+     */ 
+    Route::resource('/prepayment', 'PrepaymentController');
+    Route::post('checkPrepay','PrepaymentController@checkPrepay');
+
+    /**
+     * Todo permission
+     */ 
+    Route::post('/checkIssetPermission','permissionController@checkIssetPermission');
+
+
     /**
      * Todo Demo
      */ 

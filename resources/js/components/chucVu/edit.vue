@@ -16,6 +16,12 @@
             <el-input placeholder="Nhập tên chức vụ" :class="{ 'is-invalid':  ruleForm.errors.has('Role_name') }" v-model.number="ruleForm.Role_name"></el-input>
             <has-error :form="ruleForm" field="Role_name"></has-error>
           </el-form-item>
+          <el-form-item label="Hệ số lương" prop="coefficient" required>
+            <el-input-number v-model="ruleForm.coefficient" :step="0.1" controls-position="right" :min="1" :max="10"></el-input-number>
+          </el-form-item>
+          <el-form-item label="Giá mỗi giờ" prop="price" required>
+            <el-input v-model="ruleForm.price" type="number" controls-position="right" :min="1" :max="10"></el-input>
+          </el-form-item>
           <el-form-item label="Ghi chú" prop="desc">
             <el-input type="textarea" placeholder="Nhập ghi chú" v-model="ruleForm.Role_desc"></el-input>
           </el-form-item>
@@ -37,6 +43,8 @@ export default {
       ruleForm: new Form({
         Role_name: '',
         Role_desc: '',
+        coefficient: '',
+        price: ''
       }),
       rules: {
         Role_name: [{

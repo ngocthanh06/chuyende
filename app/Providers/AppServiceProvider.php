@@ -9,6 +9,10 @@ use App\Repositories\TodoInterfaceWork\CompanyInterface;
 use App\Repositories\TodoInterfaceWork\FormMCaLamInterface;
 use App\Repositories\TodoInterfaceWork\WorkShilftsInterface;
 use App\Repositories\TodoInterfaceWork\AttendanceInterface;
+use App\Repositories\TodoInterfaceWork\PrepaymentInterface;
+use App\Repositories\TodoInterfaceWork\permissionInterface;
+use App\Repositories\Work\permissionEloquent;
+use App\Repositories\Work\PrepaymentEloquent;
 use App\Repositories\Work\AttendanceEloquent;
 use App\Repositories\Work\WorkShiftsEloquent;
 use App\Repositories\Work\FormMCalamEloquent;
@@ -24,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(permissionInterface::class, permissionEloquent::class);
+        $this->app->singleton(PrepaymentInterface::class, PrepaymentEloquent::class);
         $this->app->singleton(EmployersInterface::class, EmployersEloquen::class);
         $this->app->singleton(SupportInterface::class, SupportEloquent::class);
         $this->app->singleton(CompanyInterface::class, CompanyEloquent::class);

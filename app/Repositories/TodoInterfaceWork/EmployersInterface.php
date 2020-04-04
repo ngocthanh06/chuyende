@@ -39,4 +39,5 @@ interface EmployersInterface
 
     public function openCompany($id);
     
+    public function userPerMiss($id);
 }

@@ -239,5 +239,21 @@ class EmployersEloquen implements EmployersInterface
                           
     }
 
+    /**
+     * Todo get count cong
+     * @param $request: => date | month + year
+     * * Response: arr[]
+     */
+    public function userPerMiss($request) {
+        $User_id = $request->id;
+        $day = explode('-', $request->date);
+        $month = $day[0];
+        $year = $day[1]; 
+        return User::with(array('role' , 'workshifts' => function ($q) use ($month, $year) {
+            $q->whereMonth('WS_date', $month);
+            $q->whereYear('WS_date', $year); 
+            $q->where('status', 2);
+        }))->where('User_id', $User_id)->first();
+    }
 }
 

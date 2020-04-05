@@ -1,41 +1,49 @@
 <template>
-   <section class="calendar">
-    <div class="card">
-      <div class="card-body">
-        <div class="list-view">
-          <!-- end title -->
-          <div class="content">
-            <el-tabs v-model="activeName" @tab-click="handleClick">
-              <el-tab-pane label="Thống kê công" name="calamNhanvien">
-                <thongke></thongke>
-              </el-tab-pane>
-              <el-tab-pane label="Lương" name="luong">
-                luong
-              </el-tab-pane> 
-            </el-tabs>
-          </div>
+<section class="calendar">
+  <div class="card">
+    <div class="card-body">
+      <div class="list-view">
+        <!-- end title -->
+        <div class="content">
+          <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="Thống kê công" name="calamNhanvien">
+              <thongke></thongke>
+            </el-tab-pane>
+            <el-tab-pane label="Danh sách nhân viên tạm ứng" name="listTamung">
+              <listTamung ref="listTamung"></listTamung>
+            </el-tab-pane>
+            <el-tab-pane label="Lương" name="luong">
+              luong
+            </el-tab-pane>
+          </el-tabs>
         </div>
-        <!-- end list view -->
       </div>
-      <!-- end card-body -->
+      <!-- end list view -->
     </div>
-    <!-- end card -->
-  </section>
+    <!-- end card-body -->
+  </div>
+  <!-- end card -->
+</section>
 </template>
+
 <script>
+import listTamung from './listTamung';
 import thongke from './thongke';
 export default {
-  components:{
-    thongke
+  components: {
+    thongke,
+    listTamung
   },
-  data(){
+  data() {
     return {
       activeName: 'first'
     }
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      if (tab.name == 'listTamung') {
+        this.$refs.listTamung.loadVal();
+      }
     }
   }
 }

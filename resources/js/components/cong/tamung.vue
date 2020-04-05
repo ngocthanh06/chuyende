@@ -94,7 +94,7 @@ export default {
      */
     loadVal() {
       this.month = this.getTimeNow;
-      this.ruleForm.per_time = moment().format("YYYY-DD-MM");
+      this.ruleForm.per_time = moment().format("YYYY-MM-DD");
       this.checkIssetPermission();
     },
     /**

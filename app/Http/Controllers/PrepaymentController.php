@@ -92,4 +92,13 @@ class PrepaymentController extends Controller
     public function checkPrepay(Request $request){
         return $this->prepay->checkPrepay($request);
     }
+    public function loadPrepayment(Request $request){
+        return $this->prepay->loadPrepayment($request);
+    }
+    public function editStatus($id){
+        return $this->prepay->editStatus($id);
+    }
+    public function listAll(Request $request){
+        return $this->prepay->listAll($request);
+    }
 }

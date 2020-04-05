@@ -96,13 +96,14 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
      * Todo prepayment
      */ 
     Route::resource('/prepayment', 'PrepaymentController');
-    Route::post('checkPrepay','PrepaymentController@checkPrepay');
-
+    Route::post('/checkPrepay','PrepaymentController@checkPrepay');
+    Route::post('/loadPrepayment','PrepaymentController@loadPrepayment');
+    Route::get('/editStatus/{id}', 'PrepaymentController@editStatus');
+    Route::post('/listAll','PrepaymentController@listAll');
     /**
      * Todo permission
      */ 
     Route::post('/checkIssetPermission','permissionController@checkIssetPermission');
-
 
     /**
      * Todo Demo

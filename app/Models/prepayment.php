@@ -8,4 +8,8 @@ class prepayment extends Model
 {
     protected $table = 'prepayment';
     protected $primaryKey = 'pre_id'; 
+
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id', 'User_id');
+    }
 }

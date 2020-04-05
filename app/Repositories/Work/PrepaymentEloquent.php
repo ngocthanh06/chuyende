@@ -4,6 +4,7 @@ namespace App\Repositories\Work;
 
 use App\Repositories\TodoInterfaceWork\PrepaymentInterface;
 use App\Models\prepayment;
+use App\User;
 
 class PrepaymentEloquent implements PrepaymentInterface
 {
@@ -56,5 +57,36 @@ class PrepaymentEloquent implements PrepaymentInterface
             ->whereMonth('per_time', $month)->whereYear('per_time', $year)->get();
     }
 
+    public function loadPrepayment($request){
+        $user_id =  $request->user_id;
+        $date = explode('-', $request->time);
+        $month = $date[0];
+        $year = $date[1];
+        return prepayment::with(['user' => function ($q){
+                        $q->with('role');
+                        }])
+                        ->where('user_id', $user_id)
+                        ->whereMonth('per_time', $month)
+                        ->whereYear('per_time', $year)
+                        ->get();
+    }
+    public function listAll($request){
+        $date = explode('-', $request->time);
+        $month = $date[0];
+        $year = $date[1];
+        return prepayment::with(['user' => function ($q){
+            $q->with('role');
+            }])
+            ->whereMonth('per_time', $month)
+            ->whereYear('per_time', $year)
+            ->get();
+    }
+    public function editStatus($id){
+        $prepayment = prepayment::find($id);
+        $prepayment['status'] = 1;
+        $prepayment->save();
+        return response()
+                ->json(['code' => '200', 'messages' => 'Thêm thành công']); 
+    }
 }
 

@@ -65,4 +65,7 @@ class User extends Authenticatable implements JWTSubject
     public function role(){
         return $this->belongsTo('App\Models\Role', 'Role_id', 'Role_id');
     }
+    public function prepayment(){
+        return $this->hasMany('App\Models\prepayment', 'user_id', 'User_id');
+    }
 }

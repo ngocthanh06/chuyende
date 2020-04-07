@@ -11,6 +11,7 @@ $factory->define(Employer::class, function (Faker $faker) {
         'username' => rand(1,100),
         'Birthday' => $faker->date('y-m-d'),
         'sex' => 1,
+        'Role_id' => 1,
         'User_add' => $faker->title,
         'User_phone' => rand(1,100),
         'User_bank' => rand(1,100),

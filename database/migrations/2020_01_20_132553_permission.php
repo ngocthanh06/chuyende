@@ -22,7 +22,7 @@ class Permission extends Migration
             $table->double('bonus')->nullable(); 
             $table->double('error')->nullable();
             $table->dateTime('day_pay')->nullable();
-            $table->integet('qty')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
         });
     }

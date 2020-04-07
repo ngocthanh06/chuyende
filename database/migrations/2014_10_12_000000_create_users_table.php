@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('Date_start')->nullable();
             $table->dateTime('Date_end')->nullable();
             $table->boolean('active')->nullable()->default(1);
-            $table->integer(`idComp`)->nullable();
+            $table->integer('idComp')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

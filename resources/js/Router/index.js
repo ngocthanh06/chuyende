@@ -73,6 +73,7 @@ const routes = [
     { path: '/listChucvu', component: listChucvu, name: 'listChucvu', meta: { requiresAuth: true } },
     { path: '/addChucvu', component: addChucvu, name: 'addChucvu', meta: { requiresAuth: true } },
     { path: '/editChucvu/:id', component: editChucvu, name: 'editChucvu', meta: { requiresAuth: true } },
+    { path: '/editUserNV', component: EditEmployer, name: 'editUser', meta: { requiresAuth: true } }
 ];
 const router = new VueRouter({
     mode: 'history',
@@ -82,7 +83,8 @@ const router = new VueRouter({
 });
 //Check Login/Louout with Role_id when using Route-Link
 router.beforeEach((to, from, next) => {
-        let routes = ['/employers', '/Show-Calam', '/Set-Calendar'];
+        let routes = ['/employers', '/Show-Calam', '/Set-Calendar', '/getLichNv', '/listPhep', '/listCong', '/getChinhanh', '/listChucvu'];
+        let routeAd = ['/ad-calendar', '/infomation', '/editUserNV'];
         //Get value meta router-link
         const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
         //Get value userlogin valid access_token
@@ -91,8 +93,10 @@ router.beforeEach((to, from, next) => {
             next('/login');
         } else if (currentUser && routes.indexOf(to.path) != -1) {
             if (currentUser.Role_id == 1) { next('/ad-calendar') } else next();
+        } else if (currentUser && routeAd.indexOf(to.path) != -1) {
+            if (currentUser.Role_id == 2) { next('/employers') } else next();
         } else if (to.path == '/login' && localStorage.access_token) {
-            next('/home');
+            next('/');
         } else {
             next();
         }

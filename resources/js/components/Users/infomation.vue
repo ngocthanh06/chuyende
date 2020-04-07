@@ -25,7 +25,6 @@
               <el-tab-pane label="Lương" name="luong">
                 <luong ref="luong"></luong>
               </el-tab-pane>
-              <el-tab-pane label="Thông tin tài khoản" name="fourth3">Phép3</el-tab-pane>
             </el-tabs>
           </div>
         </div>

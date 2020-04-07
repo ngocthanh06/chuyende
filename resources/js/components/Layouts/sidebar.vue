@@ -16,7 +16,7 @@
         </router-link>
       </router-link>
     </li>
-     <li class="sidebar-nav-item">
+    <li class="sidebar-nav-item">
       <router-link to="/infomation" class="sidebar-nav-link active">
         <span class="sidebar-nav-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-minus">
@@ -27,6 +27,17 @@
         </span>
         <router-link to="/infomation" href="#" class="nav-link">
           Thông tin
+        </router-link>
+      </router-link>
+    </li>
+
+    <li class="sidebar-nav-item">
+      <router-link to="/infomation" class="sidebar-nav-link active">
+        <span class="sidebar-nav-icon">
+          <i class="el-icon-edit-outline"></i>
+        </span>
+        <router-link to="/editUserNV" href="#" class="nav-link">
+          Sửa thông tin người dùng
         </router-link>
       </router-link>
     </li>
@@ -75,8 +86,6 @@
         </router-link>
       </router-link>
     </li>
-
-    
 
     <li class="sidebar-nav-item">
       <router-link to="/listPhep" class="sidebar-nav-link active">
@@ -172,7 +181,7 @@
 
   <ul v-else class="sidebar-nav">
     <li class="sidebar-nav-item">
-     <router-link to="/employers" class="sidebar-nav-link active">
+      <router-link to="/employers" class="sidebar-nav-link active">
         <span class="sidebar-nav-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>

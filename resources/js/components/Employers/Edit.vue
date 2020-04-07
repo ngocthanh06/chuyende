@@ -9,13 +9,13 @@
       <el-input v-model="ruleForm.User_fullname"></el-input>
     </el-form-item>
     <el-form-item label="Tên Tài Khoản" prop="username" required>
-      <el-input :class="{ 'is-invalid': ruleForm.errors.has('username') }" v-model="ruleForm.username"></el-input>
+      <el-input :class="{ 'is-invalid': ruleForm.errors.has('username') }" disabled v-model="ruleForm.username"></el-input>
       <has-error :form="ruleForm" field="username"></has-error>
     </el-form-item>
     <el-form-item required label="Mật Khẩu" prop="password">
       <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
     </el-form-item>
-    <el-form-item label="Chức vụ" prop="Role_id" required>
+    <el-form-item label="Chức vụ" v-if="this.currentUser.Role_id == 2" prop="Role_id" required>
       <el-col :span="5">
         <el-form-item>
           <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
@@ -29,7 +29,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item label="Ngày làm việc" required prop="Date_start">
+        <el-form-item v-if="this.currentUser.Role_id == 2" label="Ngày làm việc" required prop="Date_start">
           <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày bắt đầu làm việc" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Date_start" style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-col>
@@ -44,7 +44,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item label="Chi nhánh( Nếu có)" prop="idComp" required="">
+        <el-form-item v-if="this.currentUser.Role_id == 2" label="Chi nhánh( Nếu có)" prop="idComp" required="">
           <el-select v-model="ruleForm.idComp" placeholder="Chọn chi nhánh làm việc cho nhân viên">
             <el-option label="Chọn chi nhánh" :disabled="true" value=""></el-option>
             <el-option v-for="item in getCompanies" :key="item.idComp" :label="item.nameComp" :value="item.idComp"></el-option>
@@ -196,12 +196,12 @@ export default {
 
     //Xử lý submit
     submitForm(formName, value) {
+      if(!this.$route.params.id) var user_id = this.currentUser.User_id;
+      else var user_id = this.$route.params.id;
       this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          try {
-            this.ruleForm.post(`/api/editEmployer/${this.$route.params.id}`).then((res) => {
-              console.log(res);
+            this.ruleForm.post(`/api/editEmployer/${user_id}`).then((res) => {
               if (res.data.code == 200) {
                 this.$router.push('/employers');
                 this.$message({
@@ -215,9 +215,7 @@ export default {
                 });
               }
             })
-          } catch (e) {
-            console.log(e);
-          }
+           
         } else {
           console.log('error submit!!');
           return false;
@@ -251,7 +249,9 @@ export default {
     },
     //Lấy thông tin người dùng 
     async getUser() {
-      let json = await axios.get(`/api/getEmployer/${this.$route.params.id}`);
+      if(!this.$route.params.id) var user_id = this.currentUser.User_id;
+      else var user_id = this.$route.params.id;
+      let json = await axios.get(`/api/getEmployer/${user_id}`);
       json.data.sex == 1 ? json.data.sex = 'Nam' : json.data.sex = 'Nữ';
       this.ruleForm.fill(json.data);
     },
@@ -283,6 +283,9 @@ export default {
     },
     getRole() {
       return this.$store.getters.getRole;
+    },
+    currentUser(){
+      return this.$store.getters.currentUser;
     }
 
   },

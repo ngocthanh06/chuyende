@@ -65,7 +65,7 @@ class permissionEloquent implements permissionInterface
             $k->whereMonth('Per_time', $month);
             $k->whereYear('Per_time', $year);
         }
-        ])->paginate($limit);
+        ])->where('Role_id', 1)->paginate($limit);
     }
 
     /**
@@ -89,7 +89,7 @@ class permissionEloquent implements permissionInterface
             $k->whereMonth('Per_time', $month);
             $k->whereYear('Per_time', $year);
         }
-        ])->where('idComp', $idComp)->paginate($limit);
+        ])->where([['idComp', $idComp],['Role_id', 1]])->paginate($limit);
     }
 
     /**

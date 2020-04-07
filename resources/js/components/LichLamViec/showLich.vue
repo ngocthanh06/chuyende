@@ -9,12 +9,6 @@
               <div class="form-group flatpickr">
                 <input id="datepicker" class="form-control mb-2 date-default flatpickr-input active" v-model="dateValueNow" type="text" placeholder="Chọn ngày" />
               </div>
-              <!-- Theo tuần -->
-              <div class="form-group flatpickr">
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option v-for="item in Option" :key="item.id" :value="item.id">{{item.value}}</option>
-                </select>
-              </div>
               <!-- end theo tuần -->
               <!-- chọn công ty -->
               <div class="form-group flatpickr">
@@ -89,7 +83,7 @@
             </addCalamforUser>
 
             <!-- điểm danh -->
-             <diemdanh ref="diemdanh" v-on:openPhep="openPhep" v-bind:calam="idCaLam"></diemdanh>
+             <diemdanh ref="diemdanh" v-on:kiemtraCalam="kiemtraCalam" v-on:openPhep="openPhep" v-bind:calam="idCaLam"></diemdanh>
           <!-- checkphep -->
             <checkPhep ref="checkPhep" v-on:openPhep="openPhep"></checkPhep>
           </div>
@@ -140,39 +134,12 @@ export default {
       dateValueNow: "",
       numWeek: "",
       numYear: "",
-      Option: [{
-          id: 1,
-          value: "Theo tuần"
-        },
-        {
-          id: 2,
-          value: "Theo tháng"
-        }
-      ],
       titleRight: [{
           id: 1,
           icon: "oi oi-spreadsheet",
           value: " Ca làm",
           link: "/Show-Calam"
         },
-        {
-          id: 2,
-          icon: "oi oi-layers",
-          value: " Xếp ca",
-          link: ""
-        },
-        {
-          id: 3,
-          icon: "oi oi-timer",
-          value: " Vào/ra",
-          link: ""
-        },
-        {
-          id: 4,
-          icon: "oi oi-data-transfer-download",
-          value: " Xuất Excel",
-          link: ""
-        }
       ],
       company: "",
       ValueCaLam: [],
@@ -282,6 +249,7 @@ export default {
         date: this.getDatecaLam
       }).then(res => {
         this.ValueCaLam = res.data;
+        // this.$refs.editClam.getListUser();
       }).catch();
     },
 
@@ -298,11 +266,10 @@ export default {
       this.NameDateCalam['idComp'] = this.company;
       this.idCaLam.WS_date = date; 
       this.$refs.editClam.getClamUser();
-
     },
-
-    kiemtraCalam(val, date) {
-
+    
+    kiemtraCalam() {
+      this.$refs.editClam.getListUser();
     },
     /*
      * detail: handle when click close form 

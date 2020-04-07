@@ -106,6 +106,7 @@ export default {
               });
               this.handleClose();
               this.$emit('EditCaLam',this.calam.User_id, this.calam.WS_date);
+              this.kiemtraCalam();
             }
           })
     },
@@ -169,72 +170,9 @@ export default {
         }
       })
     },
-
-    // checkPhep(work,status){
-    //   this.form.status = status;
-    //   axios.post('/api/getAttendanceWhereId',{Workshifts_id: work, Att_time: this.calam.WS_date}).then(res=>{
-    //         if(res.data === ''){
-    //           this.disable.attendance3 = true; 
-    //           this.disable.attendance2 = true;
-    //           this.disable.attendance1 = true;
-    //         }
-    //         if(res.data != null && res.data.Att_status === 1){
-    //             this.attendance = 0;
-    //             this.disable.attendance1 = true;
-    //             this.disable.attendance2 = true; 
-    //             this.form.status = 1;
-    //         }
-
-    //         // chưa điểm danh 
-    //         // if(res.data === '' && this.form.status === 0){
-    //         //   this.attendance = 2;
-    //         //   this.disable.attendance2 = false;
-    //         //   this.disable.attendance1 = true;
-    //         //   this.disable.attendance3 = true; 
-    //         // } 
-    //         // if(res.data != null && res.data.Att_status === 0 && this.form.status === 0 ){
-    //         //     this.attendance = 0;
-    //         //     this.disable.attendance1 = true;
-    //         //     this.disable.attendance2 = true; 
-    //         // }
-    //         //  if(res.data != null && res.data.Att_status === 1 && this.form.status === 0 ){
-    //         //     this.attendance = 1;//Có phép
-    //         //     this.disable.attendance3 = true; 
-    //         //     this.disable.attendance2 = true; 
-    //         // }
-    //         // if(res.data != null && res.data.Att_status === 2 &&  this.form.status === 0){
-    //         //     this.attendance = 2;
-    //         //     this.disable.attendance1 = true;
-    //         //     this.disable.attendance3 = true;  
-    //         // } 
-    //         // //nghỉ có phép
-    //         // if(res.data != null && res.data.Att_status === 1 &&  this.form.status === 1){
-    //         //     this.attendance = 1;//Có phép
-    //         //     this.disable.attendance3 = true; 
-    //         //     this.disable.attendance2 = true; 
-    //         // } 
-    //         // //nghỉ làm không chưa duyệt phép
-    //         // if(res.data != null && res.data.Att_status === 0 &&  this.form.status === 1){
-    //         //     this.attendance = 0;
-    //         //     this.disable.attendance1 = true;
-    //         //     this.disable.attendance2 = true;  
-    //         // } 
-    //         // //nghỉ làm không phép
-    //         // if(res.data != null && res.data.Att_status === 2 &&  this.form.status === 1){
-    //         //     this.attendance = 2;
-    //         //     this.disable.attendance1 = true;
-    //         //     this.disable.attendance3 = true;  
-    //         // } 
-    //         // // đang duyệt
-    //         // if(res.data != null && this.form.status === 2){
-    //         //   this.disable.attendance3 = true;
-    //         //   this.disable.attendance2 = true;
-    //         //   this.disable.attendance1 = true; 
-    //         // }
-
-    //     })
-
-    // },
+    kiemtraCalam(){
+      this.$emit('kiemtraCalam');
+    },
     openPhep() {
       this.$emit('openPhep', this.form.Work_id, this.calam.WS_date);
     }

@@ -151,14 +151,19 @@ class EmployersEloquen implements EmployersInterface
     //Lấy danh sách người dùng đã đăng ký ca làm trong ngày
     public function getsArrUser($request)
     {
-        $date = $request['date'];
+        $day = $request['date'];
         $value = $request['val'];
         $user = [];
         foreach ($value as $val)
         {
-            if ($val['WS_date'] == $date)
+            if ($val['WS_date'] == $day)
             {
-                $user[] = User::find($val['User_id']);
+                $formId = $val['FormM_id'];
+                // $user[] = User::find($val['User_id']);
+                $user[] = User::with(['workshifts' => function($q) use($day, $formId){
+                    $q->where('WS_date', $day);
+                    $q->where('FormM_id', $formId);
+                }])->where('User_id', $val['User_id'])->first();
             }
         }
         return $user;
@@ -178,6 +183,8 @@ class EmployersEloquen implements EmployersInterface
     //    lấy danh sách người dùng đã tồn tại ca làm việc trong ngày
     public function getListUser($request)
     {
+        $day = $request['date'];
+        $formId = $request['FormM_id'];
         $value = [];
         $user = DB::table('users')->join('workshifts', 'users.User_id', 'workshifts.User_id')
             ->where([['users.idComp', $request['idComp']], ['workshifts.WS_date', $request['date']], ['workshifts.FormM_id', $request['FormM_id']]])->get();
@@ -185,7 +192,11 @@ class EmployersEloquen implements EmployersInterface
         {
             if ($user[$i]->WS_date == $request['date'])
             {
-                $value[] = User::find($user[$i]->User_id);
+                // $value[] = User::find($user[$i]->User_id);
+                $value[] = User::with(['workshifts' => function($q) use($day, $formId){
+                    $q->where('WS_date', $day);
+                    $q->where('FormM_id', $formId);
+                }])->where('User_id',$user[$i]->User_id)->first();
             }
         }
         return $value;
@@ -213,12 +224,14 @@ class EmployersEloquen implements EmployersInterface
                 $q->whereMonth('WS_date', $month);
                 $q->whereYear('WS_date', $year);
                 $q->where('status', 2);
+                $q->with('formm');
             }))->where('idComp', $idComp)->get();
         }
         else {
             return User::with(array('workshifts' => function ($q) use ($month, $year) {
                 $q->whereMonth('WS_date', $month);
                 $q->whereYear('WS_date', $year);
+                $q->with('formm');
                 // $q->where('status', 2);
             }))->get();
         }
@@ -229,15 +242,41 @@ class EmployersEloquen implements EmployersInterface
      * * Response: arr[]
      */
     public function totalCong($request){
+        $idComp = $request->idComp;
         $date = explode(' - ', $request->date);
         $month = $date[0];
         $year = $date[1]; 
-        return WorkShifts::whereMonth('WS_date', $month)
-                          ->whereYear('WS_date', $year)
-                          ->where('status', 2)
-                          ->count();
-                          
+        return $idComp == 0 ? $this->countCong($month, $year) : $this->countCongWhere($idComp, $month, $year);          
     }
+
+    /**
+     * Todo get count cong where idcomp != 0
+     * @param $request: => date | month + year
+     * * Response: arr[]
+     */
+
+    public function countCongWhere($idComp, $month, $year){
+        return User::with(['workshifts' => function($q) use($idComp, $month, $year) {
+            $q->whereYear('WS_date', $year);
+            $q->whereMonth('WS_date', $month);
+            $q->where('status', 2);
+            $q->with('formm');
+            }])->where('idComp', $idComp)->get();
+    }
+    /**
+     * Todo get count cong where idcomp = 0
+     * @param $request: => date | month + year
+     * * Response: arr[]
+     */
+    public function countCong($month, $year){
+        return User::with(['workshifts' => function($q) use($month, $year) {
+            $q->whereYear('WS_date', $year);
+            $q->whereMonth('WS_date', $month);
+            $q->where('status', 2);
+            $q->with('formm');
+        }])->get();
+    }
+
 
     /**
      * Todo get count cong
@@ -253,6 +292,7 @@ class EmployersEloquen implements EmployersInterface
             $q->whereMonth('WS_date', $month);
             $q->whereYear('WS_date', $year); 
             $q->where('status', 2);
+            $q->with('formm');
         }))->where('User_id', $User_id)->first();
     }
 }

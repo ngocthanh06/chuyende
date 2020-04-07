@@ -11,7 +11,7 @@
               </el-date-picker>
             </div>
             <el-select @change="chooseChinhanh()" class="col-sm-3" v-model="valueCompany" placeholder="Chọn chi nhánh">
-              <el-option label="Tất cả" value="0">
+              <el-option label="Tất cả" :value="0">
               </el-option>
               <el-option v-for="(item, key) in options" :key="key" :label="item.nameComp" :value="item.idComp">
               </el-option>
@@ -105,6 +105,7 @@
           <div class="notice-left col-sm-9">
             <b style="color: red; font-size: 16px;">Ghi chú:</b><span> Ký hiệu chấm công.</span>
             <ul style="list-style-type: none; padding: 0px;">
+              <li><span style="color: red">Ca làm fulltime được tính là 2 công</span></li>
               <li><span>- <i class="el-icon-close"></i>: Ca làm đăng ký trống</span></li>
               <li><span>- <i class="el-icon-success" style="color:#007bff"></i>: Có đi làm</span></li>
               <li><span>- <i class="el-icon-error" style="color: red"></i>: Không đi làm </span></li>
@@ -145,14 +146,9 @@ export default {
     checkPheps,
     diemdanhs,
   },
-  created() {
+  mounted() {
     this.month = this.getDateNow;
     this.getMonth();
-    this.getCompany();
-    
-  },
-  mounted() {
-    this.totalCong();
   },
   data() {
     return {
@@ -162,7 +158,7 @@ export default {
         idComp: ""
       },
       options: [],
-      valueCompany: '',
+      valueCompany: 0,
       month: '',
       daysInMonths: [],
       daysMonth: [],
@@ -171,6 +167,10 @@ export default {
     }
   },
   methods: {
+    loadVal() {
+      this.getCompany();
+      this.totalCong();
+    },
     /**
      * Todo show total calam
      * @param val: => arr[] workshilfts
@@ -179,7 +179,10 @@ export default {
       let value = val.filter((res) => {
         return res.status == 2;
       })
-      return value.length;
+      let number = value.reduce((weight, val, index, column) => {
+        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+      }, 0)
+      return number;
     },
     // Sửa ca làm cho nhân viên khi truyền xuống modelCalam
     EditCaLam(valueID, date) {
@@ -221,10 +224,19 @@ export default {
      * Todo when click month
      */
     getMonth() {
-      this.daysInMonths = this.handleDaysinMonth;
-      this.daysMonth = this.handleChecvaluekMonth;
-      this.chooseChinhanh();
-      this.totalCong();
+      if(this.month != null){
+        this.daysInMonths = this.handleDaysinMonth;
+        this.daysMonth = this.handleChecvaluekMonth;
+        this.chooseChinhanh();
+        // this.totalCong();
+      }
+      else{
+        this.$message({
+          showClose: true,
+          message: 'Thông báo, Tháng không được để trống.!',
+          type: 'error'
+        });
+      }
     },
     /**
      * Todo choose chi nhanh
@@ -236,13 +248,26 @@ export default {
         date: this.month
       });
       this.employers = val.data;
-      
+      this.totalCong();
     },
     async totalCong() {
-      let val = await axios.post('/api/totalCong', {
-        date: this.month
+      let countWorkshilfts = [];
+      let value = await axios.post('/api/totalCong', {
+        date: this.month,
+        idComp: this.valueCompany,
       });
-      this.totalSum = val.data;
+      let workshiftsNotNull = value.data.filter((res) => {
+        return res.workshifts != ''
+      });
+      workshiftsNotNull.forEach(res => {
+        res.workshifts.forEach(r => {
+          countWorkshilfts.push(r);
+        })
+      });
+      let number = countWorkshilfts.reduce((weight, val, index, column) => {
+        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+      }, 0);
+      this.totalSum = number;
     },
     /**
      * Todo get list company
@@ -253,7 +278,7 @@ export default {
     },
   },
   computed: {
-    
+
     /**
      * Todo get date time now
      */

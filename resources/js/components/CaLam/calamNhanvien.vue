@@ -70,7 +70,7 @@ export default {
      * @param month => month, Year
      * *Response tableData|valueTable
      */
-    async getMonth() {
+    getMonth() {
       let route_id = this.$route.params.id;
       let User_id = this.currentUser.User_id;
       if (route_id) {

@@ -28,7 +28,7 @@
             <tbody>
               <tr v-for="(items, key) in dataTable" :key="key">
                 <td>{{key + 1}}</td>
-                <td>{{items.user.User_fullname}}</td>
+                <td><router-link :to="`/infoUser/${items.user.User_id}`">{{items.user.User_fullname}}</router-link> </td>
                 <td>{{items.user.role.Role_name}}</td>
                 <td>{{items.per_time}}</td>
                 <td>{{items.qtycong}}</td>
@@ -70,7 +70,13 @@ export default {
       this.loadData();
     },
     getMonth() {
+      if(this.month != null)
       this.loadData();
+      else this.$message({
+          showClose: true,
+          message: 'Thông báo, Tháng không được để trống.!',
+          type: 'error'
+        });
     },
     async changeStatus(id) {
       let val = await axios.get(`/api/editStatus/${id}`);

@@ -20,12 +20,6 @@
               <div class="form-group flatpickr">
                 <input id="datepicker" class="form-control mb-2 date-default flatpickr-input active" v-model="dateValueNow" type="text" placeholder="Chọn ngày" />
               </div>
-              <!-- Theo tuần -->
-              <div class="form-group flatpickr">
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option v-for="item in Option" :key="item.id" :value="item.id">{{item.value}}</option>
-                </select>
-              </div>
               <!-- end theo tuần -->
               <!-- chọn công ty -->
               <div class="form-group flatpickr">
@@ -83,7 +77,7 @@
                       <button href="#EditModal" data-toggle="modal" data-target="#EditModal" role="button" v-on:click="EditCaLam(item.User_id, val)" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
                     </div>
                   </div>
-                  <button v-on:click="setCaLam(item.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
+                  <button v-on:click="setCaLam(item.User_id, val)"  type="button" class="add_btn">
                     <i aria-label="icon: plus" class="anticon anticon-plus">
                       <svg viewBox="64 64 896 896" focusable="false" class data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                         <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
@@ -94,6 +88,7 @@
                 </div>
               </div>
             </div>
+                  <button ref="openAdd" style="display: none" data-toggle="modal" data-target="#myModal"></button>
 
             <!-- Add CaLam -->
             <modelCalam v-bind:getCaLamProp="getCaLam" v-bind:calam="idCaLam" v-on:HandelPage=" HandelPage"></modelCalam>
@@ -163,46 +158,38 @@ export default {
         User_id: "",
         idComp: ""
       },
-      Option: [{
-          id: 1,
-          value: "Theo tuần"
-        },
-        {
-          id: 2,
-          value: "Theo tháng"
-        }
-      ],
       titleRight: [{
           id: 1,
           icon: "oi oi-spreadsheet",
           value: " Ca làm",
           link: "/Show-Calam"
         },
-        {
-          id: 2,
-          icon: "oi oi-layers",
-          value: " Xếp ca",
-          link: ""
-        },
-        {
-          id: 3,
-          icon: "oi oi-timer",
-          value: " Vào/ra",
-          link: ""
-        },
-        {
-          id: 4,
-          icon: "oi oi-data-transfer-download",
-          value: " Xuất Excel",
-          link: ""
-        }
+        // {
+        //   id: 2,
+        //   icon: "oi oi-layers",
+        //   value: " Xếp ca",
+        //   link: ""
+        // },
+        // {
+        //   id: 3,
+        //   icon: "oi oi-timer",
+        //   value: " Vào/ra",
+        //   link: ""
+        // },
+        // {
+        //   id: 4,
+        //   icon: "oi oi-data-transfer-download",
+        //   value: " Xuất Excel",
+        //   link: ""
+        // }
       ],
       company: "",
       ValueCaLam: [],
     };
   },
   created() {
-    setInterval(this.getNow, 1000), this.$store.dispatch("allCompany");
+    setInterval(this.getNow, 1000), 
+    this.$store.dispatch("allCompany");
     this.getNumWeek();
     this.$store.dispatch("SetNumWeek", [this.numWeek, this.numYear]);
     this.getTimeNow();
@@ -261,10 +248,17 @@ export default {
     },
     // thêm ca làm cho nhân viên khi truyền xuống modelCalam
     setCaLam(valueID, date) {
-      this.idCaLam["User_id"] = valueID;
-      this.idCaLam["WS_date"] = date;
-      this.idCaLam["idComp"] = this.company;
-      this.$store.dispatch("allCaLam");
+      let dateNow = this.getDateNow;
+      if(dateNow <= date){
+        this.idCaLam["User_id"] = valueID;
+        this.idCaLam["WS_date"] = date;
+        this.idCaLam["idComp"] = this.company;
+        this.$store.dispatch("allCaLam");
+        this.$refs.openAdd.click();
+        }
+        else{
+          this.$message.error('Thông báo, hết hạn đăng ký ca làm.');
+        }
     },
     // Sửa ca làm cho nhân viên khi truyền xuống modelCalam
     EditCaLam(valueID, date) {
@@ -336,17 +330,11 @@ export default {
     },
     getCaLam() {
       return this.$store.getters.getCaLam;
+    },
+    getDateNow(){
+      return moment().format('YYYY-MM-DD');
     }
   },
-  watch: {
-    // company(newVal, oldVal) {
-    //     console.log(newVal, oldVal)
-    //     if(newVal) {
-    //         this.changeEmpComp();
-    //         this.hamAxios(newVal);
-    //     }
-    // },
-  }
 };
 </script>
 

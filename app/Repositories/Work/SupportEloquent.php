@@ -8,7 +8,10 @@ use DB;
 use Image;
 class SupportEloquent implements SupportInterface
 {
-     
+     /**
+     * Todo upload image
+     * * Response: arr[]
+     */
     public function UploadImg($image){
         //Đến số ký tự trong chuỗi photos từ dấu ';' trở ngược về trước
         $strpos= strpos($image, ';');
@@ -26,6 +29,23 @@ class SupportEloquent implements SupportInterface
         return $name;
     }
     
-    
-    
+    /**
+     * Todo month | date
+     * @param $request => MM-YYYY
+     * * Response: arr[]
+     */   
+    public function getMonth($request){
+        $date = explode('-', $request);
+        return $date[0];
+    }
+
+    /**
+     * Todo year | date
+     * @param $request => MM-YYYY
+     * * Response: arr[]
+     */   
+    public function getYear($request){
+        $date = explode('-', $request);
+        return $date[1];
+    }
 }

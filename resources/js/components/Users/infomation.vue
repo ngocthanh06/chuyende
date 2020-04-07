@@ -22,7 +22,9 @@
               <el-tab-pane label="Danh sách tạm ứng" name="dsTamung">
                 <dstamung ref="dstamung" ></dstamung>
               </el-tab-pane>
-              <el-tab-pane label="Lương" name="fourth2">Phép2</el-tab-pane>
+              <el-tab-pane label="Lương" name="luong">
+                <luong ref="luong"></luong>
+              </el-tab-pane>
               <el-tab-pane label="Thông tin tài khoản" name="fourth3">Phép3</el-tab-pane>
             </el-tabs>
           </div>
@@ -37,6 +39,7 @@
 </template>
 
 <script>
+import luong from '../luong/luongNV';
 import dstamung from '../cong/danhsachtamung';
 import listPhepNV from '../phep/listPhepNV';
 import calamNhanvien from '../CaLam/calamNhanvien';
@@ -48,7 +51,8 @@ export default {
     chamcong,
     listPhepNV,
     tamung,
-    dstamung
+    dstamung, 
+    luong
   },
   data() {
     return {
@@ -57,7 +61,9 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      if(tab.name == 'luong'){
+        this.$refs.luong.changeEmpComp();
+      }
       if (tab.name == 'tamung') {
         this.$refs.tamung.loadVal();
       }

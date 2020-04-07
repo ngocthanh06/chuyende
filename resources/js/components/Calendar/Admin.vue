@@ -59,7 +59,7 @@
                       <button href="#EditModal" data-toggle="modal" data-target="#EditModal" role="button" v-on:click="EditCaLam(currentUser.User_id, val)" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
                     </div>
                   </div>
-                  <button v-on:click="setCaLam(currentUser.User_id, val)" data-toggle="modal" data-target="#myModal" type="button" class="add_btn">
+                  <button v-on:click="setCaLam(currentUser.User_id, val)"  type="button" class="add_btn">
                     <i aria-label="icon: plus" class="anticon anticon-plus"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                         <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path>
                         <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path>
@@ -67,6 +67,7 @@
                   </button>
                 </div>
               </div>
+              <button ref="addOpen3" data-toggle="modal" data-target="#myModal" style="display: none"></button>
 
             </div>
             <!-- Add CaLam -->
@@ -213,10 +214,19 @@ export default {
     },
     // thêm ca làm cho nhân viên khi truyền xuống modelCalam 
     setCaLam(valueID, date) {
-      this.idCaLam['User_id'] = valueID;
-      this.idCaLam['WS_date'] = date;
-      this.idCaLam['idComp'] = this.currentUser.idComp;
-      this.$store.dispatch('allCaLam');
+
+      let now = moment().format('YYYY-MM-DD');
+      if(now <= date){
+        this.idCaLam['User_id'] = valueID;
+        this.idCaLam['WS_date'] = date;
+        this.idCaLam['idComp'] = this.currentUser.idComp;
+        this.$store.dispatch('allCaLam');
+        this.$refs.addOpen3.click();
+      }
+      else{
+        this.$message.error('Thông báo, hết hạn đăng ký ca làm.');
+      }
+
     },
     // Sửa ca làm cho nhân viên khi truyền xuống modelCalam 
     EditCaLam(valueID, date) {

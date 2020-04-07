@@ -17,6 +17,8 @@ class Role extends Migration
             $table->Increments('Role_id');
             $table->string('Role_name')->nullable();
             $table->string('Role_desc')->nullable();
+            $table->double(`coefficient`)->nullable();
+            $table->double('price')->nullable();
             $table->timestamps();
         });
     }

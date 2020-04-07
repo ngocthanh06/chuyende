@@ -68,4 +68,8 @@ class User extends Authenticatable implements JWTSubject
     public function prepayment(){
         return $this->hasMany('App\Models\prepayment', 'user_id', 'User_id');
     }
+
+    public function permission(){
+        return $this->hasMany('App\Models\permission', 'User_id','User_id');
+    }
 }

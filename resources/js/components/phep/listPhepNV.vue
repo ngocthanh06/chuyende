@@ -39,7 +39,7 @@
         <td scope="row" v-if="item.Att_status == 0" style="color:#0D5CF0">Đã gửi</td>
         <td scope="row" v-if="item.Att_status == 2" style="color:#F01E0D">Không chấp thuận</td>
         <td scope="row" v-if="item.Att_status == 1">Chấp thuận</td>
-        <td scope="row">{{item.user.User_fullname}}</td>
+        <td scope="row" v-if="item.user">{{item.user.User_fullname}}</td>
         <td scope="row">{{item.Att_accept}}</td>
       </tr>
     </tbody>

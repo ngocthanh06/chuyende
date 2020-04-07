@@ -104,11 +104,15 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
      * Todo permission
      */ 
     Route::post('/checkIssetPermission','permissionController@checkIssetPermission');
-
+    Route::post('/listLuongNV/{limit}', 'permissionController@listLuongNV');
+    Route::post('/addLuong','permissionController@addLuong');
+    Route::post('/thongke','permissionController@thongke');
+    Route::post('/luongNV', 'permissionController@luongNV');
     /**
      * Todo Demo
      */ 
     Route::get('/getIp','HomeController@getIp');
+    
 });
     /**
      * Todo Login

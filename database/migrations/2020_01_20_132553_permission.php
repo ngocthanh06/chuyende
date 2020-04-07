@@ -19,6 +19,10 @@ class Permission extends Migration
             $table->dateTime('Per_time')->nullable();
             $table->double('Per_total')->nullable();
             $table->boolean('Per_status')->nullable();
+            $table->double('bonus')->nullable(); 
+            $table->double('error')->nullable();
+            $table->dateTime('day_pay')->nullable();
+            $table->integet('qty')->nullable();
             $table->timestamps();
         });
     }

@@ -145,7 +145,9 @@ export default {
         this.currentUser.Role_id == 2 ? this.ruleForm.status = 1 : this.ruleForm.status;
         this.User_fullname = val.data.User_fullname;
         this.Role_name = val.data.role.Role_name;
-        this.congThang = val.data.workshifts.length - this.min;
+        this.congThang = val.data.workshifts.reduce((weight, val, index, column) => {
+          return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        }, 0) - this.min;
         this.price = val.data.role.price;
         this.coefficient = val.data.role.coefficient;
         this.tienThang = this.tienTong;

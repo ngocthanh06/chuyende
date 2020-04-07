@@ -8,6 +8,7 @@ use DB;
 use Image;
 use App\Models\FormM;
 use App\Models\WorkShifts;
+use App\Models\Company;
 use App\User;
 class FormMCalamEloquent implements FormMCaLamInterface
 {
@@ -22,7 +23,7 @@ class FormMCalamEloquent implements FormMCaLamInterface
     //Lấy ca làm với id 
     
    public function getcalam($id){
-       return FormM::find($id);
+       return Company::find($id);
    }
    
    public function editCalam($id, $request){

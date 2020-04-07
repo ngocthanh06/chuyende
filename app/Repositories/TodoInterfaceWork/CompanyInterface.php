@@ -14,4 +14,6 @@ interface CompanyInterface
    public function store($request);
 
    public function destroy($id);
+
+   public function update($request);
 }

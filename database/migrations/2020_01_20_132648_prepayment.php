@@ -16,11 +16,11 @@ class Prepayment extends Migration
         Schema::create('prepayment', function (Blueprint $table) {
             $table->Increments('pre_id');
             $table->integer('user_id');
-            $table->time('per_time')->nullable();
+            $table->dateTime('per_time')->nullable();
             $table->double('per_total')->nullable();
             $table->text('per_desc')->nullable();
             $table->boolean('status')->nullable();
-            $table->integer('qty')->nullable();
+            $table->integer('qtycong')->nullable();
             $table->timestamps();
         });
     }

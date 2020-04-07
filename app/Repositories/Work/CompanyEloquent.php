@@ -46,5 +46,16 @@ class CompanyEloquent implements CompanyInterface
         }
         else return 'false';
     }
+
+    public function update($request){
+        $company = Company::find($request->id);
+        $company['nameComp'] = $request['value']['nameComp'];
+        $company['AddComp'] = $request['value']['AddComp'];
+        $company['faxComp'] = $request['value']['faxComp'];
+        $company['phoneComp'] = $request['value']['phoneComp'];
+        $company['emailComp'] = $request['value']['emailComp'];
+        $company->save();
+        return response()->json(['code' => 200]);
+    }
     
 }

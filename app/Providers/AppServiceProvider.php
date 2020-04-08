@@ -3,6 +3,7 @@
 namespace App\Providers;
 use Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use App\Repositories\TodoInterfaceWork\EmployersInterface;
 use App\Repositories\TodoInterfaceWork\SupportInterface;
 use App\Repositories\TodoInterfaceWork\CompanyInterface;
@@ -36,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(WorkShilftsInterface::class, WorkShiftsEloquent::class);
         $this->app->singleton(FormMCaLamInterface::class, FormMCalamEloquent::class);
         $this->app->singleton(AttendanceInterface::class, AttendanceEloquent::class);
+        if(env('REDIRECT_HTTPS')) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 
     /**
@@ -47,5 +51,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
+        if(env('REDIRECT_HTTPS')) {
+            $url->formatScheme('https');
+        }
     }
 }

@@ -13,7 +13,7 @@
             <el-table resizable="true" v-loading="loading" :data="tableData" stripe style="width: 100%">
               <el-table-column label="STT" type="index" width="50"> </el-table-column>
               <el-table-column prop="Role_name" sortable label="Tên chức vụ"> </el-table-column>
-              <el-table-column :formatter="number" prop="price" sortable label="Giá mỗi giờ"> </el-table-column>
+              <el-table-column :formatter="number" prop="price" sortable label="Giá mỗi ca"> </el-table-column>
               <el-table-column prop="coefficient" sortable label="Hệ số"> </el-table-column>
               <el-table-column height="" prop="Role_desc" label="Nội dung"> </el-table-column>
               <el-table-column prop="date" label="Tùy chọn">

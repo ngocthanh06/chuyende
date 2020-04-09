@@ -29,7 +29,7 @@
                 <th>Họ Tên </th>
                 <th>Chức vụ</th>
                 <th>Hệ số</th>
-                <th>Lương/giờ</th>
+                <th>Lương/ca</th>
                 <th>Số công làm</th>
                 <th>Thu nhập</th>
                 <th>Công tạm ứng</th>

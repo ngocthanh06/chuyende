@@ -52,6 +52,7 @@ export default {
       if(tab.name =='luong'){
         this.$refs.luong.allCompanies;
         this.$refs.luong.changeEmpComp();
+        this.$refs.luong.handleValExel();
       }
     }
   }

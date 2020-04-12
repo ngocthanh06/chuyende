@@ -12,6 +12,10 @@
         </div>
         <!-- end title -->
         <div class="select-choose">
+          <div class="form-group flatpickr col-sm-1" style="float:right">
+            <!-- <el-button type="success" size="mini">Xuất Excel</el-button> -->
+            <excel ref="callExcel" v-on:workshilfts="workshilfts" ></excel>
+          </div>
           <!-- chọn công ty -->
           <div class="form-group flatpickr col-sm-2" style="float:right">
             <select @change="changeEmpComp()" v-model="company" class="form-control" id="exampleFormControlSelect1">
@@ -90,11 +94,12 @@
 </template>
 
 <script>
+import excel from '../Excel/Luong';
 import thuong from './inputThuong';
 import moment from 'moment';
 export default {
   components: {
-    thuong
+    thuong, excel
   },
   data() {
     return {
@@ -115,6 +120,7 @@ export default {
     }
   },
   methods: {
+
     async thongke() {
       let countWorkshilfts = [];
       let thongke = await axios.post('/api/thongke', {
@@ -310,6 +316,7 @@ export default {
       this.month = this.getTimeNow;
       this.loadInfomation();
       this.thongke();
+      this.$refs.callExcel.handleExcel(this.month, this.company);
     },
     /**
      * Todo load infomation employer
@@ -344,7 +351,13 @@ export default {
           type: 'error'
         });
       }
+      this.$refs.callExcel.handleExcel(this.month, this.company);
     },
+
+    handleValExel(){
+      this.$refs.callExcel.handleExcel(this.month, this.company);
+    }
+    
   },
   computed: {
     getCompanies() {

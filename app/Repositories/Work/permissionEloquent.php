@@ -161,7 +161,7 @@ class permissionEloquent implements permissionInterface
             $k->whereMonth('Per_time', $month);
             $k->whereYear('Per_time', $year);
         }
-        ])->get();
+        ])->where('Role_id', 1)->get();
     }
 
     /**
@@ -213,7 +213,7 @@ class permissionEloquent implements permissionInterface
             $k->whereMonth('Per_time', $month);
             $k->whereYear('Per_time', $year);
         }
-        ])->where('User_id', $User_id)->get();
+        ])->where([['User_id', $User_id],['Role_id', 1]])->get();
     }
 
    

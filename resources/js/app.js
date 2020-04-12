@@ -20,8 +20,13 @@ import locale from 'element-ui/lib/locale'
 //v-form
 import { Form, HasError, AlertError } from 'vform';
 import formStore from './Store/form';
+
+//excel
+import JsonExcel from 'vue-json-excel';
+
 const storeform = new vuex.Store(formStore);
 window.Form = Form;
+Vue.component('downloadExcel', JsonExcel);
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 locale.use(lang);

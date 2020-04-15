@@ -16,6 +16,10 @@ Route::get('/', function () {
 });
 
 
+Route::post('sendToken', 'resetPasswordController@sendToken');
+Route::post('validateToken', 'resetPasswordController@validateToken');
+Route::post('resetPassword', 'resetPasswordController@resetPassword');
+
 
 // Auth::routes();
 //Path nên dược đặt dưới cùng

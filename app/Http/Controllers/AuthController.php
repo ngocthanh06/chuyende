@@ -4,7 +4,11 @@ use Illuminate\Http\Request;
 use Auth;
 use Validator;
 use JWTAuth;
+use App\User;
+
+
 use Tymon\JWTAuth\Exceptions\JWTException;
+
 class AuthController extends Controller
 {
    /**
@@ -84,4 +88,6 @@ class AuthController extends Controller
     {
         return Auth::guard('api');
     }
+
+    
 }

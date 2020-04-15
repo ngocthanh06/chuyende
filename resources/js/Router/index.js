@@ -45,6 +45,9 @@ import listCong from '../components/cong/listCong';
 import listChucvu from '../components/chucVu/show';
 import addChucvu from '../components/chucVu/create';
 import editChucvu from '../components/chucVu/edit';
+
+// reset pasword
+import resetPasword from '../components/resetPassword/reset-password';
 const routes = [
     { path: '/login', component: login, name: 'login' },
     { path: '/register', component: register, name: 'register' },
@@ -73,7 +76,8 @@ const routes = [
     { path: '/listChucvu', component: listChucvu, name: 'listChucvu', meta: { requiresAuth: true } },
     { path: '/addChucvu', component: addChucvu, name: 'addChucvu', meta: { requiresAuth: true } },
     { path: '/editChucvu/:id', component: editChucvu, name: 'editChucvu', meta: { requiresAuth: true } },
-    { path: '/editUserNV', component: EditEmployer, name: 'editUser', meta: { requiresAuth: true } }
+    { path: '/editUserNV', component: EditEmployer, name: 'editUser', meta: { requiresAuth: true } },
+    { path: '/resetpassword', component: resetPasword, name: 'resetpassword' }
 ];
 const router = new VueRouter({
     mode: 'history',
@@ -120,7 +124,7 @@ export function setAuthorization() {
             if (err && err.response && err.response.status === 401) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('user');
-                alert('Đăng nhập hết hạn');
+                // alert('Đăng nhập hết hạn');
                 return router.push({
                     name: 'login'
                 });

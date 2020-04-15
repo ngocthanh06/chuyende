@@ -20,7 +20,7 @@ Route::group([ 'middleware' => 'api','prefix' => 'auth'], function ($router) {
     Route::get('user', 'AuthController@user');
 });
 
-
+Route::get('/password_reset/{id}','resetPasswordController@checkResetPassword' );
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

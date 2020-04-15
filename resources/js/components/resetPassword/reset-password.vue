@@ -1,143 +1,64 @@
 <template>
-  <div class="container">
-    <div class="alert alert-primary">
-      <form action="" v-on:submit.prevent = 'sendToken'>
-        <div class="form-group">
-          <label for="">Email</label>
-          <input type="text" class="form-control" v-bind:class="{'is-invalid':errorEmail, 'is-valid' : infoEmail}"
-          placeholder="Email...."
-          v-model="email"
-          >
-          <div class="invalid-feedback">{{errorEmail}}</div>
-          <div class="valid-feedback">{{infoEmail}}</div>
-        </div>
-        <button class="btn btn-primary">Gửi token với địa chỉ Email</button>
-      </form>
-    </div>
-
-    <div class="alert-secondary alert">
-      <form action="" v-on:submit.prevent="validateToken">
-        <div class="form-group">
-          <label for="">Token</label>
-          <input type="text" class="form-control" v-bind:class="{'is-invalid':errorToken, 'is-valid' : infoToken}" placeholder="Token..." v-model="token" />
-          <div class="invalid-feedback">
-            {{errorToken}}
-          </div>
-          <div class="valid-feedback">
-            {{infoToken}}
-          </div>
-        </div>
-
-        <button class="btn btn-secondary" type="submit">Hiệu lực token</button>
-      </form>
-    </div>
-
-    <div class="alert-sucess alert" v-if="tokenValid">
-      <form action="" v-on:submit.prevent="changePassword">
-        <div class="form-group">
-          <label for="">New Password</label>
-          <input type="text" class="form-control" v-bind:class="{'is-invalid':errorNewPassword}" placeholder="New password..." v-model="newPassword" />
-          <div class="invalid-feedback">
-            {{errorNewPassword}}
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="">Password Again</label>
-          <input type="text" class="form-control" v-bind:class="{'is-invalid':errorPasswordAgain}" placeholder="Password again..." v-model="passwordAgain" />
-          <div class="invalid-feedback">
-            {{errorPasswordAgain}}
-          </div>
-        </div>
-
-        <button class="btn btn-success" type="submit">Thay đổi mật khẩu</button>
-      </form>
-    </div> 
+<div class="container">
+  <div class="alert alert-primary col-sm-10" v-if="password_reset" style="margin: 0 auto" v-loading="loading">
+    <form action="" v-on:submit.prevent='sendToken'>
+      <div class="form-group">
+        <h2>Lấy lại mật khẩu</h2>
+        <label for="">Nhập địa chỉ Email của bạn</label>
+        <input type="email" class="form-control" placeholder="Nhập địa chỉ email...." required v-model="email">
+        <label for="">Nhập địa chỉ email của bạn đã sử dụng để đăng ký mật khẩu.</label>
+      </div>
+      <router-link class="btn btn-danger" to='/login'>Quay lại đăng nhập</router-link>
+      <button class="btn btn-primary">Gửi Email</button>
+    </form>
   </div>
+
+  <div class="alert-warning alert col-sm-10" style="margin: 0 auto" v-if="password_validate">
+      <div class="form-group" style="text-align:center; margin-top: 20px; color: #428C48">
+        <h2><i class="el-icon-circle-check"></i> Yêu cầu lấy lại mật khẩu thành công !</h2>
+        <p>Vui lòng kiểm tra hộp thư địa chỉ email của bạn.</p>
+        <router-link class="btn btn-danger" to='/login'>Quay lại đăng nhập</router-link>
+      </div>
+    </div>
+</div>
 </template>
+
 <script>
 export default {
   name: 'password-reset',
   props: ['app'],
-  data(){
+  data() {
     return {
+      password_validate: false,
+      password_reset: true,
       email: '',
-      infoEmail: null,
-      errorEmail: null,
-      token: '',
-      infoToken: null,
-      errorToken: null,
-      newPassword: '',
-      errorNewPassword: null,
-      passwordAgain: '',
-      errorPasswordAgain: null,
-      tokenValid: false,
-      user: null
+      loading: false,
     };
   },
-  methods:{
-    sendToken(){
-        this.errorEmail = null;
-        if(!this.email){
-          this.errorEmail = 'Email không được để trống';
+  methods: {
+    sendToken() {
+      this.loading = true;
+      const data = {
+        email: this.email
+      }
+      axios.post('/sendToken', data).then((res) => {
+        if (!res.data.error) {
+          this.$notify({
+            title: 'Success',
+            message: 'Email đã được gửi, vui lòng kiểm tra nội dung email',
+            type: 'success'
+          });
+          this.password_validate = true;
+          this.password_reset = false;
+        } else {
+          this.$notify.error({
+            title: 'Error',
+            message: res.data.error,
+          });
         }
-        if(!this.errorEmail){
-          const data = {
-            email : this.email
-          }
-
-          axios.post('/sendToken', data).then(()=>{
-            this.infoEmail = 'Đã gửi email';
-          }).catch(error => {
-            this.errorEmail = error.response.data.error;
-          })
-        }
+          this.loading = false;
+      })
     },
-    validateToken(){
-        this.errorToken = null;
-        if(!this.token){
-          this.errorToken = 'Token is required';
-        }
-        if(!this.errorToken){
-          const data = {
-            token: this.token
-          }
-          
-          axios.post('validateToken', data).then(response=> {
-              if(response.data.User_id){
-                this.tokenValid = true;
-                this.infoToken = 'Token có hiệu lực';
-                this.user = response.data;
-              }
-          }).catch(error => {
-            this.errorEmail = error.response.data.error;
-          })
-        }
-    },
-    changePassword(){
-        this.errorNewPassword = null;
-        this.errorPasswordAgain = null;
-        if(!this.newPassword){
-          this.errorNewPassword = 'New password is required';
-        }
-        if(!this.passwordAgain){
-          this.errorPasswordAgain = 'Password confimation is required';
-        }
-
-        if(this.newPassword != this.passwordAgain){
-          this.errorPasswordAgain = 'Password do not match';
-        }
-        if(!this.errorNewPassword && !this.errorPasswordAgain){
-          const data = {
-            password : this.newPassword,
-            user_id : this.user.User_id
-          }
-
-          axios.post('resetPassword', data).then(()=>{
-            this.$router.push('/login');
-          })
-        }
-    }
   }
 }
 </script>

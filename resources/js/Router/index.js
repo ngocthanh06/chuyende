@@ -48,6 +48,7 @@ import editChucvu from '../components/chucVu/edit';
 
 // reset pasword
 import resetPasword from '../components/resetPassword/reset-password';
+import password_change from '../components/resetPassword/password';
 const routes = [
     { path: '/login', component: login, name: 'login' },
     { path: '/register', component: register, name: 'register' },
@@ -77,7 +78,8 @@ const routes = [
     { path: '/addChucvu', component: addChucvu, name: 'addChucvu', meta: { requiresAuth: true } },
     { path: '/editChucvu/:id', component: editChucvu, name: 'editChucvu', meta: { requiresAuth: true } },
     { path: '/editUserNV', component: EditEmployer, name: 'editUser', meta: { requiresAuth: true } },
-    { path: '/resetpassword', component: resetPasword, name: 'resetpassword' }
+    { path: '/resetpassword', component: resetPasword, name: 'resetpassword' },
+    { path: '/password_change/:id', component: password_change, name: 'passwordChange' },
 ];
 const router = new VueRouter({
     mode: 'history',
@@ -99,7 +101,7 @@ router.beforeEach((to, from, next) => {
             if (currentUser.Role_id == 1) { next('/ad-calendar') } else next();
         } else if (currentUser && routeAd.indexOf(to.path) != -1) {
             if (currentUser.Role_id == 2) { next('/employers') } else next();
-        } else if (to.path == '/login' && localStorage.access_token) {
+        } else if (to.path == '/login' && localStorage.access_token || to.path == '/resetpassword') {
             next('/');
         } else {
             next();

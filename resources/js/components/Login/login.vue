@@ -1,6 +1,6 @@
 <template>
 <section id="login">
-  <div class="adminx-container d-flex justify-content-center align-items-center">
+  <div class="adminx-container d-flex justify-content-center align-items-center" style="padding: 0">
     <div class="page-login">
       <div class="text-center">
         <a class="navbar-brand mb-4 h1" href="login.html">
@@ -24,7 +24,7 @@
           </el-form>
         </div>
         <div class="card-footer text-center">
-          <a href="#"><small>Quên mật khẩu?</small></a>
+          <router-link to = '/resetPassword'>Quên mật khẩu?</router-link>
         </div>
       </div>
     </div>
@@ -90,12 +90,16 @@ export default {
 
       axios.post('/api/auth/login', this.ruleForm)
         .then((response) => {
-
+          if(response.data.user.active == 0)
+          {
+              this.$message.error('Thông báo, tài khoản của bạn đã bị khóa.');
+          }
+          else{
           if (response && response.data) {
             var res = response.data;
 
             this.$store.commit("loginSuccess", res);
-            if (this.$store.getters.currentUser.Role_id == 1) {
+            if (this.$store.getters.currentUser.Role_id == 1.) {
               this.$router.push({
                 name: 'adCalendar'
               });
@@ -109,6 +113,7 @@ export default {
               type: 'success',
               message: 'Đăng nhập thành công'
             });
+          }
           }
         })
         .catch((err) => {

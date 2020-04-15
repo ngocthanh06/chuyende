@@ -5,8 +5,6 @@ use Auth;
 use Validator;
 use JWTAuth;
 use App\User;
-
-
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller

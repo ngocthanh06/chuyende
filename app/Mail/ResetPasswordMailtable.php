@@ -30,6 +30,6 @@ class ResetPasswordMailtable extends Mailable
      */
     public function build()
     {
-        return $this->subject('Password Reset')->view('resetPassword');
+        return $this->subject('Yêu cầu đặt lại mật khẩu')->view('resetPassword');
     }
 }

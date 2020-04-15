@@ -17,9 +17,10 @@ class resetPasswordController extends Controller
             return response()->json(['error' => 'Email người dùng không tồn tại', 401]);
         }
 
-        $token = Str::random(32);
+        $token =  Str::random(32) ;
 
         Mail::to($user)->send(new ResetPasswordMailtable($token));
+
         $passwordReset = new PasswordReset();
         $passwordReset->email = $user->email;
         $passwordReset->token = $token;
@@ -38,10 +39,12 @@ class resetPasswordController extends Controller
 
     public function resetPassword(Request $request){
         $user = User::find($request->user_id);
-        $passwordReset = PasswordReset::where('email', $user->email)->first();
-        $passwordReset->delete();
-
+        // $passwordReset = PasswordReset::where('email', $user->email)->first();
+        // $passwordReset->delete();
+        PasswordReset::where('email', $user->email)->delete();
         $user->password = bcrypt($request->password);
         $user->save();
+
     }
+
 }

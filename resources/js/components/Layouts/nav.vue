@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand justify-content-between fixed-top">
   <a class="navbar-brand mb-0 h1 d-none d-md-block" href="index.html">
     <img src="/upload/demo/img/logo.png" class="navbar-brand-image d-inline-block align-top mr-2" alt="">
-    ỨNG DỤNG XẾP CA LÀM NHÂN VIÊN
+    ỨNG DỤNG QUẢN LÝ TIỀN LƯƠNG
   </a>
 
   <form class="form-inline form-quicksearch d-none d-md-block mx-auto">

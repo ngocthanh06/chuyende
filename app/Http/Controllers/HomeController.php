@@ -12,4 +12,6 @@ class HomeController extends Controller
     public function getIp(Request $request){
         return $request->ip();
     }
+
+   
 }

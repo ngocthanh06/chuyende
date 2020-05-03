@@ -2,6 +2,7 @@
 <div class="adminx-sidebar expand-hover push">
   <!-- nhân viên -->
   <ul v-if="currentUser.Role_id == 1" class="sidebar-nav">
+
     <li class="sidebar-nav-item">
       <router-link to="/ad-calendar" class="sidebar-nav-link active">
         <span class="sidebar-nav-icon">
@@ -46,11 +47,26 @@
   <!-- QUản lý -->
   <ul v-else-if="currentUser.Role_id== 2" class="sidebar-nav">
     <li class="sidebar-nav-item">
-      <router-link to="/employers" class="sidebar-nav-link active">
+      <router-link to="/Set-Calendar" class="sidebar-nav-link active">
         <span class="sidebar-nav-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </span>
+        <router-link to="/homepage" href="#" class="nav-link">
+          Home
+        </router-link>
+      </router-link>
+    </li>
+    <li class="sidebar-nav-item">
+      <router-link to="/employers" class="sidebar-nav-link active">
+        <span class="sidebar-nav-icon">
+          <svg data-v-fa6affac="" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" height="24" class="feather feather-users">
+            <path data-v-fa6affac="" d="M 17 21 v -2 a 4 4 0 0 0 -4 -4 H 5 a 4 4 0 0 0 -4 4 v 2"></path>
+            <circle data-v-fa6affac="" cx="9" cy="7" r="4"></circle>
+            <path data-v-fa6affac="" d="M 23 21 v -2 a 4 4 0 0 0 -3 -3.87"></path>
+            <path data-v-fa6affac="" d="M 16 3.13 a 4 4 0 0 1 0 7.75"></path>
           </svg>
         </span>
         <router-link to="/employers" href="#" class="nav-link">
@@ -180,6 +196,7 @@
   <!-- end quản lý -->
 
   <ul v-else class="sidebar-nav">
+
     <li class="sidebar-nav-item">
       <router-link to="/employers" class="sidebar-nav-link active">
         <span class="sidebar-nav-icon">

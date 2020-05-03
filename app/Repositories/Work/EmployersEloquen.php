@@ -242,8 +242,8 @@ class EmployersEloquen implements EmployersInterface
      * * Response: arr[]
      */
     public function totalCong($request){
-        $idComp = $request->idComp;
-        $date = explode(' - ', $request->date);
+        $idComp = $request['idComp'];
+        $date = explode(' - ', $request['date']);
         $month = $date[0];
         $year = $date[1]; 
         return $idComp == 0 ? $this->countCong($month, $year) : $this->countCongWhere($idComp, $month, $year);          

@@ -113,7 +113,11 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
      * Todo Demo
      */ 
     Route::get('/getIp','HomeController@getIp');
-    
+
+    /**
+     * Todo Thong ke
+     */
+    Route::post('/loadthongke', 'ThongkeController@loadthongke');
 });
     /**
      * Todo Login

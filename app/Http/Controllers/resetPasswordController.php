@@ -19,13 +19,13 @@ class resetPasswordController extends Controller
             return response()->json(['error' => 'Email người dùng không tồn tại', 401]);
         }
 
-        // $token =  Str::random(32) ;
-        // Mail::to($user)->send(new ResetPasswordMailtable($token));
-        // $passwordReset = new PasswordReset();
-        // $passwordReset->email = $user->email;
-        // $passwordReset->token = $token;
-        // $passwordReset->save();
-        dispatch(new SendWelcomeEmail($user))->delay(1);
+        $token =  Str::random(32) ;
+        Mail::to($user)->send(new ResetPasswordMailtable($token));
+        $passwordReset = new PasswordReset();
+        $passwordReset->email = $user->email;
+        $passwordReset->token = $token;
+        $passwordReset->save();
+        // dispatch(new SendWelcomeEmail($user))->delay(1);
         
     }
 

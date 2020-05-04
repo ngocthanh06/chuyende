@@ -121,5 +121,17 @@ class AttendanceEloquent implements AttendanceInterface
                         ->whereMonth('Att_time', $month)->whereYear('Att_time', $year)->get()
                         ->toArray();
     }
+    
+    public function listchuaduyet($request){
+
+        return Attendance::with(['user','workshifts' => function ($q) {
+            $q->with(['user' => function($p) {
+               $p->with('company');
+                  }]);
+               }
+            ])
+            ->where('Att_status', 0)->get()
+            ->toArray();
+    }
 }
 

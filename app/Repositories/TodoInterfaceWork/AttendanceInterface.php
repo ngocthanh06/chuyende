@@ -13,4 +13,5 @@ interface AttendanceInterface
     public function checkPhep($request);
     public function createPhep($request);
     public function getsPhepNV($request);
+    public function listchuaduyet($request);
 }

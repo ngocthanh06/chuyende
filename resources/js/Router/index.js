@@ -46,6 +46,7 @@ import listChucvu from '../components/chucVu/show';
 import addChucvu from '../components/chucVu/create';
 import editChucvu from '../components/chucVu/edit';
 
+import listphepchuaduyet from '../components/phep/phepChuaDuyet';
 // reset pasword
 import resetPasword from '../components/resetPassword/reset-password';
 import password_change from '../components/resetPassword/password';
@@ -78,6 +79,7 @@ const routes = [
     { path: '/addChucvu', component: addChucvu, name: 'addChucvu', meta: { requiresAuth: true } },
     { path: '/editChucvu/:id', component: editChucvu, name: 'editChucvu', meta: { requiresAuth: true } },
     { path: '/editUserNV', component: EditEmployer, name: 'editUser', meta: { requiresAuth: true } },
+    { path: '/listphepchuaduyet', component: listphepchuaduyet, name: 'listphepchuaduyet', meta: { requiresAuth: true } },
     { path: '/resetpassword', component: resetPasword, name: 'resetpassword' },
     { path: '/password_change/:id', component: password_change, name: 'passwordChange' },
 ];

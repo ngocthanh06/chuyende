@@ -11,6 +11,8 @@
             <div class="form-group flatpickr">
               <input id="datepicker" class="form-control mb-2 date-default flatpickr-input active" type="text" placeholder="Chọn ngày" />
             </div>
+            <router-link to="/listphepchuaduyet" class="btn btn-primary" >Phép chưa duyệt</router-link>
+
 
           </div>
           <!-- end left -->

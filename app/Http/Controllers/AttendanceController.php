@@ -31,5 +31,9 @@ class AttendanceController extends Controller
     public function getsPhepNV(Request $request){
         return $this->attendance->getsPhepNV($request);
     }
+    public function listchuaduyet(Request $request){
+        return $this->attendance->listchuaduyet($request);
+    }
+    
     
 }

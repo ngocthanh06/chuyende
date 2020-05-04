@@ -92,6 +92,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::post('/checkPhep', 'AttendanceController@checkPhep');
     Route::post('/createPhep', 'AttendanceController@createPhep' );
     Route::post('/getsPhepNV', 'AttendanceController@getsPhepNV');
+    Route::get('/listchuaduyet', 'AttendanceController@listchuaduyet');
 
     /**
      * Todo prepayment

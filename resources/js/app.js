@@ -24,6 +24,16 @@ import formStore from './Store/form';
 //excel
 import JsonExcel from 'vue-json-excel';
 
+
+import VueFusionCharts from 'vue-fusioncharts';
+import FusionCharts from 'fusioncharts';
+import Charts from 'fusioncharts/fusioncharts.charts';
+
+//import the theme VueFusionCharts
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
+
+// register VueFusionCharts component
+Vue.use(VueFusionCharts, FusionCharts, Charts, FusionTheme)
 const storeform = new vuex.Store(formStore);
 window.Form = Form;
 Vue.component('downloadExcel', JsonExcel);

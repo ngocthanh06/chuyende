@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\User;
+use DB;
 use App\Models\company;
 use App\Models\Attendance;
 use App\Models\prepayment;
@@ -47,9 +48,24 @@ class ThongkeController extends Controller
         foreach($permission as $p){
             $per = $per + $p->Per_total + $p->bonus;
         }
+        
+        $everMonth = [];
+        for($i = 1; $i < 13; $i++){
+            array_push($everMonth, $i);
+        }
+        foreach($everMonth as $m){
+            $arr = DB::table('permission')
+                        ->whereYear('Per_time', $year)
+                        ->whereMonth('Per_time', $m)
+                        ->sum('permission.Per_total');
+            $thongkePer["label".$m] = "Tháng ".$m;
+            $thongkePer["value".$m] = $arr;
+        }
+                    
         $arr_dt = array('date' => $request->time, 'idComp' => 0);
         $listCong = $this->employer->totalCong($arr_dt);
         $data = array(
+            'thongkePer' => $thongkePer,
             'listCong' => $listCong,
             'permission' => $per,
             'totalNV' => $totalNV,

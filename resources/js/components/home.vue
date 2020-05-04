@@ -344,72 +344,16 @@
     <div class="col-lg-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <div class="card-header-title">Danh sách nhân viên tạm ứng</div>
+          <div class="card-header-title">Đồ thị</div>
 
-          <nav class="card-header-actions">
-            <a class="card-header-action" aria-expanded="false" aria-controls="card1" href="#card1" data-toggle="collapse">
-              <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-minus-circle" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" height="24">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="8" y1="12" x2="16" y2="12" /></svg>
-            </a>
-
-            <div class="dropdown">
-              <a class="card-header-action" id="card1Settings" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">
-                <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-settings" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" height="24">
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M 19.4 15 a 1.65 1.65 0 0 0 0.33 1.82 l 0.06 0.06 a 2 2 0 0 1 0 2.83 a 2 2 0 0 1 -2.83 0 l -0.06 -0.06 a 1.65 1.65 0 0 0 -1.82 -0.33 a 1.65 1.65 0 0 0 -1 1.51 V 21 a 2 2 0 0 1 -2 2 a 2 2 0 0 1 -2 -2 v -0.09 A 1.65 1.65 0 0 0 9 19.4 a 1.65 1.65 0 0 0 -1.82 0.33 l -0.06 0.06 a 2 2 0 0 1 -2.83 0 a 2 2 0 0 1 0 -2.83 l 0.06 -0.06 a 1.65 1.65 0 0 0 0.33 -1.82 a 1.65 1.65 0 0 0 -1.51 -1 H 3 a 2 2 0 0 1 -2 -2 a 2 2 0 0 1 2 -2 h 0.09 A 1.65 1.65 0 0 0 4.6 9 a 1.65 1.65 0 0 0 -0.33 -1.82 l -0.06 -0.06 a 2 2 0 0 1 0 -2.83 a 2 2 0 0 1 2.83 0 l 0.06 0.06 a 1.65 1.65 0 0 0 1.82 0.33 H 9 a 1.65 1.65 0 0 0 1 -1.51 V 3 a 2 2 0 0 1 2 -2 a 2 2 0 0 1 2 2 v 0.09 a 1.65 1.65 0 0 0 1 1.51 a 1.65 1.65 0 0 0 1.82 -0.33 l 0.06 -0.06 a 2 2 0 0 1 2.83 0 a 2 2 0 0 1 0 2.83 l -0.06 0.06 a 1.65 1.65 0 0 0 -0.33 1.82 V 9 a 1.65 1.65 0 0 0 1.51 1 H 21 a 2 2 0 0 1 2 2 a 2 2 0 0 1 -2 2 h -0.09 a 1.65 1.65 0 0 0 -1.51 1 Z" /></svg>
-              </a>
-
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="card1Settings">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-
-            <a class="card-header-action" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-x-circle" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" height="24">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" /></svg>
-            </a>
-          </nav>
         </div>
         <div class="card-body collapse show" id="card1">
-          <table class="table table-bordered mb-0">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Tên nhân viên</th>
-                <th>Chức vụ</th>
-                <th>Thời gian tạm ứng</th>
-                <th>Số công</th>
-                <th>Số tiền tương ứng</th>
-                <th>Nội dung</th>
-                <th>Xác nhận</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(items, key) in dataTable" :key="key">
-                <td>{{key + 1}}</td>
-                <td>
-                  <router-link :to="`/infoUser/${items.user.User_id}`">{{items.user.User_fullname}}</router-link>
-                </td>
-                <td>{{items.user.role.Role_name}}</td>
-                <td>{{items.per_time}}</td>
-                <td>{{items.qtycong}}</td>
-                <td>{{items.per_total}}</td>
-                <td>{{items.per_desc}}</td>
-                <td v-if="items.status == 0" style="color: red">
-                  <el-button size="mini" v-if="currentUser.Role_id == 1" disabled type="danger" icon="el-icon-error" circle></el-button>
-                  <el-button size="mini" v-else type="danger" icon="el-icon-error" @click="changeStatus(items.pre_id)" circle></el-button>
-                </td>
-                <td v-else>
-                  <el-button size="mini" disabled type="success" icon="el-icon-check" circle></el-button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- <char :month="month"></char> -->
+
+          <div id="app">
+            <fusioncharts :type="type" :width="width" :height="height" :dataFormat="dataFormat" :dataSource="dataSource"></fusioncharts>
+          </div>
+
         </div>
       </div>
     </div>
@@ -430,16 +374,36 @@
 </template>
 
 <script>
+import char from './char';
 import moment from 'moment';
 export default {
+
   components: {
-    moment
+    moment,
+    char,
   },
   mounted() {
     this.loadThongke();
   },
   data() {
+    var dataSource = {
+      "chart": {
+        "caption": `Đồ thị lương hàng tháng của năm ${moment().format('YYYY')}`,
+        "subCaption": `Tháng ${moment().format('MM')}`,
+        "xAxisName": "Đồ thị lương hàng tháng",
+        "yAxisName": "Chỉ số",
+        "numberSuffix": "",
+        "theme": "fusion"
+      },
+      "data": []
+    };
     return {
+      width: '100%',
+      height: '400',
+      type: 'column2d',
+      dataFormat: 'json',
+      dataSource: dataSource,
+
       totalNV: 0,
       nvDanglam: 0,
       nvDakhoa: 0,
@@ -456,7 +420,27 @@ export default {
     }
   },
   methods: {
-
+    // function to slice items when radio buttons are clicked using the slicePlotItems api
+    onChangeItem: function () {
+      const chart = this.$refs.fc.chartObj,
+        lastActive = this.lastActive,
+        value = this.radioValue;
+      this.lastActive = value;
+      if (value === 'none') {
+        chart.slicePlotItem(lastActive, false);
+      } else {
+        chart.slicePlotItem(value, true);
+      }
+    },
+    // function to actiavte radio buttons when plots are clicked
+    onSliceClick: function (e) {
+      var isSliced = e.data.isSliced;
+      if (isSliced) {
+        this.lastActive = this.radioValue = 'none'
+      } else {
+        this.lastActive = this.radioValue = e.data.index
+      }
+    },
     async loadThongke() {
       let val = await axios.post('/api/loadthongke', {
         time: moment().format('MM - YYYY')
@@ -487,6 +471,60 @@ export default {
         return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
       }, 0);
       this.tongcong = number;
+      
+      let per = []
+        per.push(
+          {
+            "label": val.data.thongkePer.label1,
+            "value": val.data.thongkePer.value1
+          },
+          {
+            "label": val.data.thongkePer.label2,
+            "value": val.data.thongkePer.value2
+          },
+          {
+            "label": val.data.thongkePer.label3,
+            "value": val.data.thongkePer.value3
+          },
+          {
+            "label": val.data.thongkePer.label4,
+            "value": val.data.thongkePer.value4
+          },
+          {
+            "label": val.data.thongkePer.label5,
+            "value": val.data.thongkePer.value5
+          },
+          {
+            "label": val.data.thongkePer.label6,
+            "value": val.data.thongkePer.value6
+          },
+          {
+            "label": val.data.thongkePer.label7,
+            "value": val.data.thongkePer.value7
+          },
+          {
+            "label": val.data.thongkePer.label8,
+            "value": val.data.thongkePer.value8
+          },
+          {
+            "label": val.data.thongkePer.label9,
+            "value": val.data.thongkePer.value9
+          },
+          {
+            "label": val.data.thongkePer.label10,
+            "value": val.data.thongkePer.value10
+          },
+          {
+            "label": val.data.thongkePer.label11,
+            "value": val.data.thongkePer.value11
+          },
+          {
+            "label": val.data.thongkePer.label12,
+            "value": val.data.thongkePer.value12
+          }
+        )
+      
+      this.dataSource.data = per;
     }
   }
 }

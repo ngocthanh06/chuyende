@@ -32,7 +32,7 @@
                 <td scope="row">{{item.workshifts.user.company.nameComp}}</td>
                 <td scope="row">{{item.Att_desc}}</td> 
                 <td scope="row">
-                  <el-tag :model="changeStatus">
+                  <el-tag >
                     Chưa xác nhận
                   </el-tag>
                 </td>

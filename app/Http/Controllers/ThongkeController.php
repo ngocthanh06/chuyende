@@ -35,8 +35,8 @@ class ThongkeController extends Controller
             ->whereYear('per_time', $year)
             ->count();
         $totalNV = User::count();
-        $nvDanglam = User::where('active', 0)->count();
-        $nvDakhoa = User::where('active', 1)->count();
+        $nvDanglam = User::where('active', 1)->count();
+        $nvDakhoa = User::where('active', 0)->count();
         $chinhanh = company::count();
         $sophep = Attendance::count();
         $phepDuyet = Attendance::where('Att_status', 1)->count();

@@ -54,7 +54,8 @@ export default {
         User_id: '',
         WS_date: ''
       },
-      rule: []
+      rule: [],
+      number: 0,
     }
   },
   props: {
@@ -113,6 +114,7 @@ export default {
       }).then(res => {
         if (res.data < 5) {
           if ($(`#${val.FormM_id}`).is(':checked') === true) {
+        this.number = this.number + val.FormM_Work; 
             //Check time work 
             if (this.selected.length > 1 && val.FormM_Work >= 8) {
               this.$alert('<b>Bạn đã đăng ký ca làm <i style="color: red">PARTTIME</i> nên không không thể đăng ký thêm <i style="color: red">FULLTIME</i></b>', 'Thông báo', {
@@ -142,6 +144,21 @@ export default {
                   }
                 });
               }
+              else if(this.selected.length > 1 && val.FormM_Work < 8 && this.number > 8 ){
+                this.$alert('<b>Bạn đã đăng ký nhiều hơn <i style="color: red">1 ca</i> và số lượng ca cho phép không vượt quá <i style="color: red">2 ca</i> trong 1 ngày vì vậy không thể đăng ký tiếp</b>', 'Thông báo', {
+                  confirmButtonText: 'OK',
+                  dangerouslyUseHTMLString: true,
+                  callback: action => {
+                    $(`#${val.FormM_id}`).prop('checked', false);
+                    this.selected = this.selected.filter(name => name !== val);
+                    this.$message({
+                      type: 'success',
+                      message: `Lựa chọn gần đây đã được hủy`
+                    });
+                    this.number -= val.FormM_Work;
+                  }
+                });
+              }
             }
           } else {
             if (this.selected.length === this.count) {
@@ -164,12 +181,14 @@ export default {
                   type: 'success',
                   message: `Lựa chọn gần đây đã được hủy`
                 });
+                this.number -= val.FormM_Work;
               }).catch(() => {
                 $(`#${val.FormM_id}`).prop('checked', true);
                 this.$message({
                   type: 'info',
                   message: 'Thao tác không thành công'
                 });
+                this.number -= val.FormM_Work;
               });
             }
           }
@@ -184,6 +203,7 @@ export default {
                 type: 'success',
                 message: `Lựa chọn gần đây đã được hủy`
               });
+              this.number -= val.FormM_Work;
             }
           });
         }

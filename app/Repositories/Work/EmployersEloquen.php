@@ -70,7 +70,13 @@ class EmployersEloquen implements EmployersInterface
     {
         $request['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
         $request['password'] = Hash::make($request["Password"]);
+        if($request['checked'] == true){
+            $request['socical_insurance'] = 1;
+        }
+        else 
+        $request['socical_insurance'] = 0;
         Employer::create($request->all());
+
         // return $request;
         return response()
             ->json(['code' => '200', 'messages' => 'Thành công']);
@@ -86,6 +92,7 @@ class EmployersEloquen implements EmployersInterface
     {
         $employer = Employer::find($id);
         $value['sex'] == 'Nam' ? $employer['sex'] = 1 : $employer['sex'] = 2;
+        $value['checked'] == true ? $employer['socical_insurance'] = 1 : $employer['socical_insurance'] = 2;
         if (!Hash::check($employer['password'], Hash::make($value->password))) $employer['password'] = hash::make($value->password);
         $employer['Birthday'] = $value->Birthday;
         $employer['Date_start'] = $value->Date_start;

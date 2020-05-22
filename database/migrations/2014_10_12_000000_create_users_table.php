@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('User_bank')->nullable();
             $table->dateTime('Date_start')->nullable();
             $table->dateTime('Date_end')->nullable();
+            $table->integer('socical_insurance')->nullable();	
             $table->boolean('active')->nullable()->default(1);
             $table->integer('idComp')->nullable();
             $table->rememberToken();

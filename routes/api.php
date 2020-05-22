@@ -119,10 +119,17 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
      * Todo Thong ke
      */
     Route::post('/loadthongke', 'ThongkeController@loadthongke');
-});
+
     /**
-     * Todo Login
-     */ 
+     * Todo Chat
+     */
+    Route::get('/contacts','chatController@get');
+    Route::get('/conversation/{id}','chatController@getMessagesFor');
+    // Route::get('/conversation/send','chatController@sends');
+});
+/**
+ * Todo Login
+ */ 
 Route::resource('/login','LoginController');
 
 

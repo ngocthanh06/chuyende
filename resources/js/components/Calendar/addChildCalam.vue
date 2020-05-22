@@ -68,6 +68,7 @@ export default {
       rule: [],
       Calam: [],
       count: '',
+      number: 0,
     }
   },
   props: {
@@ -87,6 +88,16 @@ export default {
           if (res.FormM_id === val.FormM_id) {
             $(`#add${val.FormM_id}`).prop('checked', true);
             $(`#add${val.FormM_id}`).attr('disabled', true);
+            if(this.Calam.length > 1 && this.number <= 8 ){
+              this.number = this.number + val.FormM_Work;
+            }
+            else if(this.Calam.length == 1 && val.FormM_Work == 8 && this.number <= 8){
+              this.number = 8;
+            }
+            else if(this.Calam.length == 1 && val.FormM_Work == 4)
+             {
+               this.number = 4;
+             }
           }
         })
       }
@@ -117,6 +128,7 @@ export default {
                 type: 'success',
                 message: 'Ca làm việc đã được cập nhật'
               });
+              this.number = 0;
             }
           } catch {
             this.$message({
@@ -139,6 +151,7 @@ export default {
     handleCloseCalam() {
       $('#addCalamTable').find(':input').prop('checked', false);
       $('#addCalamTable').find(':input').attr('disabled', false);
+      this.number = 0;
       return this.Calam = [];
     },
     getTime(val) {
@@ -152,6 +165,7 @@ export default {
         if (res.data < 5) {
           if ($(`#add${val.FormM_id}`).is(':checked') === true) {
             this.Calam.push(val);
+            this.number += val.FormM_Work;
             //Check time work 
             if (this.Calam.length > 1 && val.FormM_Work >= 8) {
               this.$alert('<b>Bạn đã đăng ký ca làm <i style="color: red">PARTTIME</i> nên không không thể đăng ký thêm <i style="color: red">FULLTIME</i></b>', 'Thông báo', {
@@ -164,13 +178,14 @@ export default {
                     type: 'success',
                     message: `Lựa chọn gần đây đã được hủy`
                   });
+                  this.number -= val.FormM_Work;
                 }
               });
             } else if (this.Calam.length > 1) {
               if (this.Calam[0].form_m.FormM_Work >= 8) {
                 this.$alert('<b>Bạn đã đăng ký <i style="color: red">FULLTIME</i> nên không còn ca phù hợp</b>', 'Thông báo', {
-                  confirmButtonText: 'OK',
                   dangerouslyUseHTMLString: true,
+                  confirmButtonText: 'OK',
                   callback: action => {
                     $(`#add${val.FormM_id}`).prop('checked', false);
                     this.Calam = this.Calam.filter(name => name !== val);
@@ -178,8 +193,25 @@ export default {
                       type: 'success',
                       message: `Lựa chọn gần đây đã được hủy`
                     });
+                    this.number -= val.FormM_Work;
                   }
                 });
+              }
+              else if(this.Calam.length > 1 && val.FormM_Work < 8 && this.number > 8){
+                  this.$alert('<b>Bạn đã đăng ký nhiều hơn <i style="color: red">1 ca</i> và số lượng ca cho phép không vượt quá <i style="color: red">2 ca</i> trong 1 ngày vì vậy không thể đăng ký thêm</b>', 'Thông báo', {
+                    dangerouslyUseHTMLString: true,
+                    confirmButtonText: 'OK',
+                    callback: action => {
+                      $(`#add${val.FormM_id}`).prop('checked', false);
+                      this.Calam = this.Calam.filter(name => name !== val);
+                      this.$message({
+                        type: 'success',
+                        message: 'Lựa chọn gần đây đã bị hủy'
+                      });
+                      this.number -= val.FormM_Work;
+                    }
+                  })
+                  
               }
             }
           } else {
@@ -203,6 +235,7 @@ export default {
                   type: 'success',
                   message: `Lựa chọn gần đây đã được hủy`
                 });
+                this.number -= val.FormM_Work;
               }).catch(() => {
                 $(`#add${val.FormM_id}`).prop('checked', true);
                 this.$message({
@@ -223,6 +256,7 @@ export default {
                 type: 'success',
                 message: `Lựa chọn gần đây đã được hủy`
               });
+              this.number -= val.FormM_Work;
             }
           });
         }

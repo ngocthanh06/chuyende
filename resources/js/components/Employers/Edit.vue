@@ -8,6 +8,10 @@
     <el-form-item label="Họ Và Tên" prop="User_fullname">
       <el-input v-model="ruleForm.User_fullname"></el-input>
     </el-form-item>
+    <el-form-item label="Email" prop="email">
+      <el-input  v-model="ruleForm.email" :class="{ 'is-invalid': ruleForm.errors.has('email') }"></el-input>
+      <has-error :form="ruleForm" field="email"></has-error>
+    </el-form-item>
     <el-form-item label="Tên Tài Khoản" prop="username" required>
       <el-input :class="{ 'is-invalid': ruleForm.errors.has('username') }" disabled v-model="ruleForm.username"></el-input>
       <has-error :form="ruleForm" field="username"></has-error>
@@ -51,6 +55,11 @@
           </el-select>
         </el-form-item>
       </el-col>
+      <el-col :span="8">
+        <el-form-item label=" ">
+          <el-checkbox v-model="ruleForm.checked">Hợp đồng</el-checkbox>
+        </el-form-item>
+      </el-col>
     </el-form-item>
     <el-form-item label="Địa Chỉ" prop="User_add">
       <el-input v-model="ruleForm.User_add"></el-input>
@@ -61,13 +70,13 @@
     <el-form-item label="TK Ngân Hàng" prop="User_bank">
       <el-input v-model="ruleForm.User_bank"></el-input>
     </el-form-item>
-    <el-form-item label="Chọn ảnh" prop="User_image">
+    <!-- <el-form-item label="Chọn ảnh" prop="User_image">
       <input @change="changephoto" type="file" style="display: none" name="User_image" id="pic_shop">
       <label for="pic_shop" class="btn btn-warning">Chọn ảnh</label>
       <div id="upload">
         <a><img v-bind:src="changeImage()" alt=""></a>
       </div>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item>
       <el-button type="success" @click="submitForm('ruleForm',ruleForm)">Lưu</el-button>
       <el-button @click="resetForm('ruleForm')">Reset</el-button>
@@ -93,13 +102,15 @@ export default {
     return {
       checkImg: false,
       ruleForm: new Form({
+        checked: false,
         Role_id: '',
         User_fullname: '',
         username: '',
         Birthday: '',
         sex: '',
         password: '',
-        User_image: '',
+        email: '',
+        // User_image: '',
         User_add: '',
         User_phone: '',
         idComp: '',
@@ -113,12 +124,17 @@ export default {
             trigger: 'blur'
           },
           {
-            min: 3,
+            min: 2,
             max: 100,
             message: 'Ký tự phải từ 3 và không vượt quá 100',
             trigger: 'blur'
           }
         ],
+        email: [{
+          required: true,
+          message: 'Email không được để trống',
+          trigger: 'blur'
+        }],
         Role_id: [{
           required: true,
           message: 'Bạn chưa chọn chức vụ',
@@ -131,7 +147,7 @@ export default {
             trigger: 'blur'
           },
           {
-            min: 3,
+            min: 2,
             max: 100,
             message: 'Ký tự phải từ 3 và không vượt quá 100',
             trigger: 'blur'
@@ -196,26 +212,27 @@ export default {
 
     //Xử lý submit
     submitForm(formName, value) {
-      if(!this.$route.params.id) var user_id = this.currentUser.User_id;
+      if (!this.$route.params.id) var user_id = this.currentUser.User_id;
       else var user_id = this.$route.params.id;
       this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-            this.ruleForm.post(`/api/editEmployer/${user_id}`).then((res) => {
-              if (res.data.code == 200) {
-                this.$router.push('/employers');
-                this.$message({
-                  type: 'success',
-                  message: 'Thêm nhân viên thành công'
-                });
-              } else {
-                this.$message({
-                  type: 'warning',
-                  message: 'Lỗi'
-                });
-              }
-            })
-           
+          this.ruleForm.post(`/api/editEmployer/${user_id}`).then((res) => {
+            if (res.data.code == 200) {
+              this.$router.push('/employers');
+              this.$message({
+                type: 'success',
+                message: 'Sửa nhân viên thành công'
+              });
+            } else {
+              console.log(res)
+              this.$message({
+                type: 'warning',
+                message: 'Lỗi'
+              });
+            }
+          })
+
         } else {
           console.log('error submit!!');
           return false;
@@ -249,10 +266,11 @@ export default {
     },
     //Lấy thông tin người dùng 
     async getUser() {
-      if(!this.$route.params.id) var user_id = this.currentUser.User_id;
+      if (!this.$route.params.id) var user_id = this.currentUser.User_id;
       else var user_id = this.$route.params.id;
       let json = await axios.get(`/api/getEmployer/${user_id}`);
       json.data.sex == 1 ? json.data.sex = 'Nam' : json.data.sex = 'Nữ';
+      json.data.socical_insurance == 1 ? json.data.checked = true : json.data.sex = false;
       this.ruleForm.fill(json.data);
     },
     //Hiển thị ảnh
@@ -284,7 +302,7 @@ export default {
     getRole() {
       return this.$store.getters.getRole;
     },
-    currentUser(){
+    currentUser() {
       return this.$store.getters.currentUser;
     }
 

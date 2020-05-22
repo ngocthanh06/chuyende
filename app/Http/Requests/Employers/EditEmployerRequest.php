@@ -25,11 +25,13 @@ class EditEmployerRequest extends FormRequest
     {
         return [
             'username' => 'unique:users,username,'.$this->segment(3).',User_id',
+            'email' => 'unique:users,email,'.$this->segment(3).',User_id',
         ];
     }
     public function messages(){
         return[
             'username.unique' => 'Tên tài khoản đã tồn tại',
+            'email.unique' => 'Email đã tồn tại',
         ];
     }
 }

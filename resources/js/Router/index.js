@@ -92,7 +92,7 @@ const router = new VueRouter({
 //Check Login/Louout with Role_id when using Route-Link
 router.beforeEach((to, from, next) => {
         let routes = ['/employers', '/Show-Calam', '/Set-Calendar', '/getLichNv', '/listPhep', '/listCong', '/getChinhanh', '/listChucvu'];
-        let routeAd = ['/ad-calendar', '/infomation', '/editUserNV'];
+        let routeAd = ['/ad-calendar', '/infomation', '/editUserNV', '/Set-Calendar'];
         //Get value meta router-link
         const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
         //Get value userlogin valid access_token

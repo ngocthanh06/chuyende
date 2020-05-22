@@ -29,10 +29,13 @@
               <el-input style="display:none" :class="{ 'is-invalid':  ruleForm.errors.has('username') }"></el-input>
               <has-error :form="ruleForm" field="username"></has-error>
             </el-form-item>
+            <el-form-item label="Email" prop="email">
+              <el-input v-model="ruleForm.email" :class="{ 'is-invalid':  ruleForm.errors.has('email') }"></el-input>
+              <has-error :form="ruleForm" field="email"></has-error>
+            </el-form-item>
             <el-form-item label="Chức vụ" prop="Role_id" required>
               <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
-                <el-option label="Nhân viên" value="1"></el-option>
-                <el-option label="Quản lý" value="2"></el-option>
+                <el-option v-for="(item, key) in getRole" :key="key" :label="item.Role_name" :value="item.Role_id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Chi nhánh( Nếu có)" prop="idComp" required="">
@@ -65,12 +68,17 @@ export default {
     this.$nextTick(function () {
       console.log(this.$refs.AddEmp_Modal)
     })
+    this.$store.dispatch("allCompany");
+    this.$store.dispatch("allRole");
   },
   computed: {
     // get all company
     getCompanies() {
       return this.$store.getters.getCompany
     },
+    getRole() {
+      return this.$store.getters.getRole;
+    }
 
   },
   data() {
@@ -89,6 +97,7 @@ export default {
         Role_id: '',
         User_fullname: '',
         User_phone: '',
+        email: '',
         sex: '',
         idComp: '',
         Password: '',
@@ -107,6 +116,11 @@ export default {
             trigger: 'blur'
           }
         ],
+        email: [{
+          required: true,
+          message: 'Email không được để trống',
+          trigger: 'blur'
+        }],
         Role_id: [{
           required: true,
           message: 'Bạn chưa chọn chức vụ',

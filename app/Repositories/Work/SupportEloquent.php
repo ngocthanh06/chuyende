@@ -13,6 +13,7 @@ class SupportEloquent implements SupportInterface
      * * Response: arr[]
      */
     public function UploadImg($image){
+        return ($image);
         //Đến số ký tự trong chuỗi photos từ dấu ';' trở ngược về trước
         $strpos= strpos($image, ';');
         //cắt chuỗi trong chuỗi photos từ vị trí 0 đến số lượng của $strpos

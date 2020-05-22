@@ -26,10 +26,12 @@ class AddSpeadEmployer extends FormRequest
         return [
             'username' => 'unique:users,username',
             'User_Phone' => 'unique:users,User_phone|min:9|max:10',
+            'email' => 'unique:users',
         ];
     }
     public function messages(){
         return [
+            'email.unique' => 'Email đã tồn tại',
             'username.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại ',
             'User_Phone.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại',
             'User_Phone.min' => 'Độ dài số điện thoại không hợp lệ',

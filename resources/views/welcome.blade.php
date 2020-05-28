@@ -20,4 +20,5 @@
     <script src="{{asset('resource/AdminX-master/dist/js/vendor.js')}}"></script>
     <script src="{{asset('resource/AdminX-master/dist/js/adminx.js')}}"></script>
     <script src="{{asset('js/app.js')}}"></script> 
+
 </html>

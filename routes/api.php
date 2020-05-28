@@ -26,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/nofitication', 'SendNofitication@post');
 
 Route::group(['middleware' => 'jwt.verify'], function ($router) {
     /**
@@ -126,6 +127,13 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     Route::get('/contacts','chatController@get');
     Route::get('/conversation/{id}','chatController@getMessagesFor');
     // Route::get('/conversation/send','chatController@sends');
+
+
+    /**
+    * Todo List Send mail Accept Permission
+    */
+
+    Route::post('SendTokenPermission', 'SendMailController@SendTokenPermission');
 });
 /**
  * Todo Login

@@ -37,5 +37,13 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true
+    forceTLS: true,
+    // wsHost: window.location.hostname,
+    // wsPort: 6001,
+    // disableStats: true,
 });
+
+window.Echo.private('App.User.1') // lắng nghe sự kiện Broadcast server phát ra mặc định
+    .notification((notification) => {
+        console.log('tha')
+    });

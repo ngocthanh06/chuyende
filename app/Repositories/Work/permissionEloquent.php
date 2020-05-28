@@ -41,7 +41,8 @@ class permissionEloquent implements permissionInterface
         $idComp = $request->idComp;
         $month = $this->support->getMonth($request->time);
         $year = $this->support->getYear($request->time);
-        return $idComp == 0 ? $this->allListLuongNV($month, $year, $limit) : $this->allListLuongNVWhereIdComp($idComp, $month, $year, $limit);
+        $Insurance = $request->Insurance;
+        return $idComp == 0 ? $this->allListLuongNV($month, $year, $limit, $Insurance) : $this->allListLuongNVWhereIdComp($idComp, $month, $year, $limit, $Insurance);
     }
 
     /**
@@ -49,7 +50,25 @@ class permissionEloquent implements permissionInterface
      * @param $month, $year
      * * Response: arr[]
      */
-    public function allListLuongNV($month, $year, $limit){
+    public function allListLuongNV($month, $year, $limit, $Insurance){
+        if($Insurance == 0){
+                return User::with(['role', 'workshifts' => function ($q) use ($month, $year)
+            {
+                $q->whereMonth('WS_date', $month);
+                $q->whereYear('WS_date', $year);
+                $q->with('formm');
+            }
+            , 'prepayment' => function ($p) use ($month, $year)
+            {
+                $p->whereMonth('per_time', $month);
+                $p->whereYear('per_time', $year);
+            }, 'permission' => function ($k) use ($month, $year)
+            {
+                $k->whereMonth('Per_time', $month);
+                $k->whereYear('Per_time', $year);
+            }
+            ])->where([['Role_id', 1]])->paginate($limit);    
+        }
         return User::with(['role', 'workshifts' => function ($q) use ($month, $year)
         {
             $q->whereMonth('WS_date', $month);
@@ -65,7 +84,7 @@ class permissionEloquent implements permissionInterface
             $k->whereMonth('Per_time', $month);
             $k->whereYear('Per_time', $year);
         }
-        ])->where('Role_id', 1)->paginate($limit);
+        ])->where([['Role_id', 1],['socical_insurance', $Insurance]])->paginate($limit);
     }
 
     /**
@@ -73,7 +92,25 @@ class permissionEloquent implements permissionInterface
      * @param $idComp , $month, $year
      * * Response: arr[]
      */
-    public function allListLuongNVWhereIdComp($idComp, $month, $year, $limit){
+    public function allListLuongNVWhereIdComp($idComp, $month, $year, $limit, $Insurance){
+        if($Insurance == 0 ){
+                return User::with(['role', 'workshifts' => function ($q) use ($month, $year)
+            {
+                $q->whereMonth('WS_date', $month);
+                $q->whereYear('WS_date', $year);
+                $q->with('formm');
+            }
+            , 'prepayment' => function ($p) use ($month, $year)
+            {
+                $p->whereMonth('per_time', $month);
+                $p->whereYear('per_time', $year);
+            }, 'permission' => function ($k) use ($month, $year)
+            {
+                $k->whereMonth('Per_time', $month);
+                $k->whereYear('Per_time', $year);
+            }
+            ])->where([['idComp', $idComp],['Role_id', 1]])->paginate($limit);
+        }
         return User::with(['role', 'workshifts' => function ($q) use ($month, $year)
         {
             $q->whereMonth('WS_date', $month);
@@ -89,7 +126,7 @@ class permissionEloquent implements permissionInterface
             $k->whereMonth('Per_time', $month);
             $k->whereYear('Per_time', $year);
         }
-        ])->where([['idComp', $idComp],['Role_id', 1]])->paginate($limit);
+        ])->where([['idComp', $idComp],['Role_id', 1],['socical_insurance', $Insurance]])->paginate($limit);
     }
 
     /**

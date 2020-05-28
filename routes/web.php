@@ -23,6 +23,8 @@ Route::post('resetPassword', 'resetPasswordController@resetPassword');
 
 Route::get('send','chatController@sends');
 
+
+
 // Auth::routes();
 //Path nên dược đặt dưới cùng
 Route::any('{path}', 'HomeController@index')->where(['path' => '.*']);

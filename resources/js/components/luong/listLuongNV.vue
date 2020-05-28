@@ -16,6 +16,15 @@
             <!-- <el-button type="success" size="mini">Xuất Excel</el-button> -->
             <excel ref="callExcel" v-on:workshilfts="workshilfts" ></excel>
           </div>
+          <!-- Chọn bảo hiểm -->
+          <div class="form-group flatpickr col-sm-2" style="float:right" >
+            <select @change="changeEmpComp()" v-model="insurance" class="form-control" id="exampleFormControlSelect1">
+              <option value="0" selected>Lựa chọn bảo hiểm</option>
+              <option :value="1">Có bảo hiểm</option>
+              <option :value="2">Không có bảo hiểm</option>
+            </select>
+          </div>
+          <!-- <end chọn bảo hiểm -->
           <!-- chọn công ty -->
           <div class="form-group flatpickr col-sm-2" style="float:right">
             <select @change="changeEmpComp()" v-model="company" class="form-control" id="exampleFormControlSelect1">
@@ -24,8 +33,12 @@
             </select>
           </div>
           <!-- <end công ty -->
+          <div class="form-group flatpickr col-sm-3" style="float:left">
+            <input type="text" placeholder="Tìm kiếm tên nhân viên" class="form-control" v-model="search">
+          </div>
+            
         </div>
-        <div class="content">
+        <div class="content" style="overflow-x: overlay">
           <table class="table table-dark table-striped">
             <thead class="thead-dark">
               <tr>
@@ -39,14 +52,18 @@
                 <th>Công tạm ứng</th>
                 <th>Thưởng</th>
                 <th>Phạt</th>
+                <th>Lương chính</th>
+                <th>Bảo hiểm</th>
+                <th>Lương đóng BH</th>
+                <th>Trích BH(10,5%)</th>
                 <th>Thực lĩnh</th>
                 <th>Đã thanh toán</th>
-                <th>Còn lại</th>
+                <th>Chưa thanh toán</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(items, key) in dataTable" :key="key" class="table-primary" style="color: #000">
+              <tr v-for="(items, key) in filterdataTable" :key="key" class="table-primary" style="color: #000">
                 <td>{{key +1}}</td>
                 <td>{{items.User_fullname}}</td>
                 <td>{{items.role.Role_name}}</td>
@@ -57,23 +74,36 @@
                 <td>{{tamung(items.prepayment)}}</td>
                 <td style="width: 150px">{{thuong(items.workshifts).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                 <td style="width: 150px">{{phat(items.workshifts).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
-                <td>{{thuclinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
+                <td>{{luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
+                <td v-if="items.socical_insurance == 1">Có</td>
+                <td v-else>Không</td>
+                <td v-if="items.socical_insurance == 1">
+                  {{luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}
+                </td>
+                <td v-else></td>
+                <td v-if="items.socical_insurance == 1">
+                  {{BHXH(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment)).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}
+                </td>
+                <td v-else></td>
+                <td v-if="items.socical_insurance == 1">{{(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment) - BHXH(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment))).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
+                <td v-else>{{luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                 <td v-if="items.permission">{{dathanhtoan(items.permission).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
-                <td>{{chuathanhtoan(items.permission,items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
+                <td v-else></td>
+                <td>{{chuathanhtoan(items.permission,items.role.coefficient,items.role.price,items.workshifts, items.prepayment, items.socical_insurance).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                 <td>
                   <el-tooltip v-if=" items.permission != '' && checkLuong(items.permission,items.role.coefficient,items.role.price,items.workshifts, items.prepayment) == 0" effect="light" :content="`Ngày thanh toán: ${items.permission[0].day_pay}`" placement="top">
                     <el-button type="primary" size="mini">Đã lưu</el-button>
                   </el-tooltip>
                   <el-tooltip effect="light" v-else content="Thông tin lương tháng này chưa được lưu" placement="top">
-                    <el-button type="danger" @click="onSubmit(items.User_id,items.role.coefficient,items.role.price,items.workshifts, items.prepayment)" size="mini">Chưa lưu</el-button>
+                    <el-button type="danger" @click="onSubmit(items.User_id,items.role.coefficient,items.role.price,items.workshifts, items.prepayment, items.email,items.socical_insurance)" size="mini">Chưa lưu</el-button>
                   </el-tooltip>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
           <el-pagination background @current-change="changePage" :page-size="pagiSize" :current-page="currentPage" layout="prev, pager, next" :total="total" style="text-align:center">
           </el-pagination>
-        </div>
         <div>
           <hr>
           <div>
@@ -82,7 +112,8 @@
             <p><b>Tổng công tạm ứng: <i>  {{prepayment}} công </i></b> </p>
             <p><b>Tổng công đã thanh toán: <i>  {{workspay}} công </i></b> </p>
             <p><b>Tổng công chưa thanh toán: <i>  {{workshifts - workspay}} công </i></b> </p>
-            <p><b>Tổng tiền đã thanh toán: <i>  {{paydone.toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}} </i></b>  </p>          </div>
+            <p><b>Tổng tiền đã thanh toán: <i>  {{paydone.toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}} </i></b>  </p>          
+          </div>
         </div>
       </div>
       <!-- end list view -->
@@ -103,6 +134,7 @@ export default {
   },
   data() {
     return {
+      insurance: 0,
       month: '',
       loading: true,
       numWeek: "",
@@ -117,21 +149,26 @@ export default {
       paydone: 0,
       needPay: 0,
       workspay: 0,
+      search: '',
+      area:''
     }
   },
   methods: {
+
+    BHXH(val){
+      return val * 10.5/100;
+    },
 
     async thongke() {
       let countWorkshilfts = [];
       let thongke = await axios.post('/api/thongke', {
         time: this.month,
-        idComp: this.company
+        idComp: this.company,
       });
       this.totalWorkshilfts(thongke.data);
       this.totalPrepayment(thongke.data);
       this.totalPermission(thongke.data);
     },
-
     
     /**
      * Todo total Permission
@@ -210,15 +247,18 @@ export default {
     checkLuong(val, coff, price, works, prepayment){
         return this.chuathanhtoan(val, coff, price, works, prepayment);
     },
-    chuathanhtoan(val, coff, price, works, prepayment){
-        return this.thuclinh(coff, price, works, prepayment) - this.dathanhtoan(val);
+    chuathanhtoan(val, coff, price, works, prepayment, ischeck){
+      if(ischeck == 1){
+        return this.luongchinh(coff, price, works, prepayment) - this.BHXH(this.luongchinh(coff, price, works, prepayment)) - this.dathanhtoan(val);
+      }
+      return this.luongchinh(coff,price, works, prepayment) - this.dathanhtoan(val);
     },
     dathanhtoan(per){
        return per.reduce((wei, val , index, column) => {
          return wei += val.Per_total;
        }, 0);
     },
-    thuclinh(coff, price, works, prepayment) {
+    luongchinh(coff, price, works, prepayment) {
       return this.thunhap(coff, price, works) - this.tamung(prepayment) * price + this.thuong(works) - this.phat(works);
     },
     thuong(works) {
@@ -253,10 +293,17 @@ export default {
      * @param $user_id, $coff, $price, $works, $prepayment
      * * Response: arr[]
      */
-    onSubmit(user_id, coff, price, works, prepayment) {
+    onSubmit(user_id, coff, price, works, prepayment, email, ischeck) {
       let thuong = this.thuong(works);
       let phat = this.phat(works);
-      let thuclinh = this.thuclinh(coff, price, works, prepayment);
+      let luongchinh = 0;
+      if(ischeck == 1){
+        luongchinh = this.luongchinh(coff, price, works, prepayment) - this.BHXH(this.luongchinh(coff, price, works, prepayment));
+      }
+      else 
+      {
+        luongchinh = this.luongchinh(coff, price, works, prepayment);
+      }
       let day_pay = moment().format("YYYY-MM-DD");
       let month = this.subStrMonth();
       let year = this.subStrYear();
@@ -265,7 +312,7 @@ export default {
       axios.post('/api/addLuong', {
           bonus: thuong,
           error: phat,
-          Per_total: thuclinh,
+          Per_total: luongchinh,
           day_pay: day_pay,
           User_id: user_id,
           Per_time: Per_time,
@@ -280,6 +327,7 @@ export default {
             });
             this.changePage(this.currentPage);
             this.thongke();
+            axios.post('/api/SendTokenPermission', {email:email, month: this.month}).then((response) => {})
           }
         });
     },
@@ -325,7 +373,8 @@ export default {
     async loadInfomation() {
       let val = await axios.post(`/api/listLuongNV/${this.pagiSize}?page=${this.currentPage}`, {
         time: this.month,
-        idComp: this.company
+        idComp: this.company,
+        Insurance: this.insurance
       });
       this.dataTable = val.data.data;
       this.total = val.data.total;
@@ -368,6 +417,15 @@ export default {
     },
     getTimeNow() {
       return moment().format("MM - YYYY");
+    },
+    filterdataTable(){
+      let filters = this.dataTable;
+      if(this.search){
+        filters = this.dataTable.filter(
+          m => m.User_fullname.toLowerCase().indexOf(this.search) > -1
+        )
+      }
+      return filters;
     },
   }
 }

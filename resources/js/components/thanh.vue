@@ -1,62 +1,35 @@
 <template>
-  <section class="calendar">
-    <download-excel
-    class   = "btn btn-default"
-    :data   = "json_data"
-    :fields = "json_fields"
-    worksheet = "My Worksheet"
-    name    = "filename.xls">
- 
-    Download Excel (you can customize this with html code!)
- 
-</download-excel>
-  </section>
+  <div class="container">
+    <form v-on:submit.prevent='SendNotification'>
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title" type="text" class="form-control" v-model="title">
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <input name="content" type="text" v-model="content" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 </template>
-
-<script> 
+<script>
 export default {
-    
-    
-  data() {
-    return {
-      json_fields: {
-            'Complete name': 'name',
-            'City': 'city',
-            'Telephone': 'phone.mobile',
-            'Telephone 2' : {
-                field: 'phone.landline',
-                callback: (value) => {
-                    return `Landline Phone - ${value}`;
-                }
-            },
-        },
-        json_data: [
-            {
-                'name': 'Tony Peña',
-                'city': 'New York',
-                'country': 'United States',
-                'birthdate': '1978-03-15',
-                'phone': {
-                    'mobile': '1-541-754-3010',
-                    'landline': '(541) 754-3010'
-                }
-            },
-        ],
-        json_meta: [
-            [
-                {
-                    'key': 'charset',
-                    'value': 'utf-8'
-                }
-            ]
-        ],
-    };
-  },
-  
-  methods: {
-    
-  },
-  
-};
+    created(){
+    },
+    data(){
+        return {
+            title: '',
+            content: ''
+        }
+    },
+    methods: {
+        SendNotification(){
+            axios.post('/api/nofitication', {'title': this.title, 'content': this.content}).then((res) => {
+                console.log(res);
+            })
+        }
+    }
+}
 </script>
 

@@ -10,23 +10,27 @@
             </el-date-picker>
           </div>
         </div>
-        <div class="content">
+        <div class="content" style="overflow-x: overlay">
           <table v-loading="loading"  class="table table-dark table-striped">
             <thead class="thead-dark">
               <tr>
-                <th>#</th>
+                 <th>#</th>
                 <th>Họ Tên </th>
                 <th>Chức vụ</th>
                 <th>Hệ số</th>
                 <th>Lương/ca</th>
                 <th>Số công làm</th>
-                <th>Thu nhập</th>
+                <!-- <th>Thu nhập</th> -->
                 <th>Công tạm ứng</th>
                 <th>Thưởng</th>
                 <th>Phạt</th>
+                <th>Lương chính</th>
+                <th>Bảo hiểm</th>
+                <th>Lương đóng BH</th>
+                <th>Trích BH(10,5%)</th>
                 <th>Thực lĩnh</th>
                 <th>Đã thanh toán</th>
-                <th>Còn lại</th>
+                <th>Chưa thanh toán</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
@@ -37,14 +41,29 @@
                 <td>{{items.role.Role_name}}</td>
                 <td>{{items.role.coefficient}}</td>
                 <td>{{items.role.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
-                <td v-if="items.workshifts">{{workshilfts(items.workshifts)}}</td>
+                <!-- <td v-if="items.workshifts">{{workshilfts(items.workshifts)}}</td> -->
                 <td>{{thunhap(items.role.coefficient, items.role.price, items.workshifts).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                 <td>{{tamung(items.prepayment)}}</td>
                 <td style="width: 150px">{{thuong(items.workshifts).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                 <td style="width: 150px">{{phat(items.workshifts).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
-                <td>{{thuclinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
+                <td>{{luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
+                
+                
+                <td v-if="items.socical_insurance == 1">Có</td>
+                <td v-else>Không</td>
+                <td v-if="items.socical_insurance == 1">
+                  {{luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}
+                </td>
+                <td v-else></td>
+                <td v-if="items.socical_insurance == 1">
+                  {{BHXH(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment)).toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}
+                </td>
+                <td v-else></td>
                 <td v-if="items.permission">{{dathanhtoan(items.permission).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
-                <td>{{chuathanhtoan(items.permission,items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
+                <td v-else></td>
+                <td>{{(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment) - BHXH(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment))).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
+                 <td>{{chuathanhtoan(items.permission,items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
+               
                 <td>
                   <el-tooltip v-if="items.permission != ''" effect="light" :content="`Ngày thanh toán: ${items.permission[0].day_pay}`" placement="top">
                     <el-button type="primary" size="mini">Đã lưu</el-button>
@@ -87,11 +106,14 @@ export default {
     }
   },
   methods: {
+     BHXH(val){
+      return val * 10.5/100;
+    },
     checkLuong(val, coff, price, works, prepayment){
         return this.chuathanhtoan(val, coff, price, works, prepayment);
     },
     chuathanhtoan(val, coff, price, works, prepayment){
-        return this.thuclinh(coff, price, works, prepayment) - this.dathanhtoan(val);
+        return this.luongchinh(coff, price, works, prepayment) - this.BHXH(this.luongchinh(coff, price, works, prepayment)) - this.dathanhtoan(val);
     },
     dathanhtoan(per){
        return per.reduce((wei, val , index, column) => {
@@ -104,7 +126,7 @@ export default {
         currency: 'VND'
       })
     },
-    thuclinh(coff, price, works, prepayment) {
+    luongchinh(coff, price, works, prepayment) {
       return this.thunhap(coff, price, works) - this.tamung(prepayment) * price + this.thuong(works) - this.phat(works);
     },
     thuong(works) {
@@ -142,7 +164,7 @@ export default {
     onSubmit(user_id, coff, price, works, prepayment) {
       let thuong = this.thuong(works);
       let phat = this.phat(works);
-      let thuclinh = this.thuclinh(coff, price, works, prepayment);
+      let luongchinh = this.luongchinh(coff, price, works, prepayment);
       let day_pay = moment().format("YYYY-MM-DD");
       let month = this.subStrMonth();
       let year = this.subStrYear();
@@ -151,7 +173,7 @@ export default {
       axios.post('/api/addLuong', {
           bonus: thuong,
           error: phat,
-          Per_total: thuclinh,
+          Per_total: luongchinh,
           day_pay: day_pay,
           User_id: user_id,
           Per_time: Per_time,

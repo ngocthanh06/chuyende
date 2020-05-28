@@ -61,7 +61,7 @@ const routes = [
     { path: '/Show-Calam', component: ShowCaLam, name: 'ShowCalam', meta: { requiresAuth: true } },
     { path: '/Add-Calam', component: AddCalam, name: 'AddCalam', meta: { requiresAuth: true } },
     { path: '/Edit-Calam/:id', component: EditCaLam, name: 'EditCalam', meta: { requiresAuth: true } },
-    { path: '/demo', component: Demo, name: 'demo' },
+    { path: '/demo', component: Demo, name: 'demo', meta: { requiresAuth: true } },
     { path: '/ad-calendar', component: adCalendar, name: 'adCalendar', meta: { requiresAuth: true } },
     { path: '/404', component: pageErrors, name: '404' },
     { path: '/homepage', component: homepage, name: 'homepage', meta: { requiresAuth: true } },

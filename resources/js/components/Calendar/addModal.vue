@@ -38,7 +38,7 @@
                 <el-option v-for="(item, key) in getRole" :key="key" :label="item.Role_name" :value="item.Role_id"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Chi nhánh( Nếu có)" prop="idComp" required="">
+            <el-form-item label="Chi nhánh" prop="idComp" required="">
               <el-select v-model="ruleForm.idComp" placeholder="Chọn chi nhánh làm việc cho nhân viên">
                 <el-option label="Chọn chi nhánh" value=""></el-option>
                 <el-option v-for="item in getCompanies" :key="item.idComp" :label="item.nameComp" :value="item.idComp"></el-option>

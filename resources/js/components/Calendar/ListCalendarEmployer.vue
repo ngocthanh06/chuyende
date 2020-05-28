@@ -28,7 +28,7 @@
               <!-- chọn công ty -->
               <div class="form-group flatpickr">
                 <select v-on:change="changeEmpComp()" v-model="company" class="form-control" id="exampleFormControlSelect1">
-                  <option value="" disabled selected hidden>Chọn chi nhánh công ty</option>
+                  <option value="" disabled selected hidden>Chọn chi nhánh</option>
                   <option v-for="items in getCompanies" :key="items.idComp" :value="items.idComp">{{items.nameComp}}</option>
                 </select>
               </div>

@@ -61,7 +61,7 @@
                 <td v-else></td>
                 <td v-if="items.permission">{{dathanhtoan(items.permission).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                 <td v-else></td>
-                <td>{{(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment) - BHXH(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment))).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
+              <td>{{(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment) - BHXH(luongchinh(items.role.coefficient,items.role.price,items.workshifts, items.prepayment))).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                  <td>{{chuathanhtoan(items.permission,items.role.coefficient,items.role.price,items.workshifts, items.prepayment).toLocaleString('it-IT', {style: 'currency', currency: 'VND' })}}</td>
                
                 <td>

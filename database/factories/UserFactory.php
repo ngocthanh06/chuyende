@@ -19,8 +19,8 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'password' => bcrypt('123123'), 
-        'User_fullname' => 'Admin',
+        'user_fullname' => 'Admin',
         'username' => 'admin',
-        'Role_id' => 2
+        'role_id' => 2
     ];
 });

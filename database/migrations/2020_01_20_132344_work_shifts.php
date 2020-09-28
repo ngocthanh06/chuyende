@@ -13,15 +13,15 @@ class WorkShifts extends Migration
      */
     public function up()
     {
-        Schema::create('WorkShifts', function (Blueprint $table) {
-            $table->Increments('Work_id');
-            $table->integer('FormM_id')->nullable();
-            $table->integer('User_id')->nullable();
-            $table->time('WS_time_in')->nullable();
-            $table->time('WS_time_out')->nullable();
-            $table->date('WS_date')->nullable();
-            $table->text('Work_desc')->nullable();
-            $table->boolean('Work_active')->nullable();
+        Schema::create('workshifts', function (Blueprint $table) {
+            $table->Increments('work_id');
+            $table->integer('form_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->time('ws_time_in')->nullable();
+            $table->time('ws_time_out')->nullable();
+            $table->date('ws_date')->nullable();
+            $table->text('work_desc')->nullable();
+            $table->boolean('work_active')->nullable();
             $table->boolean('status')->nullable()->default(0);
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ class WorkShifts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('WorkShifts');
+        Schema::dropIfExists('workshifts');
     }
 }

@@ -20,12 +20,12 @@
         </div>
         <div class="container form">
           <el-form role="ruleForm" :filter-multiple=true :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-            <el-form-item label="Họ Và Tên" prop="User_fullname">
-              <el-input placeholder="Nhập họ và tên nhân viên" v-model="ruleForm.User_fullname"></el-input>
+            <el-form-item label="Họ Và Tên" prop="user_fullname">
+              <el-input placeholder="Nhập họ và tên nhân viên" v-model="ruleForm.user_fullname"></el-input>
             </el-form-item>
-            <el-form-item label="Số điện thoại" prop="User_phone" required>
-              <el-input v-on:change="ChangePassAndUser()" placeholder="Nhập số điện thoại" :class="{ 'is-invalid':  ruleForm.errors.has('User_phone') }" v-model.number="ruleForm.User_phone"></el-input>
-              <has-error :form="ruleForm" field="User_phone"></has-error>
+            <el-form-item label="Số điện thoại" prop="user_phone" required>
+              <el-input v-on:change="ChangePassAndUser()" placeholder="Nhập số điện thoại" :class="{ 'is-invalid':  ruleForm.errors.has('user_phone') }" v-model.number="ruleForm.user_phone"></el-input>
+              <has-error :form="ruleForm" field="user_phone"></has-error>
               <el-input style="display:none" :class="{ 'is-invalid':  ruleForm.errors.has('username') }"></el-input>
               <has-error :form="ruleForm" field="username"></has-error>
             </el-form-item>
@@ -33,9 +33,9 @@
               <el-input v-model="ruleForm.email" :class="{ 'is-invalid':  ruleForm.errors.has('email') }"></el-input>
               <has-error :form="ruleForm" field="email"></has-error>
             </el-form-item>
-            <el-form-item label="Chức vụ" prop="Role_id" required>
-              <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
-                <el-option v-for="(item, key) in getRole" :key="key" :label="item.Role_name" :value="item.Role_id"></el-option>
+            <el-form-item label="Chức vụ" prop="role_id" required>
+              <el-select v-model="ruleForm.role_id" placeholder="Chọn chức vụ cho nhân viên">
+                <el-option v-for="(item, key) in getRole" :key="key" :label="item.role_name" :value="item.role_id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Chi nhánh" prop="idComp" required="">
@@ -82,7 +82,7 @@ export default {
 
   },
   data() {
-    var checkUser_Phone = (rule, value, callback) => {
+    var checkuser_phone = (rule, value, callback) => {
       setTimeout(() => {
         if (!Number.isInteger(value)) {
           callback(new Error('Ký tự phải là số'));
@@ -94,9 +94,9 @@ export default {
     return {
       show: true,
       ruleForm: new Form({
-        Role_id: '',
-        User_fullname: '',
-        User_phone: '',
+        role_id: '',
+        user_fullname: '',
+        user_phone: '',
         email: '',
         sex: '',
         idComp: '',
@@ -104,7 +104,7 @@ export default {
         username: '',
       }),
       rules: {
-        User_fullname: [{
+        user_fullname: [{
             required: true,
             message: 'Họ tên không được để trống',
             trigger: 'blur'
@@ -121,18 +121,18 @@ export default {
           message: 'Email không được để trống',
           trigger: 'blur'
         }],
-        Role_id: [{
+        role_id: [{
           required: true,
           message: 'Bạn chưa chọn chức vụ',
           trigger: 'change'
         }],
-        User_phone: [{
+        user_phone: [{
             required: true,
             message: 'Số điện thoại không được để trống',
             trigger: 'blur'
           },
           {
-            validator: checkUser_Phone,
+            validator: checkuser_phone,
             trigger: 'blur'
           },
         ],
@@ -194,8 +194,8 @@ export default {
       return this.$refs[formName].resetFields();
     },
     ChangePassAndUser() {
-      this.ruleForm.Password = this.ruleForm.User_phone;
-      this.ruleForm.username = this.ruleForm.User_phone;
+      this.ruleForm.Password = this.ruleForm.user_phone;
+      this.ruleForm.username = this.ruleForm.user_phone;
     },
 
   },

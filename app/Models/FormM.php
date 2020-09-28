@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class FormM extends Model
 {
-    protected $table = 'formm';
-    protected $primaryKey = 'FormM_id';
+    protected $table = 'forms';
+    
+    protected $primaryKey = 'form_id';
 
     public function workshifts() {
-        return $this->hasMany('App\Models\Workshifts', 'FormM_id', 'FormM_id');
+        return $this->hasMany(WorkShifts::class, 'form_id', 'form_id');
     }
 }

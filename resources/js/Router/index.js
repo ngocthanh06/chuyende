@@ -89,7 +89,7 @@ const router = new VueRouter({
     base: process.env.MIX_PUBLISH_APP_URL,
     routes
 });
-//Check Login/Louout with Role_id when using Route-Link
+//Check Login/Louout with role_id when using Route-Link
 router.beforeEach((to, from, next) => {
         let routes = ['/employers', '/Show-Calam', '/Set-Calendar', '/getLichNv', '/listPhep', '/listCong', '/getChinhanh', '/listChucvu'];
         let routeAd = ['/ad-calendar', '/infomation', '/editUserNV', '/Set-Calendar'];
@@ -100,9 +100,9 @@ router.beforeEach((to, from, next) => {
         if (requiresAuth && !currentUser) {
             next('/login');
         } else if (currentUser && routes.indexOf(to.path) != -1) {
-            if (currentUser.Role_id == 1) { next('/ad-calendar') } else next();
+            if (currentUser.role_id == 1) { next('/ad-calendar') } else next();
         } else if (currentUser && routeAd.indexOf(to.path) != -1) {
-            if (currentUser.Role_id == 2) { next('/employers') } else next();
+            if (currentUser.role_id == 2) { next('/employers') } else next();
         } else if (to.path == '/login' && localStorage.access_token || to.path == '/resetpassword') {
             next('/');
         } else {

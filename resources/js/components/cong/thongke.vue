@@ -48,7 +48,7 @@
               <div class="ctLists" v-for="(items, key) in employers" :key="key">
                 <div class="L_item">
                   <div class="i_name titleTableSearch" style="padding: 0">
-                    <span class="name-text">{{items.User_fullname}}</span>
+                    <span class="name-text">{{items.user_fullname}}</span>
                   </div>
                   <div class="daysInMonth">
                     <div class="days" style="height: 100%">
@@ -62,22 +62,22 @@
                         <!-- end for getWorkshilfts -->
                         <!-- for get workshifts -->
                         <template v-for="(i, k) in items.workshifts">
-                          <div :key="k" v-if="i.WS_date == day">
-                            <el-tooltip v-if="i.status == 2" class="item" effect="dark" :content="`Ngày: ${i.WS_date} ( Vào: ${i.WS_time_in} - Ra: ${i.WS_time_out} )`" placement="top-start">
+                          <div :key="k" v-if="i.ws_date == day">
+                            <el-tooltip v-if="i.status == 2" class="item" effect="dark" :content="`Ngày: ${i.ws_date} ( Vào: ${i.ws_time_in} - Ra: ${i.ws_time_out} )`" placement="top-start">
                               <div class="hidebutton">
                                 <el-button href="#checkdiemdanh" data-target="#checkdiemdanh" data-toggle="modal" @click="openChamcong(items, day)" style="border: none; color: #DC1AFB">
                                   <i class="el-icon-success" style="color:#007bff"></i>
                                 </el-button>
                               </div>
                             </el-tooltip>
-                            <el-tooltip v-else-if="i.status == 1" class="item" effect="dark" :content="`Ngày: ${i.WS_date} ( Vào: ${i.WS_time_in} - Ra: ${i.WS_time_out} )`" placement="top-start">
+                            <el-tooltip v-else-if="i.status == 1" class="item" effect="dark" :content="`Ngày: ${i.ws_date} ( Vào: ${i.ws_time_in} - Ra: ${i.ws_time_out} )`" placement="top-start">
                               <div class="hidebutton">
                                 <el-button href="#checkdiemdanh" data-target="#checkdiemdanh" data-toggle="modal" @click="openChamcong(items, day)" style="border: none; color: #DC1AFB">
                                   <i class="el-icon-error" style="color: red"></i>
                                 </el-button>
                               </div>
                             </el-tooltip>
-                            <el-tooltip v-else class="item" effect="dark" :content="`Ngày: ${i.WS_date} ( Vào: ${i.WS_time_in} - Ra: ${i.WS_time_out} )`" placement="top-start">
+                            <el-tooltip v-else class="item" effect="dark" :content="`Ngày: ${i.ws_date} ( Vào: ${i.ws_time_in} - Ra: ${i.ws_time_out} )`" placement="top-start">
                               <div class="hidebutton">
                                 <el-button href="#checkdiemdanh" data-target="#checkdiemdanh" data-toggle="modal" @click="openChamcong(items, day)" style="border: none; color: #DC1AFB">
                                   <i class="el-icon-warning"></i>
@@ -153,8 +153,8 @@ export default {
   data() {
     return {
       calam: {
-        User_id: '',
-        WS_date: '',
+        user_id: '',
+        ws_date: '',
         idComp: ""
       },
       options: [],
@@ -180,14 +180,14 @@ export default {
         return res.status == 2;
       })
       let number = value.reduce((weight, val, index, column) => {
-        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        return val.formm.form_work > 4 ? weight += 2 : weight += 1;
       }, 0)
       return number;
     },
     // Sửa ca làm cho nhân viên khi truyền xuống modelCalam
     EditCaLam(valueID, date) {
-      this.calam["User_id"] = valueID;
-      this.calam["WS_date"] = date;
+      this.calam["user_id"] = valueID;
+      this.calam["ws_date"] = date;
       this.$refs.checkdd.getCaLamUser();
       this.$store.dispatch("allCaLam");
     },
@@ -202,8 +202,8 @@ export default {
     },
     /**
      *  Todo Call Điểm danh 
-     *  @param work_id: Work_id
-     *  @param time:  WS_date
+     *  @param work_id: work_id
+     *  @param time:  ws_date
      *  * response: mở form phép
      */
     openPhep(work_id, time) {
@@ -216,8 +216,8 @@ export default {
      * day : work_id
      */
     openChamcong(val, day) {
-      this.calam.User_id = val.User_id;
-      this.calam.WS_date = day;
+      this.calam.user_id = val.user_id;
+      this.calam.ws_date = day;
       this.$refs.checkdd.getCaLamUser();
     },
     /**
@@ -265,7 +265,7 @@ export default {
         })
       });
       let number = countWorkshilfts.reduce((weight, val, index, column) => {
-        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        return val.formm.form_work > 4 ? weight += 2 : weight += 1;
       }, 0);
       this.totalSum = number;
     },

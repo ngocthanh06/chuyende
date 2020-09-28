@@ -99,7 +99,7 @@ export default {
             var res = response.data;
 
             this.$store.commit("loginSuccess", res);
-            if (this.$store.getters.currentUser.Role_id == 1.) {
+            if (this.$store.getters.currentUser.role_id == 1.) {
               this.$router.push({
                 name: 'adCalendar'
               });
@@ -127,7 +127,7 @@ export default {
       // login(this.ruleForm)
       //     .then((res) => {
       //         this.$store.commit("loginSuccess", res); 
-      //         if(this.$store.getters.currentUser.Role_id == 1){
+      //         if(this.$store.getters.currentUser.role_id == 1){
       //             this.$router.push({name: 'adCalendar'});
       //         }
       //         else {

@@ -12,13 +12,13 @@
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
             <el-table resizable="true" v-loading="loading" :data="tableData" stripe style="width: 100%">
               <el-table-column label="STT" type="index" width="50"> </el-table-column>
-              <el-table-column prop="Role_name" sortable label="Tên chức vụ"> </el-table-column>
+              <el-table-column prop="role_name" sortable label="Tên chức vụ"> </el-table-column>
               <el-table-column :formatter="number" prop="price" sortable label="Giá mỗi ca"> </el-table-column>
               <el-table-column prop="coefficient" sortable label="Hệ số"> </el-table-column>
-              <el-table-column height="" prop="Role_desc" label="Nội dung"> </el-table-column>
+              <el-table-column height="" prop="role_desc" label="Nội dung"> </el-table-column>
               <el-table-column prop="date" label="Tùy chọn">
                 <template slot-scope="scope">
-                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/editChucvu/${scope.row.Role_id}`">Sửa</router-link>
+                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/editChucvu/${scope.row.role_id}`">Sửa</router-link>
                   <!-- <el-button size="mini" type="danger">Delete</el-button> -->
                 </template>
               </el-table-column>

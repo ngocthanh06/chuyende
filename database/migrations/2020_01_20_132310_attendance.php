@@ -13,14 +13,14 @@ class Attendance extends Migration
      */
     public function up()
     {
-        Schema::create('Attendance', function (Blueprint $table) {
-            $table->Increments('Att_id');
-            $table->integer('Workshifts_id')->nullable();
-            $table->text('Att_desc')->nullable();
-            $table->dateTime('Att_time')->nullable();
-            $table->integer('Att_status')->nullable();
-            $table->text('Att_accept')->nullable();
-            $table->integer('User_accept')->nullable();
+        Schema::create('attendances', function (Blueprint $table) {
+            $table->Increments('att_id');
+            $table->integer('workshifts_id')->nullable();
+            $table->text('att_desc')->nullable();
+            $table->dateTime('att_time')->nullable();
+            $table->integer('att_status')->nullable();
+            $table->text('att_accept')->nullable();
+            $table->integer('user_accept')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class Attendance extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Attendance');
+        Schema::dropIfExists('attendances');
     }
 }

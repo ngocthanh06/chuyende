@@ -48,7 +48,7 @@
         </el-dropdown-menu>
       </el-dropdown>
         
-        <a href="" @click="logout" class="nav-item dropdown d-flex align-items-center mr-2">{{ currentUser.User_fullname }}</a>
+        <a href="" @click="logout" class="nav-item dropdown d-flex align-items-center mr-2">{{ currentUser.user_fullname }}</a>
         <a href="" @click="logout" class="nav-item dropdown d-flex align-items-center mr-2">Logout</a>
       </li>
 

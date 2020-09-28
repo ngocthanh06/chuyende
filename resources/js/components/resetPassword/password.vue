@@ -46,7 +46,7 @@ export default {
           token: this.$route.params.id
         }
         axios.post('/validateToken', data).then(response => {
-          if (response.data.User_id) {
+          if (response.data.user_id) {
             this.user = response.data;
           }
           else {
@@ -71,7 +71,7 @@ export default {
       if (!this.errorNewPassword && !this.errorPasswordAgain) {
         const data = {
           password: this.newPassword,
-          user_id: this.user.User_id
+          user_id: this.user.user_id
         }
 
         axios.post('/resetPassword', data).then(() => {

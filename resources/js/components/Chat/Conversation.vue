@@ -1,6 +1,6 @@
 <template>
     <div class="Conversation">
-        <h1>{{contact ? contact.User_fullname : 'Select a Contact'}}</h1>
+        <h1>{{contact ? contact.user_fullname : 'Select a Contact'}}</h1>
         <MessagesFeed :contact="contact" :messages="messages"></MessagesFeed>
         <MessageComposer @send="sendMessage"></MessageComposer>
     </div>
@@ -26,7 +26,7 @@ import MessagesFeed from './MessagesFeed';
                    return ;
                }
                axios.post('/api/conversation/send', {
-                   contact_id: this.contact.User_id,
+                   contact_id: this.contact.user_id,
                    text: text
                }).then( res => {
                    this.$emit('new', res.data);

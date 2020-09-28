@@ -20,13 +20,13 @@
         <div class="container form">
           <div class="formAll">
             <el-table :data="getCaLamProp" style="width: 100%" height="250">
-              <el-table-column prop="FormM_name" label="Ca làm"> </el-table-column>
-              <el-table-column prop="FormM_Work" label="Thời gian( Giờ)"></el-table-column>
-              <el-table-column prop="FormM_TimeIn" label="Bắt đầu"> </el-table-column>
-              <el-table-column prop="FormM_TimeOut" label="Kết thúc"> </el-table-column>
+              <el-table-column prop="form_name" label="Ca làm"> </el-table-column>
+              <el-table-column prop="form_work" label="Thời gian( Giờ)"></el-table-column>
+              <el-table-column prop="form_time_in" label="Bắt đầu"> </el-table-column>
+              <el-table-column prop="form_time_out" label="Kết thúc"> </el-table-column>
               <el-table-column label="Chọn">
                 <template slot-scope="scope">
-                  <input type="checkbox" @change="getTime(scope.row)" :id="scope.row.FormM_id" :value="scope.row" v-model="selected">
+                  <input type="checkbox" @change="getTime(scope.row)" :id="scope.row.form_id" :value="scope.row" v-model="selected">
                   <i class="form-icon"></i>
                 </template>
               </el-table-column>
@@ -50,9 +50,9 @@ export default {
     return {
       selected: [],
       ruleForm1: {
-        FormM_id: [],
-        User_id: '',
-        WS_date: ''
+        form_id: [],
+        user_id: '',
+        ws_date: ''
       },
       rule: [],
       number: 0,
@@ -76,16 +76,16 @@ export default {
       if (this.selected.length != 0) {
         this.selected.forEach(
           val => {
-            this.ruleForm1.FormM_id.push(val);
+            this.ruleForm1.form_id.push(val);
           },
         );
-        this.ruleForm1['User_id'] = this.calam['User_id'];
-        this.ruleForm1['WS_date'] = this.calam['WS_date'];
+        this.ruleForm1['user_id'] = this.calam['user_id'];
+        this.ruleForm1['ws_date'] = this.calam['ws_date'];
         axios.post('/api/CaLam', this.ruleForm1).then((res) => {
           try {
             if (res.status === 200) {
               this.HandelPage();
-              this.ruleForm1.FormM_id = [];
+              this.ruleForm1.form_id = [];
               this.$message({
                 type: 'success',
                 message: 'Ca làm việc đã được cập nhật'
@@ -105,23 +105,23 @@ export default {
       return this.selected = []
     },
     getTime(val) {
-      let date = this.calam.WS_date;
-      let FormM_id = val.FormM_id;
+      let date = this.calam.ws_date;
+      let form_id = val.form_id;
       axios.post('/api/checkWorkshiftsWhere', {
         date: date,
-        FormM_id: FormM_id,
+        form_id: form_id,
         idComp: this.calam.idComp
       }).then(res => {
         if (res.data < 5) {
-          if ($(`#${val.FormM_id}`).is(':checked') === true) {
-        this.number = this.number + val.FormM_Work; 
+          if ($(`#${val.form_id}`).is(':checked') === true) {
+        this.number = this.number + val.form_work; 
             //Check time work 
-            if (this.selected.length > 1 && val.FormM_Work >= 8) {
+            if (this.selected.length > 1 && val.form_work >= 8) {
               this.$alert('<b>Bạn đã đăng ký ca làm <i style="color: red">PARTTIME</i> nên không không thể đăng ký thêm <i style="color: red">FULLTIME</i></b>', 'Thông báo', {
                 dangerouslyUseHTMLString: true,
                 confirmButtonText: 'OK',
                 callback: action => {
-                  $(`#${val.FormM_id}`).prop('checked', false);
+                  $(`#${val.form_id}`).prop('checked', false);
                   this.selected = this.selected.filter(name => name !== val);
                   this.$message({
                     type: 'success',
@@ -130,12 +130,12 @@ export default {
                 }
               });
             } else if (this.selected.length > 1) {
-              if (this.selected[0].FormM_Work >= 8) {
+              if (this.selected[0].form_work >= 8) {
                 this.$alert('<b>Bạn đã đăng ký <i style="color: red">FULLTIME</i> nên không còn ca phù hợp</b>', 'Thông báo', {
                   confirmButtonText: 'OK',
                   dangerouslyUseHTMLString: true,
                   callback: action => {
-                    $(`#${val.FormM_id}`).prop('checked', false);
+                    $(`#${val.form_id}`).prop('checked', false);
                     this.selected = this.selected.filter(name => name !== val);
                     this.$message({
                       type: 'success',
@@ -144,18 +144,18 @@ export default {
                   }
                 });
               }
-              else if(this.selected.length > 1 && val.FormM_Work < 8 && this.number > 8 ){
+              else if(this.selected.length > 1 && val.form_work < 8 && this.number > 8 ){
                 this.$alert('<b>Bạn đã đăng ký nhiều hơn <i style="color: red">1 ca</i> và số lượng ca cho phép không vượt quá <i style="color: red">2 ca</i> trong 1 ngày vì vậy không thể đăng ký tiếp</b>', 'Thông báo', {
                   confirmButtonText: 'OK',
                   dangerouslyUseHTMLString: true,
                   callback: action => {
-                    $(`#${val.FormM_id}`).prop('checked', false);
+                    $(`#${val.form_id}`).prop('checked', false);
                     this.selected = this.selected.filter(name => name !== val);
                     this.$message({
                       type: 'success',
                       message: `Lựa chọn gần đây đã được hủy`
                     });
-                    this.number -= val.FormM_Work;
+                    this.number -= val.form_work;
                   }
                 });
               }
@@ -163,8 +163,8 @@ export default {
           } else {
             if (this.selected.length === this.count) {
               this.selected.forEach(res => {
-                if (res.FormM_id == val.FormM_id) {
-                  $(`#${val.FormM_id}`).prop('checked', true);
+                if (res.form_id == val.form_id) {
+                  $(`#${val.form_id}`).prop('checked', true);
                   this.$notify.error({
                     title: 'Error',
                     message: 'BẠN KHÔNG THỂ HỦY CA LÀM VIỆC ĐÃ ĐƯỢC TỰ CHỌN TỪ TRƯỚC'
@@ -181,14 +181,14 @@ export default {
                   type: 'success',
                   message: `Lựa chọn gần đây đã được hủy`
                 });
-                this.number -= val.FormM_Work;
+                this.number -= val.form_work;
               }).catch(() => {
-                $(`#${val.FormM_id}`).prop('checked', true);
+                $(`#${val.form_id}`).prop('checked', true);
                 this.$message({
                   type: 'info',
                   message: 'Thao tác không thành công'
                 });
-                this.number -= val.FormM_Work;
+                this.number -= val.form_work;
               });
             }
           }
@@ -197,13 +197,13 @@ export default {
             dangerouslyUseHTMLString: true,
             confirmButtonText: 'OK',
             callback: action => {
-              $(`#${val.FormM_id}`).prop('checked', false);
+              $(`#${val.form_id}`).prop('checked', false);
               this.selected = this.selected.filter(name => name !== val);
               this.$message({
                 type: 'success',
                 message: `Lựa chọn gần đây đã được hủy`
               });
-              this.number -= val.FormM_Work;
+              this.number -= val.form_work;
             }
           });
         }

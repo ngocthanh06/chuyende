@@ -1,12 +1,12 @@
 <template>
     <div class="ContactList">
         <ul>
-            <li v-for="(contact,index) in contacts" :key="contact.User_id" @click="selectContact(index, contact)" :class="{'selected':index == selected}">
+            <li v-for="(contact,index) in contacts" :key="contact.user_id" @click="selectContact(index, contact)" :class="{'selected':index == selected}">
                 <div class="avatar">
-                    <!-- <img :src="contact.User_image" :alt="contact.User_fullname"> -->
+                    <!-- <img :src="contact.user_image" :alt="contact.user_fullname"> -->
                 </div>
                 <div class="contact">
-                    <p class="name">{{contact.User_fullname}}</p>
+                    <p class="name">{{contact.user_fullname}}</p>
                     <!-- <p class="email">{{contact.email}}</p> -->
                 </div>
             </li>

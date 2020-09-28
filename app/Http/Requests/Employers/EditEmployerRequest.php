@@ -24,8 +24,8 @@ class EditEmployerRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'unique:users,username,'.$this->segment(3).',User_id',
-            'email' => 'unique:users,email,'.$this->segment(3).',User_id',
+            'username' => 'unique:users,username,'.$this->segment(3).',user_id',
+            'email' => 'unique:users,email,'.$this->segment(3).',user_id',
         ];
     }
     public function messages(){

@@ -50,10 +50,10 @@ class CompanyEloquent implements CompanyInterface
     public function update($request){
         $company = Company::find($request->id);
         $company['nameComp'] = $request['value']['nameComp'];
-        $company['AddComp'] = $request['value']['AddComp'];
-        $company['faxComp'] = $request['value']['faxComp'];
-        $company['phoneComp'] = $request['value']['phoneComp'];
-        $company['emailComp'] = $request['value']['emailComp'];
+        $company['add_comp'] = $request['value']['add_comp'];
+        $company['fax_comp'] = $request['value']['fax_comp'];
+        $company['phone_comp'] = $request['value']['phone_comp'];
+        $company['email_comp'] = $request['value']['email_comp'];
         $company->save();
         return response()->json(['code' => 200]);
     }

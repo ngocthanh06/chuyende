@@ -15,7 +15,7 @@ class resetPasswordController extends Controller
     public function sendToken(Request $request){
         $user = User::where('email', $request->email)->first();
         
-        if(!isset($user->User_id)){
+        if(!isset($user->user_id)){
             return response()->json(['error' => 'Email người dùng không tồn tại', 401]);
         }
 

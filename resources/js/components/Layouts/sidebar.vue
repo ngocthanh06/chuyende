@@ -1,7 +1,7 @@
 <template>
 <div class="adminx-sidebar expand-hover push">
   <!-- nhân viên -->
-  <ul v-if="currentUser.Role_id == 1" class="sidebar-nav">
+  <ul v-if="currentUser.role_id == 1" class="sidebar-nav">
 
     <li class="sidebar-nav-item">
       <router-link to="/ad-calendar" class="sidebar-nav-link active">
@@ -45,7 +45,7 @@
   </ul>
   <!-- end nhân viên -->
   <!-- QUản lý -->
-  <ul v-else-if="currentUser.Role_id== 2" class="sidebar-nav">
+  <ul v-else-if="currentUser.role_id== 2" class="sidebar-nav">
     <li class="sidebar-nav-item">
       <router-link to="/Set-Calendar" class="sidebar-nav-link active">
         <span class="sidebar-nav-icon">

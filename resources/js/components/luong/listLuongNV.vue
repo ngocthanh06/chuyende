@@ -65,8 +65,8 @@
             <tbody>
               <tr v-for="(items, key) in filterdataTable" :key="key" class="table-primary" style="color: #000">
                 <td>{{key +1}}</td>
-                <td>{{items.User_fullname}}</td>
-                <td>{{items.role.Role_name}}</td>
+                <td>{{items.user_fullname}}</td>
+                <td>{{items.role.role_name}}</td>
                 <td>{{items.role.coefficient}}</td>
                 <td>{{items.role.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
                 <td v-if="items.workshifts">{{workshilfts(items.workshifts)}}</td>
@@ -95,7 +95,7 @@
                     <el-button type="primary" size="mini">Đã lưu</el-button>
                   </el-tooltip>
                   <el-tooltip effect="light" v-else content="Thông tin lương tháng này chưa được lưu" placement="top">
-                    <el-button type="danger" @click="onSubmit(items.User_id,items.role.coefficient,items.role.price,items.workshifts, items.prepayment, items.email,items.socical_insurance)" size="mini">Chưa lưu</el-button>
+                    <el-button type="danger" @click="onSubmit(items.user_id,items.role.coefficient,items.role.price,items.workshifts, items.prepayment, items.email,items.socical_insurance)" size="mini">Chưa lưu</el-button>
                   </el-tooltip>
                 </td>
               </tr>
@@ -190,7 +190,7 @@ export default {
       }, 0);
       this.workspay = qtyCong;
       let number = countPermission.reduce((weight, val, index, column) => {
-        return weight += val.Per_total;
+        return weight += val.per_total;
       }, 0);
       this.paydone = number;
     },
@@ -233,7 +233,7 @@ export default {
         })
       })
       let numberWorkshilfts = countWorkshilfts.reduce((weight, val, index, column) => {
-        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        return val.formm.form_work > 4 ? weight += 2 : weight += 1;
       }, 0);
       this.workshifts = numberWorkshilfts;
     },
@@ -255,7 +255,7 @@ export default {
     },
     dathanhtoan(per){
        return per.reduce((wei, val , index, column) => {
-         return wei += val.Per_total;
+         return wei += val.per_total;
        }, 0);
     },
     luongchinh(coff, price, works, prepayment) {
@@ -308,14 +308,14 @@ export default {
       let month = this.subStrMonth();
       let year = this.subStrYear();
       let qty = this.workshilfts(works);
-      let Per_time = year + '-' + month + '-' + '01';
+      let per_time = year + '-' + month + '-' + '01';
       axios.post('/api/addLuong', {
           bonus: thuong,
           error: phat,
-          Per_total: luongchinh,
+          per_total: luongchinh,
           day_pay: day_pay,
-          User_id: user_id,
-          Per_time: Per_time,
+          user_id: user_id,
+          per_time: per_time,
           qty: qty
         })
         .then(res => {
@@ -345,7 +345,7 @@ export default {
         return res.status == 2;
       });
       let number = works.reduce((weight, val, index, column) => {
-        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        return val.formm.form_work > 4 ? weight += 2 : weight += 1;
       }, 0);
       return number;
     },
@@ -422,7 +422,7 @@ export default {
       let filters = this.dataTable;
       if(this.search){
         filters = this.dataTable.filter(
-          m => m.User_fullname.toLowerCase().indexOf(this.search) > -1
+          m => m.user_fullname.toLowerCase().indexOf(this.search) > -1
         )
       }
       return filters;

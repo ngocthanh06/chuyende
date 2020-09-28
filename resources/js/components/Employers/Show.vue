@@ -9,18 +9,18 @@
       <div class="card mb-grid">
         <div class="table-responsive-md">
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-            <el-table v-loading="loading" :data="tableData.filter(data => !search || data.User_fullname.toLowerCase().includes(search.toLowerCase()))" style="width: 100%; text-align: center">
+            <el-table v-loading="loading" :data="tableData.filter(data => !search || data.user_fullname.toLowerCase().includes(search.toLowerCase()))" style="width: 100%; text-align: center">
               <el-table-column label="STT" type="index" width="50"></el-table-column>
-              <el-table-column label="Họ Và Tên" prop="User_fullname"></el-table-column>
-              <!-- <el-table-column label="Chức vụ" prop="Role_id"></el-table-column> -->
+              <el-table-column label="Họ Và Tên" prop="user_fullname"></el-table-column>
+              <!-- <el-table-column label="Chức vụ" prop="role_id"></el-table-column> -->
               <el-table-column label="Tên Tài Khoản" prop="username"></el-table-column>
               <el-table-column label="Giới Tính" :formatter="ChangeSex" prop="sex"></el-table-column>
-              <el-table-column label="Di Động" prop="User_phone"></el-table-column>
-              <!-- <el-table-column label="TK Ngân Hàng" prop="User_bank"></el-table-column> -->
+              <el-table-column label="Di Động" prop="user_phone"></el-table-column>
+              <!-- <el-table-column label="TK Ngân Hàng" prop="user_bank"></el-table-column> -->
               <el-table-column label="Chi tiết">
                 <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" content="Chi tiết nhân viên" placement="top-start">
-                    <router-link size="mini" class="el-button el-button--Success el-button--mini" :to="`/infoUser/${scope.row.User_id}`"><i class="el-icon-takeaway-box"></i></router-link>
+                    <router-link size="mini" class="el-button el-button--Success el-button--mini" :to="`/infoUser/${scope.row.user_id}`"><i class="el-icon-takeaway-box"></i></router-link>
                   </el-tooltip>
                 </template>
               </el-table-column>
@@ -29,8 +29,8 @@
                   <el-input v-model="search" size="mini" placeholder="Type to search" />
                 </template>
                 <template slot-scope="scope">
-                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/${scope.row.User_id}`">Sửa</router-link>
-                  <el-button size="mini" type="danger" @click="handleDelete(scope.row.User_id, scope.row)">Khóa</el-button>
+                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Employer/${scope.row.user_id}`">Sửa</router-link>
+                  <el-button size="mini" type="danger" @click="handleDelete(scope.row.user_id, scope.row)">Khóa</el-button>
                 </template>
               </el-table-column>
             </el-table>

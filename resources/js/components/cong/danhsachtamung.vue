@@ -28,14 +28,14 @@
             <tbody>
               <tr v-for="(items, key) in dataTable" :key="key">
                 <td>{{key + 1}}</td>
-                <td>{{items.user.User_fullname}}</td>
-                <td>{{items.user.role.Role_name}}</td>
+                <td>{{items.user.user_fullname}}</td>
+                <td>{{items.user.role.role_name}}</td>
                 <td>{{items.per_time}}</td>
                 <td>{{items.qtycong}}</td>
                 <td>{{items.per_total}}</td>
                 <td>{{items.per_desc}}</td>
                 <td v-if="items.status == 0" style="color: red">
-                  <el-button size="mini" v-if="currentUser.Role_id == 1" disabled type="danger" icon="el-icon-error" circle></el-button>
+                  <el-button size="mini" v-if="currentUser.role_id == 1" disabled type="danger" icon="el-icon-error" circle></el-button>
                   <el-button size="mini" v-else type="danger" icon="el-icon-error" @click="changeStatus(items.pre_id)" circle></el-button>
                 </td>
                 <td v-else>
@@ -117,7 +117,7 @@ export default {
      */
     setId() {
       if (!this.$route.params.id) {
-        return this.currentUser.User_id;
+        return this.currentUser.user_id;
       }
       return this.$route.params.id;
     },

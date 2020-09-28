@@ -37,8 +37,8 @@
             <tbody>
               <tr v-for="(items, key) in dataTable" :key="key" class="table-primary" style="color: #000">
                 <td>{{key +1}}</td>
-                <td>{{items.User_fullname}}</td>
-                <td>{{items.role.Role_name}}</td>
+                <td>{{items.user_fullname}}</td>
+                <td>{{items.role.role_name}}</td>
                 <td>{{items.role.coefficient}}</td>
                 <td>{{items.role.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND'})}}</td>
                 <!-- <td v-if="items.workshifts">{{workshilfts(items.workshifts)}}</td> -->
@@ -68,10 +68,10 @@
                   <el-tooltip v-if="items.permission != ''" effect="light" :content="`Ngày thanh toán: ${items.permission[0].day_pay}`" placement="top">
                     <el-button type="primary" size="mini">Đã lưu</el-button>
                   </el-tooltip>
-                  <el-tooltip effect="light" v-else-if="items.permission == '' && currentUser.Role_id == 2" content="Thông tin lương tháng này chưa được lưu" placement="top">
-                    <el-button type="danger" @click="onSubmit(items.User_id,items.role.coefficient,items.role.price,items.workshifts, items.prepayment)" size="mini">Chưa lưu</el-button>
+                  <el-tooltip effect="light" v-else-if="items.permission == '' && currentUser.role_id == 2" content="Thông tin lương tháng này chưa được lưu" placement="top">
+                    <el-button type="danger" @click="onSubmit(items.user_id,items.role.coefficient,items.role.price,items.workshifts, items.prepayment)" size="mini">Chưa lưu</el-button>
                   </el-tooltip>
-                  <el-tooltip effect="light" v-else-if="items.permission == '' && currentUser.Role_id == 1" content="Thông tin lương tháng này chưa được lưu" placement="top">
+                  <el-tooltip effect="light" v-else-if="items.permission == '' && currentUser.role_id == 1" content="Thông tin lương tháng này chưa được lưu" placement="top">
                     <el-button type="danger" size="mini">Chưa lưu</el-button>
                   </el-tooltip>
                 </td>
@@ -117,7 +117,7 @@ export default {
     },
     dathanhtoan(per){
        return per.reduce((wei, val , index, column) => {
-         return wei += val.Per_total;
+         return wei += val.per_total;
        }, 0);
     },
     formatVND(nunber) {
@@ -169,14 +169,14 @@ export default {
       let month = this.subStrMonth();
       let year = this.subStrYear();
       let qty = this.workshilfts(works);
-      let Per_time = year + '-' + month + '-' + '01';
+      let per_time = year + '-' + month + '-' + '01';
       axios.post('/api/addLuong', {
           bonus: thuong,
           error: phat,
-          Per_total: luongchinh,
+          per_total: luongchinh,
           day_pay: day_pay,
-          User_id: user_id,
-          Per_time: Per_time,
+          user_id: user_id,
+          per_time: per_time,
           qty: qty
         })
         .then(res => {
@@ -204,7 +204,7 @@ export default {
         return res.status == 2;
       });
       let number = works.reduce((weight, val, index, column) => {
-        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        return val.formm.form_work > 4 ? weight += 2 : weight += 1;
       }, 0);
       return number;
     },
@@ -221,13 +221,13 @@ export default {
      * * Response: arr[]
      */
     async loadInfomation() {
-      let User_id = '';
+      let user_id = '';
       if (!this.$route.params.id)
-        User_id = this.currentUser.User_id;
-      else User_id = this.$route.params.id;
+        user_id = this.currentUser.user_id;
+      else user_id = this.$route.params.id;
       let val = await axios.post(`/api/luongNV`, {
         time: this.month,
-        User_id: User_id
+        user_id: user_id
       });
       this.loading = false;
       this.dataTable = val.data;

@@ -24,14 +24,14 @@
             <tbody>
               <tr v-for="(item, key) in tableData" :key="key">
                 <th scope="row">{{key}}</th>
-                <td scope="row">{{item.Att_time}}</td>
-                <td scope="row">{{item.Att_desc}}</td>
-                <td v-if="item.user!=null" scope="row">{{item.user.User_fullname}}</td>
-                <td v-else scope="row">{{item.User_accept}}</td>
+                <td scope="row">{{item.att_time}}</td>
+                <td scope="row">{{item.att_desc}}</td>
+                <td v-if="item.user!=null" scope="row">{{item.user.user_fullname}}</td>
+                <td v-else scope="row">{{item.user_accept}}</td>
                 <td>
-                  <el-button v-if="item.Att_status === 0" type="Warning" size="mini" @click="handleEdit(item.Att_id, item.Att_status)">Chưa xác nhận</el-button>
-                  <el-button v-else-if="item.Att_status === 2" size="mini" type="danger" disabled>Không chấp nhận</el-button>
-                  <el-button v-else-if="item.Att_status === 1" size="mini" type="warning" disabled>đã xác nhận</el-button>
+                  <el-button v-if="item.att_status === 0" type="Warning" size="mini" @click="handleEdit(item.att_id, item.att_status)">Chưa xác nhận</el-button>
+                  <el-button v-else-if="item.att_status === 2" size="mini" type="danger" disabled>Không chấp nhận</el-button>
+                  <el-button v-else-if="item.att_status === 1" size="mini" type="warning" disabled>đã xác nhận</el-button>
                 </td>
               </tr>
             </tbody>
@@ -60,12 +60,12 @@ export default {
   },
   methods: {
     async handleEdit(id, status) {
-      let user_id = JSON.parse(localStorage.getItem('user')).User_id;
+      let user_id = JSON.parse(localStorage.getItem('user')).user_id;
       let val = await axios.post('/api/updateAttendance', {
-        Att_id: id,
-        Att_status: status,
-        Att_accept: '',
-        User_accept: user_id
+        att_id: id,
+        att_status: status,
+        att_accept: '',
+        user_accept: user_id
       });
       this.$emit('openPhep', this.work, this.time);
     },
@@ -80,8 +80,8 @@ export default {
       this.work = work_id;
       this.time = time;
       let val = await axios.post('/api/getsWorkAttendance', {
-        Workshifts_id: work_id,
-        Att_time: time
+        workshifts_id: work_id,
+        att_time: time
       });
       if (val.data != '') {
         this.tableData = val.data;

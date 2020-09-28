@@ -12,14 +12,14 @@
           <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
             <el-table resizable="true" v-loading="loading" :data="tableData" stripe style="width: 100%">
               <el-table-column type="index" width="50"> </el-table-column>
-              <el-table-column prop="FormM_name" sortable label="Tên ca làm"> </el-table-column>
-              <el-table-column prop="FormM_Work" sortable label="Số giờ công"> </el-table-column>
-              <el-table-column prop="FormM_TimeIn" sortable label="Giờ vào"> </el-table-column>
-              <el-table-column prop="FormM_TimeOut" sortable label="Giờ ra"> </el-table-column>
-              <el-table-column height="" prop="FormM_desc" label="Ghi chú"> </el-table-column>
+              <el-table-column prop="form_name" sortable label="Tên ca làm"> </el-table-column>
+              <el-table-column prop="form_work" sortable label="Số giờ công"> </el-table-column>
+              <el-table-column prop="form_time_in" sortable label="Giờ vào"> </el-table-column>
+              <el-table-column prop="form_time_out" sortable label="Giờ ra"> </el-table-column>
+              <el-table-column height="" prop="form_desc" label="Ghi chú"> </el-table-column>
               <el-table-column prop="date" label="Tùy chọn">
                 <template slot-scope="scope">
-                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Calam/${scope.row.FormM_id}`">Edit</router-link>
+                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Calam/${scope.row.form_id}`">Edit</router-link>
                   <el-button size="mini" type="danger">Delete</el-button>
                 </template>
               </el-table-column>

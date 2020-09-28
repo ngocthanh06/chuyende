@@ -47,7 +47,7 @@ php artisan tinker
 $user = new User();
 $user['username'] = 'admin';
 $user['password'] = bcrypt('admin');
-$user['Role_id'] = 2;
+$user['role_id'] = 2;
 $user->save(); 
 ```
 

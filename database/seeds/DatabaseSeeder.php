@@ -21,28 +21,28 @@ class DatabaseSeeder extends Seeder
             
         \DB::table('users')->insert(array([
             'password' => bcrypt('123123'), 
-            'User_fullname' => 'Admin',
+            'user_fullname' => 'Admin',
             'username' => 'admin',
-            'Role_id' => 2
+            'role_id' => 2
         ],
         [
             'password' => bcrypt('123123'), 
-            'User_fullname' => 'Nhân viên',
+            'user_fullname' => 'Nhân viên',
             'username' => 'nhanvien',
-            'Role_id' => 1
+            'role_id' => 1
         ]));
 
 
         \DB::table('role')->insert(array(
             [
-                'Role_name' => 'Nhân viên',
-                'Role_desc' => 'user',
+                'role_name' => 'Nhân viên',
+                'role_desc' => 'user',
                 'coefficient' => rand(1, 10),
                 'price' => rand(10, 100)
             ],
             [
-                'Role_name' => 'Admin',
-                'Role_desc' => 'admim',
+                'role_name' => 'Admin',
+                'role_desc' => 'admim',
                 'coefficient' => rand(1, 10),
                 'price' => rand(10, 100)
             ])

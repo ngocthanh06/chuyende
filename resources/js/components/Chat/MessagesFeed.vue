@@ -1,7 +1,7 @@
 <template>
   <div class="feed" ref="feed">
     <ul v-if="contact">
-      <li v-for="mess in messages" :class="`message${mess.to == contact.User_id ? ' sent':' reviced'}`" :key="mess.id">
+      <li v-for="mess in messages" :class="`message${mess.to == contact.user_id ? ' sent':' reviced'}`" :key="mess.id">
         <div class="text">
           {{mess.text}}
         </div>

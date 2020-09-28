@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    protected $table = 'company';
     protected $primaryKey = 'idComp';
-    protected $fillable = ['AddComp', 'emailComp', 'faxComp', 'nameComp', 'phoneComp'];
+    
+    protected $fillable = [ 
+        'add_comp', 
+        'email_comp', 
+        'fax_comp', 
+        'nameComp', 
+        'phone_comp'
+    ];
 
     public function users() {
         return $this->hasMany('App\User', 'idComp', 'idComp');

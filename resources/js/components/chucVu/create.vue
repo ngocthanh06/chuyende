@@ -12,9 +12,9 @@
       </div>
       <div class="container form">
         <el-form role="ruleForm" :filter-multiple=true :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-          <el-form-item label="Tên chức vụ" prop="Role_name" required>
-            <el-input placeholder="Nhập tên chức vụ" :class="{ 'is-invalid':  ruleForm.errors.has('Role_name') }" v-model.number="ruleForm.Role_name"></el-input>
-            <has-error :form="ruleForm" field="Role_name"></has-error>
+          <el-form-item label="Tên chức vụ" prop="role_name" required>
+            <el-input placeholder="Nhập tên chức vụ" :class="{ 'is-invalid':  ruleForm.errors.has('role_name') }" v-model.number="ruleForm.role_name"></el-input>
+            <has-error :form="ruleForm" field="role_name"></has-error>
           </el-form-item>
           <el-form-item label="Hệ số lương" prop="coefficient" required>
             <el-input-number v-model="ruleForm.coefficient" :step="0.1" controls-position="right" :min="1" :max="10"></el-input-number>
@@ -23,7 +23,7 @@
             <el-input v-model="ruleForm.price" type="number" controls-position="right" :min="1" :max="10"></el-input>
           </el-form-item>
           <el-form-item label="Ghi chú" prop="desc">
-            <el-input type="textarea" placeholder="Nhập ghi chú" v-model="ruleForm.Role_desc"></el-input>
+            <el-input type="textarea" placeholder="Nhập ghi chú" v-model="ruleForm.role_desc"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -41,13 +41,13 @@ export default {
   data() {
     return {
       ruleForm: new Form({
-        Role_name: '',
-        Role_desc: '',
+        role_name: '',
+        role_desc: '',
         coefficient: '',
         price: ''
       }),
       rules: {
-        Role_name: [{
+        role_name: [{
           required: true,
           message: 'Tên ca làm không được để trống',
           trigger: 'blur'
@@ -74,8 +74,8 @@ export default {
       });
     },
     resetForm(formName) {
-      this.ruleForm.Role_name = '';
-      this.ruleForm.Role_desc = '';
+      this.ruleForm.role_name = '';
+      this.ruleForm.role_desc = '';
     },
 
   },

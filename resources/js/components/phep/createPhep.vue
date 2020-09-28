@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModal">Đơn xin phép ca làm <span style="color:red"> {{ruleForm.FormM_name}}</span> ngày <span style="color:red">{{ruleForm.WS_date}}</span></h5>
+        <h5 class="modal-title" id="myModal">Đơn xin phép ca làm <span style="color:red"> {{ruleForm.form_name}}</span> ngày <span style="color:red">{{ruleForm.ws_date}}</span></h5>
         <button type="button" ref="closeForm" @click="handleClose('ruleForm')" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -13,13 +13,13 @@
 
           <el-form-item label="Thời gian" required>
             <el-col :span="11">
-              <el-form-item prop="WS_date">
-                <el-date-picker type="date" placeholder="Pick a date" disabled v-model="ruleForm.WS_date" style="width: 100%;"></el-date-picker>
+              <el-form-item prop="ws_date">
+                <el-date-picker type="date" placeholder="Pick a date" disabled v-model="ruleForm.ws_date" style="width: 100%;"></el-date-picker>
               </el-form-item>
             </el-col>
           </el-form-item>
-          <el-form-item label="Nội dung lí do" prop="Att_desc">
-            <el-input type="textarea" v-model="ruleForm.Att_desc"></el-input>
+          <el-form-item label="Nội dung lí do" prop="att_desc">
+            <el-input type="textarea" v-model="ruleForm.att_desc"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -37,13 +37,13 @@ export default {
   data() {
     return {
       ruleForm: {
-        Work_id: '',
-        WS_date: '',
-        FormM_name: '',
-        Att_desc: '',
+        work_id: '',
+        ws_date: '',
+        form_name: '',
+        att_desc: '',
       },
       rules: {
-        Att_desc: [{
+        att_desc: [{
           required: true,
           message: 'Lí do không được để trống',
           trigger: 'blur'
@@ -58,9 +58,9 @@ export default {
      * * value => call $refs createPheps
      */
     valuePhep(value) {
-      this.ruleForm.Work_id = value.Work_id;
-      this.ruleForm.WS_date = value.WS_date
-      this.ruleForm.FormM_name = value.form_m.FormM_name;
+      this.ruleForm.work_id = value.work_id;
+      this.ruleForm.ws_date = value.ws_date
+      this.ruleForm.form_name = value.formm.form_name;
     },
     /**
      * ! Attendances

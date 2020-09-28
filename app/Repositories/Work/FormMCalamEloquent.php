@@ -28,11 +28,11 @@ class FormMCalamEloquent implements FormMCaLamInterface
    
    public function editCalam($id, $request){
        $calam = FormM::find($id);
-       $calam['FormM_name'] = $request->FormM_name;
-       $calam['FormM_Work'] = $request->FormM_Work;
-       $calam['FormM_TimeIn'] = $request->FormM_TimeIn;
-       $calam['FormM_TimeOut'] = $request->FormM_TimeOut;
-       $calam['FormM_desc'] = $request->FormM_desc;
+       $calam['form_name'] = $request->form_name;
+       $calam['form_work'] = $request->form_work;
+       $calam['form_time_in'] = $request->form_time_in;
+       $calam['form_time_out'] = $request->form_time_out;
+       $calam['form_desc'] = $request->form_desc;
        $calam->update();
        return response()->json([
            'code' => '200',
@@ -42,16 +42,16 @@ class FormMCalamEloquent implements FormMCaLamInterface
     //Thêm ca làm
     public function addCalam($request){
         $validate = $request->validate([
-            'FormM_name' => 'unique:formm',
+            'form_name' => 'unique:formm',
         ],[
-            'FormM_name.unique' => 'Tên ca làm đã tồn tại'
+            'form_name.unique' => 'Tên ca làm đã tồn tại'
         ]);
         $calam = new FormM();
-        $calam['FormM_name'] = $request->FormM_name;
-        $calam['FormM_Work'] = $request->FormM_Work;
-        $calam['FormM_TimeIn'] = $request->time_in;
-        $calam['FormM_TimeOut'] = $request->time_out;
-        $calam['FormM_desc'] = $request->FormM_desc;
+        $calam['form_name'] = $request->form_name;
+        $calam['form_work'] = $request->form_work;
+        $calam['form_time_in'] = $request->time_in;
+        $calam['form_time_out'] = $request->time_out;
+        $calam['form_desc'] = $request->form_desc;
         $calam->save();
         return response()->json([
             'code' => '200',
@@ -60,11 +60,11 @@ class FormMCalamEloquent implements FormMCaLamInterface
     }
     //add danh sách ca làm 
     public function postWorkShift($request){
-        foreach($request['FormM_id'] as $item){
+        foreach($request['form_id'] as $item){
             $work = new WorkShifts();
-            $work['User_id'] = $request['User_id'];
-            $work['WS_date'] = $request['WS_date'];
-            $work['FormM_id'] =  $item['FormM_id'];
+            $work['user_id'] = $request['user_id'];
+            $work['ws_date'] = $request['ws_date'];
+            $work['form_id'] =  $item['form_id'];
             $work->save();    
         }
         return response()->json([
@@ -81,14 +81,14 @@ class FormMCalamEloquent implements FormMCaLamInterface
         $Calam = [];
         foreach($Day as $d){
             foreach($User as $U){
-                $Calam [] = DB::table('formm')->join('workshifts','formm.FormM_id','workshifts.FormM_id')->where('workshifts.User_id', $U->User_id)->where('workshifts.WS_date', $d)->get();
+                $Calam [] = DB::table('forms')->join('workshifts','forms.form_id','workshifts.form_id')->where('workshifts.user_id', $U->user_id)->where('workshifts.ws_date', $d)->get();
             }
         }
         return $Calam;
     }
     // Sửa ca làm
     public function editCalamUser($request){
-        return WorkShifts::with('FormM')->where('User_id', $request->User_id)->where('WS_date', $request->WS_date)->get();
+        return WorkShifts::with('formm')->where('user_id', $request->user_id)->where('ws_date', $request->ws_date)->get();
     }
 
    

@@ -13,14 +13,14 @@ class FormM extends Migration
      */
     public function up()
     {
-        Schema::create('FormM', function (Blueprint $table) {
-            $table->Increments('FormM_id');
-            $table->string('FormM_name')->nullable();
-            $table->double('FormM_Work')->nullable();
-            $table->time('FormM_TimeIn')->nullable();
-            $table->time('FormM_TimeOut')->nullable();
-            $table->integer('Form_limited')->nullable();
-            $table->text('FormM_desc')->nullable();
+        Schema::create('forms', function (Blueprint $table) {
+            $table->Increments('form_id');
+            $table->string('form_name')->nullable();
+            $table->double('form_work')->nullable();
+            $table->time('form_time_in')->nullable();
+            $table->time('form_time_out')->nullable();
+            $table->integer('form_limited')->nullable();
+            $table->text('form_desc')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class FormM extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('FormM');
+        Schema::dropIfExists('forms');
     }
 }

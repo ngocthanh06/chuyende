@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\permission;
 use Illuminate\Http\Request;
 use App\Repositories\TodoInterfaceWork\permissionInterface;
+
 class PermissionController extends Controller
 {
     protected $permission;

@@ -37,7 +37,7 @@ And setting.
 
 ```
 php artisan migrate:fresh
-php artisan db:s
+php artisan db:sed
 ```
 ## Usage
 

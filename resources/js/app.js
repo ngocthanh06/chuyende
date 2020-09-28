@@ -24,6 +24,8 @@ import formStore from './Store/form';
 //excel
 import JsonExcel from 'vue-json-excel';
 
+import firebase from './fire';
+Vue.use(firebase)
 
 import VueFusionCharts from 'vue-fusioncharts';
 import FusionCharts from 'fusioncharts';

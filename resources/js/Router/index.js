@@ -50,7 +50,11 @@ import listphepchuaduyet from '../components/phep/phepChuaDuyet';
 // reset pasword
 import resetPasword from '../components/resetPassword/reset-password';
 import password_change from '../components/resetPassword/password';
+
+import chat_app from '../components/ChatApp/index';
+
 const routes = [
+    { path: '/chat-app', component: chat_app, name: 'chatApp' },
     { path: '/login', component: login, name: 'login' },
     { path: '/register', component: register, name: 'register' },
     { path: '/hello', component: Setting, name: 'hello' },

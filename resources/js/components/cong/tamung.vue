@@ -14,11 +14,11 @@
           <!-- end title -->
           <div class="content" style="width: 80%; margin: 30px auto; border: 1px solid #e9ecef; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);">
             <el-form ref="ruleForm" :filter-multiple=true role="ruleForm" v-loading="loading" label-position="top" :model="ruleForm" label-width="120px" class="demo-ruleForm">
-              <el-form-item label="Tên nhân viên" prop="User_fullname">
-                <el-input disabled v-model="User_fullname"></el-input>
+              <el-form-item label="Tên nhân viên" prop="user_fullname">
+                <el-input disabled v-model="user_fullname"></el-input>
               </el-form-item>
-              <el-form-item label="Chức vụ" prop="Role_name">
-                <el-input disabled v-model="Role_name"></el-input>
+              <el-form-item label="Chức vụ" prop="role_name">
+                <el-input disabled v-model="role_name"></el-input>
               </el-form-item>
               <el-form-item label="Tổng công trong tháng" prop="congThang">
                 <el-input type="number" disabled="" v-model="congThang"></el-input>
@@ -70,8 +70,8 @@ export default {
       month: '',
       congThang: '',
       tienThang: '',
-      User_fullname: '',
-      Role_name: '',
+      user_fullname: '',
+      role_name: '',
       min: 0,
       price: 0,
       coefficient: 1,
@@ -111,6 +111,7 @@ export default {
         user_id: this.setId
       })
       if (val.data == '') {
+        console.log(val);
         this.getPrepay();
         this.getUser();
       } else {
@@ -142,11 +143,11 @@ export default {
       });
       if (val.data) {
         this.loading = false;
-        this.currentUser.Role_id == 2 ? this.ruleForm.status = 1 : this.ruleForm.status;
-        this.User_fullname = val.data.User_fullname;
-        this.Role_name = val.data.role.Role_name;
+        this.currentUser.role_id == 2 ? this.ruleForm.status = 1 : this.ruleForm.status;
+        this.user_fullname = val.data.user_fullname;
+        this.role_name = val.data.role.role_name;
         this.congThang = val.data.workshifts.reduce((weight, val, index, column) => {
-          return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+          return val.formm.form_work > 4 ? weight += 2 : weight += 1;
         }, 0) - this.min;
         this.price = val.data.role.price;
         this.coefficient = val.data.role.coefficient;
@@ -179,7 +180,7 @@ export default {
                 });
                 this.checkIssetPermission();
                 this.resetForm();
-              } else if (this.currentUser.Role_id == 1) {
+              } else if (this.currentUser.role_id == 1) {
                 this.$message({
                   showClose: true,
                   message: 'Thông báo, bạn đã gửi đơn tạm ứng trong ngày xin vui lòng chờ quản lý xác nhận.',
@@ -241,7 +242,7 @@ export default {
      */
     setId() {
       if (!this.$route.params.id) {
-        return this.currentUser.User_id;
+        return this.currentUser.user_id;
       }
       return this.$route.params.id;
     },

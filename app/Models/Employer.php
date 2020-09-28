@@ -6,10 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employer extends Model
 {
-    //
     protected $table = 'users';
-    protected $primaryKey = 'User_id';
-    protected $fillable = ['Birthday','email','socical_insurance','password','Role_id','User_add','User_phone','User_bank','User_fullname','User_image','username','sex','idComp','Date_start', 'Date_end', 'active'];
+
+    protected $primaryKey = 'user_id';
+    
+    protected $fillable = [
+        'birthday',
+        'email',
+        'socical_insurance',
+        'password',
+        'role_id',
+        'user_add',
+        'user_phone',
+        'user_bank',
+        'user_fullname',
+        'user_image',
+        'username',
+        'sex',
+        'idComp',
+        'date_start',
+        'date_end',
+        'active'
+    ];
 
 
 

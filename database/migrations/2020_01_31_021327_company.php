@@ -13,14 +13,14 @@ class Company extends Migration
      */
     public function up()
     {
-        Schema::create('Company', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->Increments('idComp');
             $table->string('nameComp')->nullable();
-            $table->string('AddComp')->nullable();
-            $table->string('faxComp')->nullable();
-            $table->string('phoneComp')->nullable();
-            $table->string('emailComp')->nullable();
-            $table->integer('countComp')->nullable();
+            $table->string('add_comp')->nullable();
+            $table->string('fax_comp')->nullable();
+            $table->string('phone_comp')->nullable();
+            $table->string('email_comp')->nullable();
+            $table->integer('count_comp')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class Company extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Company');
+        Schema::dropIfExists('companies');
     }
 }

@@ -15,7 +15,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $primaryKey = 'User_id';
+    protected $primaryKey = 'user_id';
 
     protected $fillable = [ 
         'username', 'Phone' , 'idComp'
@@ -55,7 +55,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function workshifts()
     {
-        return $this->hasMany('App\Models\WorkShifts', 'User_id', 'User_id');
+        return $this->hasMany('App\Models\WorkShifts', 'user_id', 'user_id');
     }
 
     public function company(){
@@ -63,13 +63,13 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function role(){
-        return $this->belongsTo('App\Models\Role', 'Role_id', 'Role_id');
+        return $this->belongsTo('App\Models\Role', 'role_id', 'role_id');
     }
     public function prepayment(){
-        return $this->hasMany('App\Models\prepayment', 'user_id', 'User_id');
+        return $this->hasMany('App\Models\prepayment', 'user_id', 'user_id');
     }
 
     public function permission(){
-        return $this->hasMany('App\Models\permission', 'User_id','User_id');
+        return $this->hasMany('App\Models\permission', 'user_id','user_id');
     }
 }

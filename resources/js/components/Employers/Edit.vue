@@ -5,8 +5,8 @@
     <router-link class="btn btn-danger" to="/employers">Trở lại</router-link>
   </div>
   <el-form role="ruleForm" :filter-multiple=true :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-    <el-form-item label="Họ Và Tên" prop="User_fullname">
-      <el-input v-model="ruleForm.User_fullname"></el-input>
+    <el-form-item label="Họ Và Tên" prop="user_fullname">
+      <el-input v-model="ruleForm.user_fullname"></el-input>
     </el-form-item>
     <el-form-item label="Email" prop="email">
       <el-input  v-model="ruleForm.email" :class="{ 'is-invalid': ruleForm.errors.has('email') }"></el-input>
@@ -19,22 +19,22 @@
     <el-form-item required label="Mật Khẩu" prop="password">
       <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
     </el-form-item>
-    <el-form-item label="Chức vụ" v-if="this.currentUser.Role_id == 2" prop="Role_id" required>
+    <el-form-item label="Chức vụ" v-if="this.currentUser.role_id == 2" prop="role_id" required>
       <el-col :span="5">
         <el-form-item>
-          <el-select v-model="ruleForm.Role_id" placeholder="Chọn chức vụ cho nhân viên">
-            <el-option v-for="(item, key) in getRole" :key="key" :label="item.Role_name" :value="item.Role_id"></el-option>
+          <el-select v-model="ruleForm.role_id" placeholder="Chọn chức vụ cho nhân viên">
+            <el-option v-for="(item, key) in getRole" :key="key" :label="item.role_name" :value="item.role_id"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item label="Ngày Sinh" required prop="Birthday">
-          <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày Sinh" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Birthday" style="width: 100%;"></el-date-picker>
+        <el-form-item label="Ngày Sinh" required prop="birthday">
+          <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày Sinh" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.birthday" style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item v-if="this.currentUser.Role_id == 2" label="Ngày làm việc" required prop="Date_start">
-          <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày bắt đầu làm việc" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.Date_start" style="width: 100%;"></el-date-picker>
+        <el-form-item v-if="this.currentUser.role_id == 2" label="Ngày làm việc" required prop="date_start">
+          <el-date-picker :picker-options="pickerOptions" type="date" placeholder="Ngày bắt đầu làm việc" format="yyyy-MM-dd" value-format='yyyy-MM-dd' v-model="ruleForm.date_start" style="width: 100%;"></el-date-picker>
         </el-form-item>
       </el-col>
     </el-form-item>
@@ -48,7 +48,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="8">
-        <el-form-item v-if="this.currentUser.Role_id == 2" label="Chi nhánh( Nếu có)" prop="idComp" required="">
+        <el-form-item v-if="this.currentUser.role_id == 2" label="Chi nhánh( Nếu có)" prop="idComp" required="">
           <el-select v-model="ruleForm.idComp" placeholder="Chọn chi nhánh làm việc cho nhân viên">
             <el-option label="Chọn chi nhánh" :disabled="true" value=""></el-option>
             <el-option v-for="item in getCompanies" :key="item.idComp" :label="item.nameComp" :value="item.idComp"></el-option>
@@ -61,17 +61,17 @@
         </el-form-item>
       </el-col>
     </el-form-item>
-    <el-form-item label="Địa Chỉ" prop="User_add">
-      <el-input v-model="ruleForm.User_add"></el-input>
+    <el-form-item label="Địa Chỉ" prop="user_add">
+      <el-input v-model="ruleForm.user_add"></el-input>
     </el-form-item>
-    <el-form-item label="Di Động" prop="User_phone">
-      <el-input v-model="ruleForm.User_phone"></el-input>
+    <el-form-item label="Di Động" prop="user_phone">
+      <el-input v-model="ruleForm.user_phone"></el-input>
     </el-form-item>
-    <el-form-item label="TK Ngân Hàng" prop="User_bank">
-      <el-input v-model="ruleForm.User_bank"></el-input>
+    <el-form-item label="TK Ngân Hàng" prop="user_bank">
+      <el-input v-model="ruleForm.user_bank"></el-input>
     </el-form-item>
-    <!-- <el-form-item label="Chọn ảnh" prop="User_image">
-      <input @change="changephoto" type="file" style="display: none" name="User_image" id="pic_shop">
+    <!-- <el-form-item label="Chọn ảnh" prop="user_image">
+      <input @change="changephoto" type="file" style="display: none" name="user_image" id="pic_shop">
       <label for="pic_shop" class="btn btn-warning">Chọn ảnh</label>
       <div id="upload">
         <a><img v-bind:src="changeImage()" alt=""></a>
@@ -103,22 +103,22 @@ export default {
       checkImg: false,
       ruleForm: new Form({
         checked: false,
-        Role_id: '',
-        User_fullname: '',
+        role_id: '',
+        user_fullname: '',
         username: '',
-        Birthday: '',
+        birthday: '',
         sex: '',
         password: '',
         email: '',
-        // User_image: '',
-        User_add: '',
-        User_phone: '',
+        // user_image: '',
+        user_add: '',
+        user_phone: '',
         idComp: '',
-        Date_start: '',
-        User_bank: '',
+        date_start: '',
+        user_bank: '',
       }),
       rules: {
-        User_fullname: [{
+        user_fullname: [{
             required: true,
             message: 'Họ tên không được để trống',
             trigger: 'blur'
@@ -135,7 +135,7 @@ export default {
           message: 'Email không được để trống',
           trigger: 'blur'
         }],
-        Role_id: [{
+        role_id: [{
           required: true,
           message: 'Bạn chưa chọn chức vụ',
           trigger: 'change'
@@ -163,7 +163,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        User_add: [{
+        user_add: [{
             required: true,
             message: 'Địa chỉ không được để trống',
             trigger: 'blur'
@@ -175,7 +175,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        User_phone: [{
+        user_phone: [{
             required: true,
             message: 'Số điện thoại không được để trống',
             trigger: 'blur'
@@ -192,13 +192,13 @@ export default {
           message: 'Giới tính chưa được chọn',
           trigger: 'change'
         }],
-        Birthday: [{
+        birthday: [{
           type: 'string',
           required: true,
           message: 'Bạn chưa chọn ngày sinh',
           trigger: 'blur'
         }],
-        Date_start: [{
+        date_start: [{
           type: 'string',
           required: true,
           message: 'Bạn chưa chọn ngày bắt đầu làm việc cho nhân viên',
@@ -212,7 +212,7 @@ export default {
 
     //Xử lý submit
     submitForm(formName, value) {
-      if (!this.$route.params.id) var user_id = this.currentUser.User_id;
+      if (!this.$route.params.id) var user_id = this.currentUser.user_id;
       else var user_id = this.$route.params.id;
       this.loading = true;
       this.$refs[formName].validate((valid) => {
@@ -260,13 +260,13 @@ export default {
       let file = event.target.files[0];
       let reader = new FileReader();
       reader.onload = (event) => {
-        this.ruleForm.User_image = event.target.result;
+        this.ruleForm.user_image = event.target.result;
       };
       reader.readAsDataURL(file);
     },
     //Lấy thông tin người dùng 
     async getUser() {
-      if (!this.$route.params.id) var user_id = this.currentUser.User_id;
+      if (!this.$route.params.id) var user_id = this.currentUser.user_id;
       else var user_id = this.$route.params.id;
       let json = await axios.get(`/api/getEmployer/${user_id}`);
       json.data.sex == 1 ? json.data.sex = 'Nam' : json.data.sex = 'Nữ';
@@ -275,17 +275,17 @@ export default {
     },
     //Hiển thị ảnh
     changeImage() {
-      let img = this.ruleForm.User_image;
+      let img = this.ruleForm.user_image;
       if (img === "") {
-        return this.ruleForm.User_image = 'noneUser.png';
+        return this.ruleForm.user_image = 'noneUser.png';
       }
       if (img === null) {
-        return this.ruleForm.User_image = 'noneUser.png';
+        return this.ruleForm.user_image = 'noneUser.png';
       }
       if (img.length > 100) {
-        return this.ruleForm.User_image;
+        return this.ruleForm.user_image;
       } else {
-        return `/upload/${this.ruleForm.User_image}`;
+        return `/upload/${this.ruleForm.user_image}`;
       }
     }
   },

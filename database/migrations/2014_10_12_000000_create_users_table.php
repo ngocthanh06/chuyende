@@ -14,20 +14,20 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->Increments('User_id');
-            $table->integer('Role_id')->nullable();
-            $table->string('User_fullname')->nullable();
+            $table->Increments('user_id');
+            $table->integer('role_id')->nullable();
+            $table->string('user_fullname')->nullable();
             $table->string('username')->nullable();
-            $table->dateTime('Birthday')->nullable();
+            $table->dateTime('birthday')->nullable();
             $table->boolean('sex')->nullable();
             $table->string('password')->nullable();
             $table->string('email')->nullable();
-            $table->string('User_image')->nullable();
-            $table->string('User_add')->nullable();
-            $table->string('User_phone')->nullable();
-            $table->string('User_bank')->nullable();
-            $table->dateTime('Date_start')->nullable();
-            $table->dateTime('Date_end')->nullable();
+            $table->string('user_image')->nullable();
+            $table->string('user_add')->nullable();
+            $table->string('user_phone')->nullable();
+            $table->string('user_bank')->nullable();
+            $table->dateTime('date_start')->nullable();
+            $table->dateTime('date_end')->nullable();
             $table->integer('socical_insurance')->nullable();	
             $table->boolean('active')->nullable()->default(1);
             $table->integer('idComp')->nullable();

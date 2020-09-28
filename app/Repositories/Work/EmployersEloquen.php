@@ -54,7 +54,7 @@ class EmployersEloquen implements EmployersInterface
         try
         {
             $del = Employer::find($id);
-            $del['Date_end'] = Carbon::now()->toDateTimeString();
+            $del['date_end'] = Carbon::now()->toDateTimeString();
             $del['active'] = 0;
             $del->save();
             return response()
@@ -94,14 +94,14 @@ class EmployersEloquen implements EmployersInterface
         $value['sex'] == 'Nam' ? $employer['sex'] = 1 : $employer['sex'] = 2;
         $value['checked'] == true ? $employer['socical_insurance'] = 1 : $employer['socical_insurance'] = 2;
         if (!Hash::check($employer['password'], Hash::make($value->password))) $employer['password'] = hash::make($value->password);
-        $employer['Birthday'] = $value->Birthday;
-        $employer['Date_start'] = $value->Date_start;
-        $employer['Role_id'] = $value->Role_id;
-        $employer['User_add'] = $value->User_add;
-        $employer['User_bank'] = $value->User_bank;
-        $employer['User_fullname'] = $value->User_fullname;
-        // $employer['User_image'] = $value->User_image;
-        $employer['User_phone'] = $value->User_phone;
+        $employer['birthday'] = $value->birthday;
+        $employer['date_start'] = $value->date_start;
+        $employer['role_id'] = $value->role_id;
+        $employer['user_add'] = $value->user_add;
+        $employer['user_bank'] = $value->user_bank;
+        $employer['user_fullname'] = $value->user_fullname;
+        // $employer['user_image'] = $value->user_image;
+        $employer['user_phone'] = $value->user_phone;
         $employer['idComp'] = $value->idComp;
         $employer['email'] = $value->email;
 
@@ -115,7 +115,7 @@ class EmployersEloquen implements EmployersInterface
     //Get Employer with Company with role = 1
     public function EmpCompany($id)
     {
-        return Employer::where([['idComp', $id], ['Role_id', 1]])->get();
+        return Employer::where([['idComp', $id], ['role_id', 1]])->get();
     }
 
     //Add Employer Spead
@@ -124,11 +124,11 @@ class EmployersEloquen implements EmployersInterface
         $user = new Employer();
         $user['sex'] == 'Nam' ? $request['sex'] = 1 : $request['sex'] = 2;
         $user['password'] = Hash::make($request["Password"]);
-        $user['User_phone'] = $request->User_phone;
+        $user['user_phone'] = $request->user_phone;
         $user['idComp'] = $request->idComp;
-        $user['User_fullname'] = $request->User_fullname;
+        $user['user_fullname'] = $request->user_fullname;
         $user['username'] = $request->username;
-        $user['Role_id'] = $request->Role_id;
+        $user['role_id'] = $request->role_id;
         $user->save();
         return response()
             ->json(['code' => '200', 'messages' => 'Thành công']);
@@ -147,7 +147,7 @@ class EmployersEloquen implements EmployersInterface
                 {
                     $p->where('idComp', $companyId);
                 });
-                $q->whereIn('workshifts.WS_date', $date);
+                $q->whereIn('workshifts.ws_date', $date);
             }
         ))->get();
 
@@ -163,14 +163,14 @@ class EmployersEloquen implements EmployersInterface
         $user = [];
         foreach ($value as $val)
         {
-            if ($val['WS_date'] == $day)
+            if ($val['ws_date'] == $day)
             {
-                $formId = $val['FormM_id'];
-                // $user[] = User::find($val['User_id']);
+                $formId = $val['form_id'];
+                // $user[] = User::find($val['user_id']);
                 $user[] = User::with(['workshifts' => function($q) use($day, $formId){
-                    $q->where('WS_date', $day);
-                    $q->where('FormM_id', $formId);
-                }])->where('User_id', $val['User_id'])->first();
+                    $q->where('ws_date', $day);
+                    $q->where('form_id', $formId);
+                }])->where('user_id', $val['user_id'])->first();
             }
         }
         return $user;
@@ -182,7 +182,7 @@ class EmployersEloquen implements EmployersInterface
         $date = $request['date'];
         $value = $request['value'];
 
-        $calam = WorkShifts::where('FormM_id', $idCalam)->Where('User_id', $value['User_id'])->Where('WS_date', $date)->first();
+        $calam = WorkShifts::where('form_id', $idCalam)->Where('user_id', $value['user_id'])->Where('ws_date', $date)->first();
         $calam->delete();
         return response()
             ->json(['code' => '200', 'messages' => 'Thành công']);
@@ -191,19 +191,19 @@ class EmployersEloquen implements EmployersInterface
     public function getListUser($request)
     {
         $day = $request['date'];
-        $formId = $request['FormM_id'];
+        $formId = $request['form_id'];
         $value = [];
-        $user = DB::table('users')->join('workshifts', 'users.User_id', 'workshifts.User_id')
-            ->where([['users.idComp', $request['idComp']], ['workshifts.WS_date', $request['date']], ['workshifts.FormM_id', $request['FormM_id']]])->get();
+        $user = DB::table('users')->join('workshifts', 'users.user_id', 'workshifts.user_id')
+            ->where([['users.idComp', $request['idComp']], ['workshifts.ws_date', $request['date']], ['workshifts.form_id', $request['form_id']]])->get();
         for ($i = 0;$i < count($user);$i++)
         {
-            if ($user[$i]->WS_date == $request['date'])
+            if ($user[$i]->ws_date == $request['date'])
             {
-                // $value[] = User::find($user[$i]->User_id);
+                // $value[] = User::find($user[$i]->user_id);
                 $value[] = User::with(['workshifts' => function($q) use($day, $formId){
-                    $q->where('WS_date', $day);
-                    $q->where('FormM_id', $formId);
-                }])->where('User_id',$user[$i]->User_id)->first();
+                    $q->where('ws_date', $day);
+                    $q->where('form_id', $formId);
+                }])->where('user_id',$user[$i]->user_id)->first();
             }
         }
         return $value;
@@ -228,16 +228,16 @@ class EmployersEloquen implements EmployersInterface
         $year = $date[1]; 
         if($idComp != 0){
             return User::with(array('workshifts' => function ($q) use ($month, $year) {
-                $q->whereMonth('WS_date', $month);
-                $q->whereYear('WS_date', $year);
+                $q->whereMonth('ws_date', $month);
+                $q->whereYear('ws_date', $year);
                 $q->where('status', 2);
                 $q->with('formm');
             }))->where('idComp', $idComp)->get();
         }
         else {
             return User::with(array('workshifts' => function ($q) use ($month, $year) {
-                $q->whereMonth('WS_date', $month);
-                $q->whereYear('WS_date', $year);
+                $q->whereMonth('ws_date', $month);
+                $q->whereYear('ws_date', $year);
                 $q->with('formm');
                 // $q->where('status', 2);
             }))->get();
@@ -264,8 +264,8 @@ class EmployersEloquen implements EmployersInterface
 
     public function countCongWhere($idComp, $month, $year){
         return User::with(['workshifts' => function($q) use($idComp, $month, $year) {
-            $q->whereYear('WS_date', $year);
-            $q->whereMonth('WS_date', $month);
+            $q->whereYear('ws_date', $year);
+            $q->whereMonth('ws_date', $month);
             $q->where('status', 2);
             $q->with('formm');
             }])->where('idComp', $idComp)->get();
@@ -277,8 +277,8 @@ class EmployersEloquen implements EmployersInterface
      */
     public function countCong($month, $year){
         return User::with(['workshifts' => function($q) use($month, $year) {
-            $q->whereYear('WS_date', $year);
-            $q->whereMonth('WS_date', $month);
+            $q->whereYear('ws_date', $year);
+            $q->whereMonth('ws_date', $month);
             $q->where('status', 2);
             $q->with('formm');
         }])->get();
@@ -291,16 +291,16 @@ class EmployersEloquen implements EmployersInterface
      * * Response: arr[]
      */
     public function userPerMiss($request) {
-        $User_id = $request->id;
+        $user_id = $request->id;
         $day = explode('-', $request->date);
         $month = $day[0];
         $year = $day[1]; 
         return User::with(array('role' , 'workshifts' => function ($q) use ($month, $year) {
-            $q->whereMonth('WS_date', $month);
-            $q->whereYear('WS_date', $year); 
+            $q->whereMonth('ws_date', $month);
+            $q->whereYear('ws_date', $year); 
             $q->where('status', 2);
             $q->with('formm');
-        }))->where('User_id', $User_id)->first();
+        }))->where('user_id', $user_id)->first();
     }
 }
 

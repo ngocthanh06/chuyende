@@ -11,24 +11,24 @@ class AttendanceEloquent implements AttendanceInterface
 
     public function getAttendanceWhereId($request)
     {
-        return Attendance::where([['Att_time', $request->Att_time], ['Workshifts_id', $request
-            ->Workshifts_id]])
+        return Attendance::where([['att_time', $request->att_time], ['workshifts_id', $request
+            ->workshifts_id]])
             ->first();
     }
 
     public function getsWorkAttendance($request)
     {
-        return Attendance::with('user')->where([['Att_time', $request->Att_time], ['Workshifts_id', $request
-            ->Workshifts_id]])
+        return Attendance::with('user')->where([['att_time', $request->att_time], ['workshifts_id', $request
+            ->workshifts_id]])
             ->get();
     }
 
     public function updateAttendance($request)
     {
-        $attendance = Attendance::find($request['Att_id']);
-        $request['Att_status'] === 0 ? $attendance['Att_status'] = 1 : $attendance['Att_status'] = $request['Att_status'];
-        $attendance['Att_accept'] = $request['Att_accept'];
-        $attendance['User_accept'] = $request['User_accept'];
+        $attendance = Attendance::find($request['att_id']);
+        $request['att_status'] === 0 ? $attendance['att_status'] = 1 : $attendance['att_status'] = $request['att_status'];
+        $attendance['att_accept'] = $request['att_accept'];
+        $attendance['user_accept'] = $request['user_accept'];
         $attendance->save();
         return response()
             ->json(['code' => 200, 'messages' => 'Thành công']);
@@ -47,29 +47,29 @@ class AttendanceEloquent implements AttendanceInterface
                      }]);
                   }
                ])
-               ->where('Att_time', $request['date'])->get()
+               ->where('att_time', $request['date'])->get()
                ->toArray();
     }
     /**
      * Todo Attendances
-     * @param request => Att_status
-     * @param request => Att_accept
+     * @param request => att_status
+     * @param request => att_accept
      */
     public function checkPhep($request)
     {
         $id = $request['id'];
-        $admin = $request['User_id'];
+        $admin = $request['user_id'];
         $attendance = Attendance::find($id);
-        if ($request['status']) $attendance['Att_status'] = $request['status'];
-        $attendance['Att_accept'] = $request['Att_accept'];
-        $attendance['User_accept'] = $request['User_id'];
+        if ($request['status']) $attendance['att_status'] = $request['status'];
+        $attendance['att_accept'] = $request['att_accept'];
+        $attendance['user_accept'] = $request['user_id'];
         $attendance->update();
         return response()
             ->json(['code' => 200, 'messages' => 'Thành công']);
     }
     /**
      * Todo create Attendances
-     * @param request => Att_desc | workshilfts_id | Att_date |
+     * @param request => att_desc | workshilfts_id | Att_date |
      * * call => createPhep
      */
     public function createPhep($request)
@@ -78,10 +78,10 @@ class AttendanceEloquent implements AttendanceInterface
         if ($check == 'true')
         {
             $attendance = new Attendance();
-            $attendance['Workshifts_id'] = $request['form']['Work_id'];
-            $attendance['Att_desc'] = $request['form']['Att_desc'];
-            $attendance['Att_time'] = $request['form']['WS_date'];
-            $attendance['Att_status'] = 0;
+            $attendance['workshifts_id'] = $request['form']['work_id'];
+            $attendance['att_desc'] = $request['form']['att_desc'];
+            $attendance['att_time'] = $request['form']['ws_date'];
+            $attendance['att_status'] = 0;
             $attendance->save();
             return response()
                 ->json(['code' => 200, 'message' => 'Thành công']);
@@ -91,14 +91,14 @@ class AttendanceEloquent implements AttendanceInterface
 
     /**
      * Todo check isset Attendances on day with 1 workshilfts
-     * @param request => Workshifts_id | Att_time
+     * @param request => workshifts_id | att_time
      * * response => true | false
      */
     public function issetAttendance($request)
     {
-        $work_id = $request['form']['Work_id'];
-        $time = $request['form']['WS_date'];
-        $attendance = Attendance::where([['Workshifts_id', $work_id], ['Att_time', $time]])->first();
+        $work_id = $request['form']['work_id'];
+        $time = $request['form']['ws_date'];
+        $attendance = Attendance::where([['workshifts_id', $work_id], ['att_time', $time]])->first();
         if ($attendance == '')
         {
             return 'true';
@@ -107,18 +107,18 @@ class AttendanceEloquent implements AttendanceInterface
     }
     /**
      * Todo check isset Attendances on day with 1 workshilfts
-     * @param request => Workshifts_id | Att_time
+     * @param request => workshifts_id | att_time
      * * response => true | false
      */
     public function getsPhepNV($request){
-        $user_id = $request['User_id'];
+        $user_id = $request['user_id'];
         $month = explode(' - ', $request['month'])[0];
         $year = explode(' - ', $request['month'])[1];
         return Attendance::with(['user','workshifts' => function ($q) use ($user_id) {
-                            $q->with('FormM');
-                            $q->where('User_id', $user_id);
+                            $q->with('formm');
+                            $q->where('user_id', $user_id);
                         }])
-                        ->whereMonth('Att_time', $month)->whereYear('Att_time', $year)->get()
+                        ->whereMonth('att_time', $month)->whereYear('att_time', $year)->get()
                         ->toArray();
     }
     
@@ -130,7 +130,7 @@ class AttendanceEloquent implements AttendanceInterface
                   }]);
                }
             ])
-            ->where('Att_status', 0)->get()
+            ->where('att_status', 0)->get()
             ->toArray();
     }
 }

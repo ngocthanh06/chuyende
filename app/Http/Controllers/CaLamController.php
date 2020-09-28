@@ -50,7 +50,7 @@ class CaLamController extends Controller
     }
     //Xóa ca làm
     public function delCalam(Request $request){
-        $Calam = WorkShifts::find($request->Work_id);
+        $Calam = WorkShifts::find($request->work_id);
         $Calam->delete();
         return response()->json([
             'code' => '200',

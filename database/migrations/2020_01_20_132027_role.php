@@ -13,10 +13,10 @@ class Role extends Migration
      */
     public function up()
     {
-        Schema::create('Role', function (Blueprint $table) {
-            $table->Increments('Role_id');
-            $table->string('Role_name')->nullable();
-            $table->string('Role_desc')->nullable();
+        Schema::create('role', function (Blueprint $table) {
+            $table->Increments('role_id');
+            $table->string('role_name')->nullable();
+            $table->string('role_desc')->nullable();
             $table->double('coefficient')->nullable();
             $table->double('price')->nullable();
             $table->timestamps();
@@ -30,6 +30,6 @@ class Role extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Role');
+        Schema::dropIfExists('role');
     }
 }

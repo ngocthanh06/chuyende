@@ -30,12 +30,12 @@ class EmployersController extends Controller
     }
     //Add employer
     public function add(AddEmployerRequest $request){
-        if($request['User_image'])
+        if($request['user_image'])
         {
-           $request['User_image'] = $this->support->UploadImg($request['User_image']);
+           $request['user_image'] = $this->support->UploadImg($request['user_image']);
         }
         else
-            $request['User_image'] = '';
+            $request['user_image'] = '';
         return $this->employer->add($request);
     }
     //Get Employer with id

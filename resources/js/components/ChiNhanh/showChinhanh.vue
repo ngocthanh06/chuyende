@@ -13,11 +13,11 @@
             <el-table resizable="true" v-loading="loading" :data="tableData" stripe style="width: 100%">
               <el-table-column type="index" label="Stt" width="50"> </el-table-column>
               <el-table-column prop="nameComp" sortable label="Tên chi nhánh"> </el-table-column>
-              <el-table-column prop="AddComp" sortable label="Địa chỉ"> </el-table-column>
-              <el-table-column prop="faxComp" sortable label="Fax"> </el-table-column>
-              <el-table-column prop="phoneComp" sortable label="Số điện thoại"> </el-table-column>
-              <el-table-column prop="emailComp" sortable label="Email"> </el-table-column>
-              <el-table-column prop="countComp" sortable label="Số lượng nhân viên"> </el-table-column>
+              <el-table-column prop="add_comp" sortable label="Địa chỉ"> </el-table-column>
+              <el-table-column prop="fax_comp" sortable label="Fax"> </el-table-column>
+              <el-table-column prop="phone_comp" sortable label="Số điện thoại"> </el-table-column>
+              <el-table-column prop="email_comp" sortable label="Email"> </el-table-column>
+              <el-table-column prop="count_comp" sortable label="Số lượng nhân viên"> </el-table-column>
               <el-table-column prop="date" label="Tùy chọn">
                 <template slot-scope="scope">
                   <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/editChiNhanh/${scope.row.idComp}`">Edit</router-link>

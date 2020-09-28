@@ -58,15 +58,15 @@
               <div class="L_item" v-for="(calam,key) in ChangeCaLam" :key="key">
 
                 <div class="i_name titleTableSearch">
-                  <span style="margin: 0 auto">{{calam.FormM_name}}</span>
+                  <span style="margin: 0 auto">{{calam.form_name}}</span>
                 </div>
                 <!-- số ngày 7 -->
                 <div v-for="(item, dex) in getDatecaLam" :key="dex" class="i_desc titleTable">
                   <!-- button -->
                   <div class="checkElement" v-if="calam.workshifts != '' ">
-                    <button role="button" @click="detailsCalam(calam.workshifts, item, calam.FormM_name, calam.FormM_id)" class="btn btn-pill btn-outline-success" href="#detail" data-toggle="modal" data-target="#detail">
+                    <button role="button" @click="detailsCalam(calam.workshifts, item, calam.form_name, calam.form_id)" class="btn btn-pill btn-outline-success" href="#detail" data-toggle="modal" data-target="#detail">
                       <div class="ElementsWork" v-for="(c1, vk1) in calam.workshifts" :key="vk1">
-                        <svg v-if="c1.WS_date === item" style="color:rgb(0,0,0)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                        <svg v-if="c1.ws_date === item" style="color:rgb(0,0,0)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
                           <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                           <circle cx="8.5" cy="7" r="4"></circle>
                           <polyline points="17 11 19 13 23 9"></polyline>
@@ -75,7 +75,7 @@
                     </button>
                   </div>
 
-                  <button v-else @click="detailsCalam(calam.workshifts, item, calam.FormM_name, calam.FormM_id)" href="#detail" data-toggle="modal" data-target="#detail" type="button" class="add_btn">
+                  <button v-else @click="detailsCalam(calam.workshifts, item, calam.form_name, calam.form_id)" href="#detail" data-toggle="modal" data-target="#detail" type="button" class="add_btn">
                     <i aria-label="icon: plus" class="anticon anticon-plus">
                       <svg viewBox="64 64 896 896" focusable="false" data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                         <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
@@ -140,8 +140,8 @@ export default {
   data() {
     return {
       idCaLam: {
-        WS_date: "",
-        User_id: "",
+        ws_date: "",
+        user_id: "",
         idComp: ""
       },
       dateValueNow: "",
@@ -206,8 +206,8 @@ export default {
   methods: {
     /**
      *  Call Điểm danh 
-     *  work_id: Work_id
-     *  time:  WS_date
+     *  work_id: work_id
+     *  time:  ws_date
      *  response: mở form phép
      */
     openPhep(work_id, time) { 
@@ -215,17 +215,17 @@ export default {
     },
     /**
      *  Call Điểm danh 
-     *  val: User_id
+     *  val: user_id
      *  work:  idComp
      *  response: gán giá trị -> lấy work_id bằng async để call điểm danh
      */
     async diemdanh(val, work) { 
-      this.idCaLam.User_id = val;
+      this.idCaLam.user_id = val;
       this.idCaLam.idComp = work;
-      let workshift = await axios.post('/api/workshilftsByformDateUser',{User_id : val, WS_date: this.NameDateCalam.date, FormM_id: this.NameDateCalam.idCa });
-      this.$refs.diemdanh.nameDate(this.NameDateCalam.idCa, workshift.data.Work_id);
-      this.$refs.diemdanh.checkPhep(workshift.data.Work_id);
-      this.$refs.diemdanh.diemDanh(workshift.data.Work_id);
+      let workshift = await axios.post('/api/workshilftsByformDateUser',{user_id : val, ws_date: this.NameDateCalam.date, form_id: this.NameDateCalam.idCa });
+      this.$refs.diemdanh.nameDate(this.NameDateCalam.idCa, workshift.data.work_id);
+      this.$refs.diemdanh.checkPhep(workshift.data.work_id);
+      this.$refs.diemdanh.diemDanh(workshift.data.work_id);
     }, 
     //Call addCalamm khi mở btn cộng trong chỉnh sửa
     OpenAdd() {
@@ -277,7 +277,7 @@ export default {
       this.NameDateCalam['nameCa'] = nameClam;
       this.NameDateCalam['idCa'] = idCa;
       this.NameDateCalam['idComp'] = this.company;
-      this.idCaLam.WS_date = date; 
+      this.idCaLam.ws_date = date; 
       this.$refs.editClam.getClamUser();
     },
     

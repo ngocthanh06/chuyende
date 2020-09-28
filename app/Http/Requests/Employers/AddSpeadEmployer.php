@@ -25,7 +25,7 @@ class AddSpeadEmployer extends FormRequest
     {
         return [
             'username' => 'unique:users,username',
-            'User_Phone' => 'unique:users,User_phone|min:9|max:10',
+            'user_phone' => 'unique:users,user_phone|min:9|max:10',
             'email' => 'unique:users',
         ];
     }
@@ -33,9 +33,9 @@ class AddSpeadEmployer extends FormRequest
         return [
             'email.unique' => 'Email đã tồn tại',
             'username.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại ',
-            'User_Phone.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại',
-            'User_Phone.min' => 'Độ dài số điện thoại không hợp lệ',
-            'User_Phone.max' => 'Độ dài số điện thoại không hợp lệ',
+            'user_phone.unique' => 'Tên đăng nhập hoặc số điện thoại đã tồn tại',
+            'user_phone.min' => 'Độ dài số điện thoại không hợp lệ',
+            'user_phone.max' => 'Độ dài số điện thoại không hợp lệ',
         ];
     }
 }

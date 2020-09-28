@@ -12,12 +12,12 @@
       </div>
       <div class="container form">
         <el-form role="ruleForm" :filter-multiple=true :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-          <el-form-item label="Tên ca làm" prop="FormM_name" required>
-            <el-input placeholder="Nhập tên ca làm" :class="{ 'is-invalid':  ruleForm.errors.has('FormM_name') }" v-model.number="ruleForm.FormM_name"></el-input>
-            <has-error :form="ruleForm" field="FormM_name"></has-error>
+          <el-form-item label="Tên ca làm" prop="form_name" required>
+            <el-input placeholder="Nhập tên ca làm" :class="{ 'is-invalid':  ruleForm.errors.has('form_name') }" v-model.number="ruleForm.form_name"></el-input>
+            <has-error :form="ruleForm" field="form_name"></has-error>
           </el-form-item>
           <el-form-item label="Số giờ công" prop="region">
-            <el-input-number v-model="ruleForm.FormM_Work" controls-position="right" :min="1" :max="10"></el-input-number>
+            <el-input-number v-model="ruleForm.form_work" controls-position="right" :min="1" :max="10"></el-input-number>
             <span>Giờ</span>
           </el-form-item>
           <el-form-item label="Giờ vào / ra" required>
@@ -30,7 +30,7 @@
             </el-col>
           </el-form-item>
           <el-form-item label="Ghi chú" prop="desc">
-            <el-input type="textarea" placeholder="Nhập ghi chú của bạn tại đây" v-model="ruleForm.FormM_desc"></el-input>
+            <el-input type="textarea" placeholder="Nhập ghi chú của bạn tại đây" v-model="ruleForm.form_desc"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -56,14 +56,14 @@ export default {
     return {
 
       ruleForm: new Form({
-        FormM_name: '',
-        FormM_Work: '',
+        form_name: '',
+        form_work: '',
         time_in: '',
         time_out: '',
-        FormM_desc: '',
+        form_desc: '',
       }),
       rules: {
-        FormM_name: [{
+        form_name: [{
           required: true,
           message: 'Tên ca làm không được để trống',
           trigger: 'blur'
@@ -105,11 +105,11 @@ export default {
       });
     },
     resetForm(formName) {
-      this.ruleForm.FormM_name = '';
-      this.ruleForm.FormM_Work = '';
+      this.ruleForm.form_name = '';
+      this.ruleForm.form_work = '';
       this.ruleForm.time_in = '';
       this.ruleForm.time_out = '';
-      this.ruleForm.FormM_desc = '';
+      this.ruleForm.form_desc = '';
     },
 
   },

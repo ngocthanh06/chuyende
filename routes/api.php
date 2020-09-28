@@ -106,11 +106,11 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     /**
      * Todo permission
      */ 
-    Route::post('/checkIssetPermission','permissionController@checkIssetPermission');
-    Route::post('/listLuongNV/{limit}', 'permissionController@listLuongNV');
-    Route::post('/addLuong','permissionController@addLuong');
-    Route::post('/thongke','permissionController@thongke');
-    Route::post('/luongNV', 'permissionController@luongNV');
+    Route::post('/checkIssetPermission','PermissionController@checkIssetPermission');
+    Route::post('/listLuongNV/{limit}', 'PermissionController@listLuongNV');
+    Route::post('/addLuong','PermissionController@addLuong');
+    Route::post('/thongke','PermissionController@thongke');
+    Route::post('/luongNV', 'PermissionController@luongNV');
     /**
      * Todo Demo
      */ 

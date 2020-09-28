@@ -63,21 +63,21 @@
             <div class="ctLists">
               <div v-for="(item, index) in getEmpCom()" :key="index" class="L_item">
                 <div class="i_name titleTableSearch">
-                  <router-link class="logo" :to="`/edit-Employer/${item.User_id}`">
+                  <router-link class="logo" :to="`/edit-Employer/${item.user_id}`">
                     <img src="https://chat.tanca.io:3001/avatar/+84783449848" />
                   </router-link>
-                  <span>{{item.User_fullname}}</span>
+                  <span>{{item.user_fullname}}</span>
                 </div>
                 <!-- THời gian ca làm (7) -->
                 <div v-for="val in ChangeCaLam()" :key="val" class="i_desc titleTable">
                   <!-- giá trị ca làm mỗi nhân viên -->
                   <div v-for="(value, index) in ValueCaLam" :key="index" v-if="value != null">
                     <!-- thêm modal ca làm -->
-                    <div class="hidebutton" v-if="val === value.WS_date && item.User_id === value.User_id">
-                      <button href="#EditModal" data-toggle="modal" data-target="#EditModal" role="button" v-on:click="EditCaLam(item.User_id, val)" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
+                    <div class="hidebutton" v-if="val === value.ws_date && item.user_id === value.user_id">
+                      <button href="#EditModal" data-toggle="modal" data-target="#EditModal" role="button" v-on:click="EditCaLam(item.user_id, val)" class="btn btn-pill btn-outline-success">Đã đăng ký</button>
                     </div>
                   </div>
-                  <button v-on:click="setCaLam(item.User_id, val)"  type="button" class="add_btn">
+                  <button v-on:click="setCaLam(item.user_id, val)"  type="button" class="add_btn">
                     <i aria-label="icon: plus" class="anticon anticon-plus">
                       <svg viewBox="64 64 896 896" focusable="false" class data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                         <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
@@ -154,8 +154,8 @@ export default {
       numWeek: "",
       numYear: "",
       idCaLam: {
-        WS_date: "",
-        User_id: "",
+        ws_date: "",
+        user_id: "",
         idComp: ""
       },
       titleRight: [{
@@ -250,8 +250,8 @@ export default {
     setCaLam(valueID, date) {
       let dateNow = this.getDateNow;
       if(dateNow <= date){
-        this.idCaLam["User_id"] = valueID;
-        this.idCaLam["WS_date"] = date;
+        this.idCaLam["user_id"] = valueID;
+        this.idCaLam["ws_date"] = date;
         this.idCaLam["idComp"] = this.company;
         this.$store.dispatch("allCaLam");
         this.$refs.openAdd.click();
@@ -262,8 +262,8 @@ export default {
     },
     // Sửa ca làm cho nhân viên khi truyền xuống modelCalam
     EditCaLam(valueID, date) {
-      this.idCaLam["User_id"] = valueID;
-      this.idCaLam["WS_date"] = date;
+      this.idCaLam["user_id"] = valueID;
+      this.idCaLam["ws_date"] = date;
       this.idCaLam["idComp"] = this.company;
       this.$refs.editCalam.getCaLamUser();
       this.$store.dispatch("allCaLam");
@@ -308,8 +308,8 @@ export default {
     },
     /**
      *  Call Điểm danh 
-     *  work_id: Work_id
-     *  time:  WS_date
+     *  work_id: work_id
+     *  time:  ws_date
      *  response: mở form phép
      */
     openPhep(work_id, time) {

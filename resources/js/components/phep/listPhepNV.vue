@@ -31,16 +31,16 @@
     <tbody>
       <tr v-for="(item, key) in tableData" :key="key">
         <td scope="row">{{key+1}}</td>
-        <td scope="row">{{item.Att_time}}</td>
-        <td scope="row">{{item.workshifts.form_m.FormM_name}}</td>
-        <td scope="row">{{item.workshifts.form_m.FormM_TimeIn}}</td>
-        <td scope="row">{{item.workshifts.form_m.FormM_TimeOut}}</td>
-        <td scope="row">{{item.Att_desc}}</td>
-        <td scope="row" v-if="item.Att_status == 0" style="color:#0D5CF0">Đã gửi</td>
-        <td scope="row" v-if="item.Att_status == 2" style="color:#F01E0D">Không chấp thuận</td>
-        <td scope="row" v-if="item.Att_status == 1">Chấp thuận</td>
-        <td scope="row" v-if="item.user">{{item.user.User_fullname}}</td>
-        <td scope="row">{{item.Att_accept}}</td>
+        <td scope="row">{{item.att_time}}</td>
+        <td scope="row">{{item.workshifts.formm.form_name}}</td>
+        <td scope="row">{{item.workshifts.formm.form_time_in}}</td>
+        <td scope="row">{{item.workshifts.formm.form_time_out}}</td>
+        <td scope="row">{{item.att_desc}}</td>
+        <td scope="row" v-if="item.att_status == 0" style="color:#0D5CF0">Đã gửi</td>
+        <td scope="row" v-if="item.att_status == 2" style="color:#F01E0D">Không chấp thuận</td>
+        <td scope="row" v-if="item.att_status == 1">Chấp thuận</td>
+        <td scope="row" v-if="item.user">{{item.user.user_fullname}}</td>
+        <td scope="row">{{item.att_accept}}</td>
       </tr>
     </tbody>
   </table>
@@ -69,17 +69,17 @@ export default {
     /**
      * TODO get workshilfts employers
      * @param user_id => user_id 
-     * @param route id => this.currentUser.User_id 
+     * @param route id => this.currentUser.user_id 
      * @param month => month, Year
      * *Response tableData|valueTable
      */
     async getMonth() {
       let route_id = this.$route.params.id;
-      let User_id = this.currentUser.User_id;
+      let user_id = this.currentUser.user_id;
       if (route_id) {
         this.getValues(route_id);
       } else {
-        this.getValues(User_id);
+        this.getValues(user_id);
       }
     },
     /**
@@ -90,7 +90,7 @@ export default {
     async getValues(user) {
       let arr = [];
       var val = await axios.post('/api/getsPhepNV', {
-        User_id: user,
+        user_id: user,
         month: this.month
       });
       if (val.data != '') {
@@ -114,7 +114,7 @@ export default {
         this.tableData = this.valueTable;
         if (this.radio != 3) {
           let val = this.tableData.filter((res) => {
-            return res.Att_status == this.radio
+            return res.att_status == this.radio
           });
           this.tableData = val;
         }

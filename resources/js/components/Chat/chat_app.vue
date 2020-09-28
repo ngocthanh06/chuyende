@@ -33,7 +33,7 @@ channel.listen('MessagesNew', function(data) {
   },
   methods: {
     startConversationWith(contact) {
-      axios.get(`/api/conversation/${contact.User_id}`).then((res) => {
+      axios.get(`/api/conversation/${contact.user_id}`).then((res) => {
         this.messages = res.data;
         this.selectedContact = contact
       })

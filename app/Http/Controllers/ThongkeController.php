@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use DB;
-use App\Models\company;
+use App\Models\Company;
 use App\Models\Attendance;
 use App\Models\prepayment;
 use App\Models\permission;
@@ -39,14 +39,14 @@ class ThongkeController extends Controller
         $nvDakhoa = User::where('active', 0)->count();
         $chinhanh = company::count();
         $sophep = Attendance::count();
-        $phepDuyet = Attendance::where('Att_status', 1)->count();
-        $phepChua = Attendance::where('Att_status', 0)->count();
-        $pheptuchoi = Attendance::where('Att_status', 2)->count();
-        $permission = permission::whereMonth('Per_time', $month)
-                    ->whereYear('Per_time', $year)
+        $phepDuyet = Attendance::where('att_status', 1)->count();
+        $phepChua = Attendance::where('att_status', 0)->count();
+        $pheptuchoi = Attendance::where('att_status', 2)->count();
+        $permission = permission::whereMonth('per_time', $month)
+                    ->whereYear('per_time', $year)
                     ->get();
         foreach($permission as $p){
-            $per = $per + $p->Per_total + $p->bonus;
+            $per = $per + $p->per_total + $p->bonus;
         }
         
         $everMonth = [];
@@ -54,10 +54,10 @@ class ThongkeController extends Controller
             array_push($everMonth, $i);
         }
         foreach($everMonth as $m){
-            $arr = DB::table('permission')
-                        ->whereYear('Per_time', $year)
-                        ->whereMonth('Per_time', $m)
-                        ->sum('permission.Per_total');
+            $arr = DB::table('permissions')
+                        ->whereYear('per_time', $year)
+                        ->whereMonth('per_time', $m)
+                        ->sum('permissions.per_total');
             $thongkePer["label".$m] = "Tháng ".$m;
             $thongkePer["value".$m] = $arr;
         }

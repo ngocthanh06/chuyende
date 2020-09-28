@@ -36,15 +36,15 @@ class chucvuController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'Role_name' => 'unique:role',
+            'role_name' => 'unique:role',
         ], [
-            'Role_name.unique' => 'Tên role đã tồn tại'
+            'role_name.unique' => 'Tên role đã tồn tại'
         ]);
         $role = new Role();
         $role['coefficient'] = $request['coefficient'];
         $role['price'] = $request['price'];
-        $role['Role_name'] = $request['Role_name'];
-        $role['Role_desc'] = $request['Role_desc'];
+        $role['role_name'] = $request['role_name'];
+        $role['role_desc'] = $request['role_desc'];
         $role->save();        
     }
 
@@ -82,8 +82,8 @@ class chucvuController extends Controller
         $role = Role::find($id);
         $role['coefficient'] = $request['coefficient'];
         $role['price'] = $request['price'];
-        $role['Role_name'] = $request['Role_name'];
-        $role['Role_desc'] = $request['Role_desc'];
+        $role['role_name'] = $request['role_name'];
+        $role['role_desc'] = $request['role_desc'];
         $role->save(); 
     }
 

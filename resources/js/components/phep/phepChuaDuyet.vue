@@ -27,17 +27,17 @@
             <tbody>
               <tr v-for="(item, key) in tableData" :key="key">
                 <td scope="row">{{key+1}}</td>
-                <td scope="row">{{formatDate(item.Att_time)}}</td>
-                <td scope="row">{{item.workshifts.user.User_fullname}}</td>
+                <td scope="row">{{formatDate(item.att_time)}}</td>
+                <td scope="row">{{item.workshifts.user.user_fullname}}</td>
                 <td scope="row">{{item.workshifts.user.company.nameComp}}</td>
-                <td scope="row">{{item.Att_desc}}</td> 
+                <td scope="row">{{item.att_desc}}</td> 
                 <td scope="row">
                   <el-tag >
                     Chưa xác nhận
                   </el-tag>
                 </td>
                 <td>
-                  <el-button @click="handlePhep( item.Att_id, item.Att_accept, item.Att_status )" href="#handlePhep" data-toggle="modal" data-target="#handlePhep" type="primary" size="mini">Sửa</el-button>
+                  <el-button @click="handlePhep( item.att_id, item.att_accept, item.att_status )" href="#handlePhep" data-toggle="modal" data-target="#handlePhep" type="primary" size="mini">Sửa</el-button>
                 </td>
               </tr>
             </tbody>
@@ -66,9 +66,9 @@ export default {
       search: '',
       loading: true,
       handlePheps: {
-        Att_id: '',
-        Att_status: '',
-        Att_accept: '',
+        att_id: '',
+        att_status: '',
+        att_accept: '',
       }
     }
   },
@@ -102,15 +102,15 @@ export default {
     },
     /**
      * TODO output
-     * @param id => Att_id
-     * @param accept => Att_accept
-     * @param status => Att_status
+     * @param id => att_id
+     * @param accept => att_accept
+     * @param status => att_status
      */
     handlePhep(id, accept, status) {
       console.log(accept);
-      this.handlePheps.Att_id = id;
-      this.handlePheps.Att_accept = accept;
-      this.handlePheps.Att_status = status;
+      this.handlePheps.att_id = id;
+      this.handlePheps.att_accept = accept;
+      this.handlePheps.att_status = status;
       this.$refs.checkPhep.showValue();
     },
     /**

@@ -72,12 +72,12 @@ export default {
         })
         .then(res => {
           res.data.forEach(response => {
-            if (this.limitLeft.indexOf(response.User_id) != -1)
-              var a = response.User_id;
+            if (this.limitLeft.indexOf(response.user_id) != -1)
+              var a = response.user_id;
             val.push({
-              key: response.User_id,
-              label: response.User_fullname,
-              disabled: a % response.User_id == 0
+              key: response.user_id,
+              label: response.user_fullname,
+              disabled: a % response.user_id == 0
             });
           })
           this.data = val;
@@ -91,11 +91,11 @@ export default {
       axios.post('/api/getListUser', {
           idComp: this.infoCaLam.idComp,
           date: this.infoCaLam.date,
-          FormM_id: this.infoCaLam.idCa
+          form_id: this.infoCaLam.idCa
         })
         .then(res => {
           res.data.forEach(res => {
-            valNew.push(res.User_id);
+            valNew.push(res.user_id);
           });
           this.limitLeft = valNew;
           this.value = valNew
@@ -109,9 +109,9 @@ export default {
     },
     Accept() {
       axios.post('/api/postWorkshifts', {
-          FormM_id: this.infoCaLam.idCa,
-          User_id: this.valRight,
-          WS_date: this.infoCaLam.date
+          form_id: this.infoCaLam.idCa,
+          user_id: this.valRight,
+          ws_date: this.infoCaLam.date
         })
         .then(res => {
           this.HandelPage();

@@ -61,8 +61,8 @@ export default {
       thongke.data.forEach(res => {
         value = {
            'STT' : num ++,
-           'hoten' : res.User_fullname,
-           'chucvu' : res.role.Role_name,
+           'hoten' : res.user_fullname,
+           'chucvu' : res.role.role_name,
            'heso' : res.role.coefficient,
            'luongca' : res.role.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND'}),
            'conglam' : this.workshilfts(res.workshifts),
@@ -103,7 +103,7 @@ export default {
     },
     dathanhtoan(per){
        return per.reduce((wei, val , index, column) => {
-         return wei += val.Per_total;
+         return wei += val.per_total;
        }, 0);
     },
     thunhap(coff, price, works) {
@@ -117,7 +117,7 @@ export default {
         return res.status == 2;
       });
       let number = works.reduce((weight, val, index, column) => {
-        return val.formm.FormM_Work > 4 ? weight += 2 : weight += 1;
+        return val.formm.form_work > 4 ? weight += 2 : weight += 1;
       }, 0);
       return number;
     },

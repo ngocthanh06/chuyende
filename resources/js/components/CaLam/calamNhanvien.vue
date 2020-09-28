@@ -29,14 +29,14 @@
     <tbody>
       <tr v-for="(item, key) in tableData" :key="key" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))">
         <td scope="row">{{key+1}}</td>
-        <td scope="row">{{item.WS_date}}</td>
-        <td scope="row">{{item.formm.FormM_name}}</td>
-        <td scope="row">{{item.WS_time_in}}</td>
-        <td scope="row">{{item.WS_time_out}}</td>
+        <td scope="row">{{item.ws_date}}</td>
+        <td scope="row">{{item.formm.form_name}}</td>
+        <td scope="row">{{item.ws_time_in}}</td>
+        <td scope="row">{{item.ws_time_out}}</td>
         <td scope="row" v-if="item.status == 0" style="color:#0D5CF0">Chưa điểm danh</td>
         <td scope="row" v-if="item.status == 1" style="color:#F01E0D">Nghỉ làm</td>
         <td scope="row" v-if="item.status == 2">Đi làm</td>
-        <td scope="row">{{item.Work_desc}}</td>
+        <td scope="row">{{item.work_desc}}</td>
       </tr>
     </tbody>
   </table>
@@ -66,17 +66,17 @@ export default {
     /**
      * TODO get workshilfts employers
      * @param user_id => user_id 
-     * @param route id => this.currentUser.User_id 
+     * @param route id => this.currentUser.user_id 
      * @param month => month, Year
      * *Response tableData|valueTable
      */
     getMonth() {
       let route_id = this.$route.params.id;
-      let User_id = this.currentUser.User_id;
+      let user_id = this.currentUser.user_id;
       if (route_id) {
         this.getValues(route_id);
       } else {
-        this.getValues(User_id);
+        this.getValues(user_id);
       }
     },
     /**
@@ -87,7 +87,7 @@ export default {
     async getValues(user) {
       let arr = [];
       var val = await axios.post('/api/getsWorkshilftsNV', {
-        User_id: user,
+        user_id: user,
         month: this.month
       });
       if (val.data != '') {

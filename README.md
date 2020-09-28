@@ -39,6 +39,7 @@ And setting.
 php artisan migrate:fresh
 php artisan db:sed
 ```
+
 ## Usage
 
 You must install user information with the highest permissions. Here I use tinker
@@ -56,6 +57,17 @@ $user->save();
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## In the event of an error “npm ERR! code ELIFECYCLE”
+
+```
+npm cache clean --force
+```
+Delete ```node_modules``` folder
+
+Delete ```package-lock.json``` file
+
+```npm install```
 
 ## Author
 [Ngocthanh06](https://github.com/ngocthanh06)

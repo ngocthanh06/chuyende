@@ -19,15 +19,18 @@ class PrepaymentEloquent implements PrepaymentInterface
      */
     public function store($request)
     {
-        $isCheck = prepayment::where([['user_id', $request->user_id], ['per_time', $request
-            ->per_time],['status', 0]])
-            ->first();
-        if ($isCheck)
-        {
-            return response()->json(['code' => '500']);
-        }
-        else
-        {
+        $isCheck = prepayment::where([
+            ['user_id', $request->user_id], 
+            ['per_time', $request->per_time],
+            ['status', 0]
+        ])
+        ->first();
+
+        if ($isCheck) {
+            return response()->json([
+                'code' => '500'
+            ]);
+        } else {
             $per = new prepayment();
             $per['per_total'] = $request->per_total;
             $per['per_desc'] = $request->per_desc;
@@ -36,8 +39,11 @@ class PrepaymentEloquent implements PrepaymentInterface
             $per['user_id'] = $request->user_id;
             $per['status'] = $request->status;
             $per->save();
-            return response()
-                ->json(['code' => '200', 'messages' => 'Thêm thành công']);
+
+            return response()->json([
+                'code' => '200',
+                'messages' => 'Thêm thành công'
+            ]);
         }
     }
 
@@ -53,40 +59,61 @@ class PrepaymentEloquent implements PrepaymentInterface
         $date = explode('-', $request->time);
         $month = $date[0];
         $year = $date[1];
-        return prepayment::select('qtycong')->where([['user_id', $request->user_id], ['status', 1]])
-            ->whereMonth('per_time', $month)->whereYear('per_time', $year)->get();
-    }
 
-    public function loadPrepayment($request){
-        $user_id =  $request->user_id;
-        $date = explode('-', $request->time);
-        $month = $date[0];
-        $year = $date[1];
-        return prepayment::with(['user' => function ($q){
-                        $q->with('role');
-                        }])
-                        ->where('user_id', $user_id)
-                        ->whereMonth('per_time', $month)
-                        ->whereYear('per_time', $year)
-                        ->get();
-    }
-    public function listAll($request){
-        $date = explode('-', $request->time);
-        $month = $date[0];
-        $year = $date[1];
-        return prepayment::with(['user' => function ($q){
-            $q->with('role');
-            }])
+        return prepayment::select('qtycong')
+            ->where([
+                ['user_id', $request->user_id], 
+                ['status', 1]
+            ])
             ->whereMonth('per_time', $month)
             ->whereYear('per_time', $year)
             ->get();
     }
-    public function editStatus($id){
+
+    public function loadPrepayment($request)
+    {
+        $user_id = $request->user_id;
+        $date = explode('-', $request->time);
+        $month = $date[0];
+        $year = $date[1];
+
+        return prepayment::with([
+            'user' => function ($q){
+                $q->with('role');
+            }
+        ])
+        ->where('user_id', $user_id)
+        ->whereMonth('per_time', $month)
+        ->whereYear('per_time', $year)
+        ->get();
+    }
+
+    public function listAll($request)
+    {
+        $date = explode('-', $request->time);
+        $month = $date[0];
+        $year = $date[1];
+
+        return prepayment::with([
+            'user' => function ($q){
+                $q->with('role');
+            }
+        ])
+        ->whereMonth('per_time', $month)
+        ->whereYear('per_time', $year)
+        ->get();
+    }
+
+    public function editStatus($id)
+    {
         $prepayment = prepayment::find($id);
         $prepayment['status'] = 1;
         $prepayment->save();
-        return response()
-                ->json(['code' => '200', 'messages' => 'Thêm thành công']); 
+
+        return response()->json([
+            'code' => '200', 
+            'messages' => 'Thêm thành công'
+        ]); 
     }
 
 }

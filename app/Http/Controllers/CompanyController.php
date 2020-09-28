@@ -9,6 +9,7 @@ class CompanyController extends Controller
 {
 
     private $company ;
+
     public function __construct(CompanyInterface $company){
         $this->company = $company;
     }
@@ -27,7 +28,8 @@ class CompanyController extends Controller
     * 
     */
 
-    public function getLimit($limit){
+    public function getLimit($limit)
+    {
         return $this->company->getLimit($limit); 
     }
 

@@ -12,8 +12,9 @@ class SupportEloquent implements SupportInterface
      * Todo upload image
      * * Response: arr[]
      */
-    public function UploadImg($image){
-        return ($image);
+    public function UploadImg($image)
+    {
+        // return ($image);
         //Đến số ký tự trong chuỗi photos từ dấu ';' trở ngược về trước
         $strpos= strpos($image, ';');
         //cắt chuỗi trong chuỗi photos từ vị trí 0 đến số lượng của $strpos
@@ -27,6 +28,7 @@ class SupportEloquent implements SupportInterface
         //Lưu trữ hình ảnh
         $upload_path = public_path()."/upload/";
         $img->save($upload_path.$name);
+
         return $name;
     }
     
@@ -35,8 +37,10 @@ class SupportEloquent implements SupportInterface
      * @param $request => MM-YYYY
      * * Response: arr[]
      */   
-    public function getMonth($request){
+    public function getMonth($request)
+    {
         $date = explode('-', $request);
+
         return $date[0];
     }
 
@@ -45,8 +49,10 @@ class SupportEloquent implements SupportInterface
      * @param $request => MM-YYYY
      * * Response: arr[]
      */   
-    public function getYear($request){
+    public function getYear($request)
+    {
         $date = explode('-', $request);
+
         return $date[1];
     }
 }

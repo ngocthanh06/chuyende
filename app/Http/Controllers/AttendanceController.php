@@ -7,30 +7,46 @@ class AttendanceController extends Controller
 {
     private $attendance;
 
-    public function __construct(AttendanceInterface $attendance){
+    public function __construct(AttendanceInterface $attendance)
+    {
         $this->attendance = $attendance;
     }
-    public function getAttendanceWhereId(Request $request){
+
+    public function getAttendanceWhereId(Request $request)
+    {
         return $this->attendance->getAttendanceWhereId($request);
     }
-    public function getsWorkAttendance(Request $request){
+
+    public function getsWorkAttendance(Request $request)
+    {
         return $this->attendance->getsWorkAttendance($request);
     }
-    public function updateAttendance(Request $request){
+
+    public function updateAttendance(Request $request)
+    {
         return $this->attendance->updateAttendance($request);
     }
-    public function listAttendance(Request $request){
+
+    public function listAttendance(Request $request)
+    {
         return $this->attendance->listAttendance($request);
     }
-    public function checkPhep(Request $request){
+
+    public function checkPhep(Request $request)
+    {
         return $this->attendance->checkPhep($request);
     }
-    public function createPhep(Request $request){
+
+    public function createPhep(Request $request)
+    {
         return $this->attendance->createPhep($request);
     }
-    public function getsPhepNV(Request $request){
+
+    public function getsPhepNV(Request $request)
+    {
         return $this->attendance->getsPhepNV($request);
     }
+    
     public function listchuaduyet(Request $request){
         return $this->attendance->listchuaduyet($request);
     }

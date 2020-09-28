@@ -12,16 +12,20 @@ use App\User;
 class CompanyEloquent implements CompanyInterface
 {
      //get all list Company
-    public function getAll(){ 
+    public function getAll()
+    { 
+
         return Company::all();    
     }
        
-    public function getLimit($limit){ 
-        try{ 
-            // return auth()->user();
-            // trường hợp lấy chi nhánh người dùng quản lý
+    public function getLimit($limit)
+    { 
+        try { 
+            
             return Company::paginate($limit);
-        }catch(Exception $e){
+        
+        } catch (Exception $e) {
+            
             return response()->json([
                 'code' => 500,
                 'message' => 'Không có dữ liệu'
@@ -29,25 +33,32 @@ class CompanyEloquent implements CompanyInterface
         };    
     }
 
-    public function store($request){
+    public function store($request)
+    {
         Company::create($request->all());
+
         return response()->json([
             'code' => '200',
             'messages' => 'Thành công'
         ]);
     }
     
-    public function destroy($id){
+    public function destroy($id)
+    {
         $listUser = User::where('idComp',$id)->get()->toArray();
-        if(empty($listUser)){
+
+        if (empty($listUser)) {
             $company = Company::find($id);
             $company->delete();
+
             return 'true';
         }
-        else return 'false';
+        
+        return 'false';
     }
 
-    public function update($request){
+    public function update($request)
+    {
         $company = Company::find($request->id);
         $company['nameComp'] = $request['value']['nameComp'];
         $company['add_comp'] = $request['value']['add_comp'];
@@ -55,7 +66,10 @@ class CompanyEloquent implements CompanyInterface
         $company['phone_comp'] = $request['value']['phone_comp'];
         $company['email_comp'] = $request['value']['email_comp'];
         $company->save();
-        return response()->json(['code' => 200]);
+
+        return response()->json([
+            'code' => 200
+        ]);
     }
     
 }

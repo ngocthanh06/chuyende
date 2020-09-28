@@ -35,11 +35,10 @@ class chucvuController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'role_name' => 'unique:role',
-        ], [
-            'role_name.unique' => 'Tên role đã tồn tại'
-        ]);
+        $validate = $request->validate(
+            [ 'role_name' => 'unique:role' ], 
+            [ 'role_name.unique' => 'Tên role đã tồn tại' ]
+        );
         $role = new Role();
         $role['coefficient'] = $request['coefficient'];
         $role['price'] = $request['price'];

@@ -40,15 +40,15 @@ class LoginController extends Controller
             'username' => $request->Username,
             'password' => $request->Password
         ];
-        if(Auth::attempt($data)){ 
-            return response()->json(
-                    [
-                        'code' => '200',
-                        'messages' => 'Đăng nhập thành công'
-                    ]
-                );
+
+        if (Auth::attempt($data)) { 
+            return response()->json([
+                'code' => '200',
+                'messages' => 'Đăng nhập thành công'
+            ]);
         }
-        else return response()->json([
+        
+        return response()->json([
             'code' => '404',
             'messages' => 'Sai tên đăng nhập hoặc mật khẩu'
         ]);

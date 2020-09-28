@@ -7,7 +7,8 @@ use App\Models\Role;
 
 class RoleController extends Controller
 {
-    public function all(){
+    public function all()
+    {
         return Role::all(); 
     }
 }

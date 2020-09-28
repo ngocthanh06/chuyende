@@ -6,31 +6,40 @@ use Illuminate\Http\Request;
 
 class WorkshiftsController extends Controller
 {
-    private $workshilfts ;
-    public function __construct(WorkShilftsInterface $workshilfts){
+    private $workshilfts;
+
+    public function __construct(WorkShilftsInterface $workshilfts)
+    {
         $this->workshilfts = $workshilfts;
     }
-    //
-    public function postWorkshifts(Request $request){
+    
+    public function postWorkshifts(Request $request)
+    {
         return $this->workshilfts->postWorkshifts($request); 
     }
 
-    public function checkWorkshiftsWhere(Request $request){
+    public function checkWorkshiftsWhere(Request $request)
+    {
         return $this->workshilfts->checkWorkshiftsWhere($request);
     }
 
-    public function diemdanh(Request $request){
+    public function diemdanh(Request $request)
+    {
         return $this->workshilfts->diemdanh($request); 
     }
 
-    public function getWorkshifts($id){
+    public function getWorkshifts($id)
+    {
         return $this->workshilfts->getWorkshifts($id);
     }
 
-    public function workshilftsByformDateUser(Request $request){
+    public function workshilftsByformDateUser(Request $request)
+    {
         return $this->workshilfts->workshilftsByformDateUser($request);
     }
-    public function getsWorkshilftsNV(Request $request){
+
+    public function getsWorkshilftsNV(Request $request)
+    {
         return $this->workshilfts->getsWorkshilftsNV($request);
     }
 }

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request; 
 class HomeController extends Controller
 {
-    //
-    public function index(){
+    public function index()
+    {
         return view ('welcome');
     }
-    public function getIp(Request $request){
+
+    public function getIp(Request $request)
+    {
         return $request->ip();
     }
 

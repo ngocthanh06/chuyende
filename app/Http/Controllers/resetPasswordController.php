@@ -12,11 +12,14 @@ use App\Mail\ResetPasswordMailtable;
 use App\Jobs\SendWelcomeEmail;
 class resetPasswordController extends Controller
 {
-    public function sendToken(Request $request){
+    public function sendToken(Request $request)
+    {
         $user = User::where('email', $request->email)->first();
         
-        if(!isset($user->user_id)){
-            return response()->json(['error' => 'Email người dùng không tồn tại', 401]);
+        if (!isset($user->user_id)) {
+            return response()->json([
+                'error' => 'Email người dùng không tồn tại', 401
+            ]);
         }
 
         $token =  Str::random(32) ;
@@ -29,17 +32,22 @@ class resetPasswordController extends Controller
         
     }
 
-    public function validateToken(Request $request){
+    public function validateToken(Request $request)
+    {
         $passwordReset = PasswordReset::where('token', $request->token)->first();
-        if(!isset($passwordReset->email))
-        {
-            return response()->json(['error' => 'Token không hợp lệ', 401]);
+        
+        if (!isset($passwordReset->email)) {
+            return response()->json([
+                'error' => 'Token không hợp lệ', 401
+            ]);
         }
+
         $user = User::where('email', $passwordReset->email)->first();
         return response()->json($user, 200);
     }
 
-    public function resetPassword(Request $request){
+    public function resetPassword(Request $request)
+    {
         $user = User::find($request->user_id);
         // $passwordReset = PasswordReset::where('email', $user->email)->first();
         // $passwordReset->delete();

@@ -36,7 +36,8 @@ php artisan jwt:secret
 And setting.
 
 ```
-php artisan migrate:fresh --seed
+php artisan migrate:fresh
+php artisan db:s
 ```
 ## Usage
 

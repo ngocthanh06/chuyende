@@ -28,10 +28,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/nofitication', 'SendNofitication@post');
 
-//chat app
-Route::get('/listUser', 'ChatAppController@listUser');
 
 Route::group(['middleware' => 'jwt.verify'], function ($router) {
+    
+    /**
+     * Todo Chat app
+     */
+    Route::get('/listUser', 'ChatAppController@listUser');
+    Route::post('send-message', 'ChatAppController@sendMessage');
+
     /**
      * Todo Role
      */

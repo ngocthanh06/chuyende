@@ -1,6 +1,8 @@
 import moment from 'moment';
 import auth from './auth';
 import form from './form';
+import chat from './chat';
+
 export default {
     state: {
         district: [],
@@ -98,7 +100,8 @@ export default {
 
     modules: {
         auth,
-        form
+        form,
+        chat,
     }
 
 }

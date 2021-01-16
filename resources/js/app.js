@@ -10,16 +10,12 @@ window.jQuery = window.$ = jQuery
 
 import UI from 'element-ui';
 import VueRouter from 'vue-router';
-//vuex
-import vuex from 'vuex';
-Vue.use(vuex);
-import storeData from './Store';
-const store = new vuex.Store(storeData);
+
+import store from './Store/main'
 import lang from 'element-ui/lib/locale/lang/vi'
 import locale from 'element-ui/lib/locale'
 //v-form
 import { Form, HasError, AlertError } from 'vform';
-import formStore from './Store/form';
 
 //excel
 import JsonExcel from 'vue-json-excel';
@@ -31,18 +27,15 @@ import Charts from 'fusioncharts/fusioncharts.charts';
 
 //import the theme VueFusionCharts
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
-import auth from './Store/auth';
 
 // register VueFusionCharts component
 Vue.use(VueFusionCharts, FusionCharts, Charts, FusionTheme)
-const storeform = new vuex.Store(formStore);
 window.Form = Form;
 Vue.component('downloadExcel', JsonExcel);
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 locale.use(lang);
 Vue.use(route);
-Vue.use(vuex);
 Vue.use(UI);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
@@ -52,7 +45,6 @@ const app = new Vue({
     el: '#app',
     router: route,
     store,
-    storeform,
     template: '<Layout></Layout>',
     components: {
         // Scheduler

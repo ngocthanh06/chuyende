@@ -90,30 +90,28 @@ export default {
 
       axios.post('/api/auth/login', this.ruleForm)
         .then((response) => {
-          if(response.data.user.active == 0)
-          {
+          if (response.data.user.active == 0) {
               this.$message.error('Thông báo, tài khoản của bạn đã bị khóa.');
-          }
-          else{
-          if (response && response.data) {
-            var res = response.data;
+          } else {
+            if (response && response.data) {
+              var res = response.data;
 
-            this.$store.commit("loginSuccess", res);
-            if (this.$store.getters.currentUser.role_id == 1.) {
-              this.$router.push({
-                name: 'adCalendar'
-              });
-            } else {
-              this.$router.push({
-                name: 'SetCalendar'
+              this.$store.commit("loginSuccess", res);
+              if (this.$store.getters.currentUser.role_id == 1.) {
+                this.$router.push({
+                  name: 'adCalendar'
+                });
+              } else {
+                this.$router.push({
+                  name: 'SetCalendar'
+                });
+              }
+
+              this.$message({
+                type: 'success',
+                message: 'Đăng nhập thành công'
               });
             }
-
-            this.$message({
-              type: 'success',
-              message: 'Đăng nhập thành công'
-            });
-          }
           }
         })
         .catch((err) => {

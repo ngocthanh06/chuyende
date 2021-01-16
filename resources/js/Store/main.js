@@ -5,6 +5,7 @@ import form from './modules/form';
 import auth from './auth';
 
 Vue.use(Vuex);
+
 const store = new Vuex.Store({
     modules: {
         sidebar,

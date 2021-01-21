@@ -21,12 +21,19 @@ import listChucvu from '../components/chucVu/show';
 import addChucvu from '../components/chucVu/create';
 import editChucvu from '../components/chucVu/edit';
 import listphepchuaduyet from '../components/phep/phepChuaDuyet';
+import Messages from '../components/Messages';
 
 const routes = [
     { 
         path: '/employers', 
         component: Employers, 
         name: 'employer', 
+    },
+
+    {
+        path: '/messages',
+        component: Messages,
+        name: 'Messages'
     },
 
     { 

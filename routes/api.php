@@ -28,7 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/nofitication', 'SendNofitication@post');
 
-Route::group(['middleware' => 'jwt.verify'], function ($router) {
+Route::group(['middleware' => 'jwt.verify'], function ($router) 
+{
     /**
      * Todo Role
      */
@@ -124,9 +125,10 @@ Route::group(['middleware' => 'jwt.verify'], function ($router) {
     /**
      * Todo Chat
      */
-    Route::get('/contacts','chatController@get');
+    Route::get('/contacts','chatController@contacts');
     Route::get('/conversation/{id}','chatController@getMessagesFor');
-    // Route::get('/conversation/send','chatController@sends');
+    Route::get('/conversation/send','chatController@sends');
+    Route::post('/conversation/new', 'chatController@newMessage');
 
 
     /**

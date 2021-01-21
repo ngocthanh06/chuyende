@@ -1,19 +1,13 @@
 <div class="feed" ref="feed">
     <ul>
-        <!-- <li v-for="message in messages" :class="`message${message.to == contact.id ? ' received' : ' sent'}`" :key="message.id">
+        <li v-for="message in messages" :class="`message${message.to == contact.user_id ? ' sent' : ' received'}`" :key="message.id">
             <div class="text">
                 {{ message.text }}
-                aaa
             </div>
-        </li> -->
-        <li class=" message sent" >
-            <div class="text">
-                aaa
-            </div>
-        </li>
-        <li class=" message received" >
-            <div class="text">
-                aaa
+            <div>
+                <small>
+                    {{ message.created_at }}
+                </small>
             </div>
         </li>
     </ul>

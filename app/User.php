@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Enums\RolesEnum;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -58,18 +59,32 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Models\WorkShifts', 'user_id', 'user_id');
     }
 
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo('App\Models\Company', 'idComp', 'idComp');
     }
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo('App\Models\Role', 'role_id', 'role_id');
     }
-    public function prepayment(){
+    public function prepayment()
+    {
         return $this->hasMany('App\Models\prepayment', 'user_id', 'user_id');
     }
 
-    public function permission(){
+    public function permission()
+    {
         return $this->hasMany('App\Models\permission', 'user_id','user_id');
+    }
+
+    public function scopeEmployers($query) 
+    {
+        return $query->where('role_id', RolesEnum::EMPLOYER);
+    }
+
+    public function scopeNotUser($query)
+    {
+        return $query->where('user_id', '!=', auth()->user()->user_id);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\RolesEnum;
 
 class Employer extends Model
 {
@@ -29,7 +30,10 @@ class Employer extends Model
         'active'
     ];
 
-
+    public function scopeEmployers($query) 
+    {
+        return $query->where('role_id', RolesEnum::EMPLOYERS);
+    }
 
 }
 

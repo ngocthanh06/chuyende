@@ -4,12 +4,27 @@ export default {
     data() {
         return {
             message: '',
+            data: {},
+        }
+    },
+
+    props: {
+        contact: {
+            type: Object,
+            default: {}
         }
     },
 
     methods: {
         send() {
-            console.log(this.message);
+            this.data = {
+                'text': this.message,
+                'from': this.contact.user_id
+            };
+
+            this.$store.dispatch('saveNewMessage', this.data);
+            this.message = '';
+            console.log(this.$store.getters.getMessages)
         }
     },
 

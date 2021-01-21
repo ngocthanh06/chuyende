@@ -12,6 +12,8 @@ use App\Repositories\TodoInterfaceWork\WorkShilftsInterface;
 use App\Repositories\TodoInterfaceWork\AttendanceInterface;
 use App\Repositories\TodoInterfaceWork\PrepaymentInterface;
 use App\Repositories\TodoInterfaceWork\permissionInterface;
+use App\Repositories\TodoInterfaceWork\ChatInterface;
+use App\Repositories\Work\ChatEloquent;
 use App\Repositories\Work\permissionEloquent;
 use App\Repositories\Work\PrepaymentEloquent;
 use App\Repositories\Work\AttendanceEloquent;
@@ -37,7 +39,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(WorkShilftsInterface::class, WorkShiftsEloquent::class);
         $this->app->singleton(FormMCaLamInterface::class, FormMCalamEloquent::class);
         $this->app->singleton(AttendanceInterface::class, AttendanceEloquent::class);
-        if(env('REDIRECT_HTTPS')) {
+        $this->app->singleton(ChatInterface::class, ChatEloquent::class);
+
+        if (env('REDIRECT_HTTPS')) {
             $this->app['request']->server->set('HTTPS', true);
         }
     }
@@ -52,7 +56,8 @@ class AppServiceProvider extends ServiceProvider
         //
         Schema::defaultStringLength(191);
         Schema::defaultStringLength(191);
-        if(env('REDIRECT_HTTPS')) {
+
+        if (env('REDIRECT_HTTPS')) {
             $url->formatScheme('https');
         }
     }

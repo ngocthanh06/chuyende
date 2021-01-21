@@ -1,4 +1,4 @@
 <div class="chat-app">
-    <Conversation />
-    <ContactList />
+    <Conversation :messages="getMessages" :contact="selectedContact" @sendMessage="saveNewMessage" />
+    <ContactList @selected="startConversationWith"/>
 </div>

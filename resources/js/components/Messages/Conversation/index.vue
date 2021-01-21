@@ -8,6 +8,24 @@ export default {
         MessageComposer
     },
 
+    props: {
+        messages: {
+            type: Array,
+            default: [],
+        }, 
+
+        contact: {
+            type: Object,
+            default: {}
+        }
+    },
+
+    methods: {
+        sendMessage(text) {
+            this.$emit('sendMessage', text);
+        }
+    },
+
     template: require('./Conversation.html')
 }
 </script>

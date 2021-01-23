@@ -28,11 +28,6 @@ export default {
             this.$store.dispatch('handleMessages', contact.user_id);
             this.selectedContact = contact;
         },
-
-        saveNewMessage(message) {
-            console.log('aa', message);
-            // this.$store.dispatch('saveNewMessage', message);
-        }
     },
 
     template: require('./Messages.html')

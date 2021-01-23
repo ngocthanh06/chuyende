@@ -10,7 +10,6 @@ use App\Events\MessagesNew;
 
 class ChatEloquent implements ChatInterface
 {
-
     protected $messages;
     protected $user;
 

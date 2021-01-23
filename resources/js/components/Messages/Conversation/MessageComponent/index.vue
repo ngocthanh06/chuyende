@@ -23,8 +23,8 @@ export default {
             };
 
             this.$store.dispatch('saveNewMessage', this.data);
+            this.$store.dispatch('handleMessages', this.contact.user_id)
             this.message = '';
-            console.log(this.$store.getters.getMessages)
         }
     },
 

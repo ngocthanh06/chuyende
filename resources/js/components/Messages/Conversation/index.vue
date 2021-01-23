@@ -20,12 +20,6 @@ export default {
         }
     },
 
-    methods: {
-        sendMessage(text) {
-            this.$emit('sendMessage', text);
-        }
-    },
-
     template: require('./Conversation.html')
 }
 </script>

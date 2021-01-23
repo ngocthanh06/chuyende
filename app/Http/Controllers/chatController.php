@@ -12,7 +12,6 @@ use App\Repositories\TodoInterfaceWork\ChatInterface;
 
 class chatController extends Controller
 {
-
     protected $chat;
 
     public function __construct(ChatInterface $chat)

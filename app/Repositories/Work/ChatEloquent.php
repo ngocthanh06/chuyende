@@ -7,19 +7,24 @@ use Auth;
 use JWTAuth;
 use App\Models\messages;
 use App\Events\MessagesNew;
+use Kreait\Firebase\Database;
+use DB;
 
 class ChatEloquent implements ChatInterface
 {
     protected $messages;
     protected $user;
+    protected $database;
 
     public function __construct(
         messages $messages,
-        User $user
+        User $user,
+        Database $database
     )
     {
         $this->messages = $messages;
         $this->user = $user;
+        $this->database = $database;
     }
 
     public function contacts()
@@ -42,8 +47,25 @@ class ChatEloquent implements ChatInterface
     }
 
     public function newMessage($request)
-    {
-        return $this->messages->create($request->toArray());
+    {   
+        DB::beginTransaction();
+
+        try {
+            $userFrom = 'chat/to_user_'. $request['to'] . '/chat/content';
+    
+            $newMessagesFirebase = $this->database->getReference($userFrom)
+                ->push($request);
+    
+            $newMessageDB = $this->messages->create($request);
+
+            DB::commit();
+            
+            return $newMessageDB;
+        } catch (Exception $e) {
+            DB::rollBack();
+        
+            throw new Exception($e->getMessage());
+        }
     }
 }
 

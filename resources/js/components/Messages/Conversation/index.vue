@@ -20,6 +20,12 @@ export default {
         }
     },
 
+    methods: {
+        haveChangeNoticeMessage() {
+            this.$emit('haveChangeNoticeMessage');
+        },
+    },
+
     template: require('./Conversation.html')
 }
 </script>

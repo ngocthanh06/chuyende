@@ -31,9 +31,9 @@ class chatController extends Controller
 
     public function newMessage(Request $request)
     {
-        $request['to'] = auth()->user()->user_id;
+        $request['from'] = auth()->user()->user_id;
 
-        return response()->json($this->chat->newMessage($request));
+        return response()->json($this->chat->newMessage($request->toArray()));
     }
 
 

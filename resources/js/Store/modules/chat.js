@@ -1,5 +1,5 @@
 import axios from "axios";
-import { param } from "jquery";
+import fire from '../../config/fire';
 
 export default {
     state: {
@@ -27,6 +27,12 @@ export default {
 
         saveNewMessage(context, data) {
             axios.post('/api/conversation/new', data);
+        },
+
+        destroyNoticeMessages(context, userId) {
+            fire.database()
+                .ref(`chat/to_user_${userId}/chat/content`)
+                .remove();
         }
     },
 

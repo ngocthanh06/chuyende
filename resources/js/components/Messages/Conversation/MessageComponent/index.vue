@@ -1,4 +1,5 @@
 <script>
+
 export default {
 
     data() {
@@ -19,12 +20,18 @@ export default {
         send() {
             this.data = {
                 'text': this.message,
-                'from': this.contact.user_id
+                'to': this.contact.user_id
             };
 
             this.$store.dispatch('saveNewMessage', this.data);
             this.$store.dispatch('handleMessages', this.contact.user_id)
             this.message = '';
+        }
+    },
+
+    watch: {
+        message(message) {
+            this.$emit('haveChangeNoticeMessage');
         }
     },
 

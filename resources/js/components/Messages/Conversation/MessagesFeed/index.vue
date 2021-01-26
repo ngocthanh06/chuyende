@@ -1,4 +1,5 @@
 <script>
+
 export default {
     
     props: {
@@ -18,7 +19,7 @@ export default {
             setTimeout(() => {
                 this.$refs.feed.scrollTop = this.$refs.feed.scrollHeight - this.$refs.feed.clientHeight;
             }, 50);
-        }
+        },
     },
 
     watch: {

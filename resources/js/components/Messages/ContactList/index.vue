@@ -1,18 +1,33 @@
 <script>
 import { mapGetters } from 'vuex';
+import fire from '../../../config/fire';
 
 export default {
 
     data() {
         return {
             selected: 0,
+            userIdFrom: 0
         }
     },
 
     computed: {
         ...mapGetters([
-            'getContacts'
+            'getContacts',
+            'currentUser'
         ]) 
+    },
+
+    props: {
+        noticeMessages: {
+            type: Object,
+            default: {}
+        },
+
+        changeNoticeMessage: {
+            type: Boolean,
+            default: true
+        }
     },
 
     mounted() {
@@ -23,6 +38,19 @@ export default {
         selectContact(index, contact) {
             this.selected = index;
             this.$emit('selected', contact);
+
+            this.destroyNotice();
+        },
+
+        destroyNotice() {
+            this.$store.dispatch('destroyNoticeMessages', this.currentUser.user_id);
+            this.userIdFrom = 0;
+        }
+    },
+
+    watch: {
+        noticeMessages(noticeMessages) {
+            this.userIdFrom = noticeMessages.from;
         }
     },
 

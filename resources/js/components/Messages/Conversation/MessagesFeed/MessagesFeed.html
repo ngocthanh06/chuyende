@@ -1,6 +1,6 @@
 <div class="feed" ref="feed">
     <ul>
-        <li v-for="message in messages" :class="`message${message.to == contact.user_id ? ' sent' : ' received'}`" :key="message.id">
+        <li v-for="message in messages" :class="`message${message.to == contact.user_id ? ' received' : ' sent'}`" :key="message.id">
             <div class="text">
                 {{ message.text }}
             </div>

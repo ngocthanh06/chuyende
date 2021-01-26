@@ -5,7 +5,8 @@
 </div>
 </template>
 <script>
-import navi from './navigation'; 
+import navi from './navigation';
+
 export default {
     components:{
         navi

@@ -8,21 +8,32 @@ use Auth;
 use JWTAuth;
 use App\Models\messages;
 use App\Events\MessagesNew;
+use App\Repositories\TodoInterfaceWork\ChatInterface;
 
 class chatController extends Controller
 {
-    public function get()
+    protected $chat;
+
+    public function __construct(ChatInterface $chat)
     {
-        $user = User::where('user_id', '!=', auth()->user()->user_id)->get();
-        
-        return response()->json($user);
+        $this->chat = $chat;
+    }
+
+    public function contacts()
+    {   
+        return response()->json($this->chat->contacts());
     }
 
     public function getMessagesFor($id)
     {
-        $messages = messages::where('from', $id)->orWhere('to', $id)->get();
+        return response()->json($this->chat->getMessagesFor($id));
+    }
 
-        return response()->json($messages);
+    public function newMessage(Request $request)
+    {
+        $request['from'] = auth()->user()->user_id;
+
+        return response()->json($this->chat->newMessage($request->toArray()));
     }
 
 

@@ -1,0 +1,5 @@
+<div class="conversation">
+    <h1>{{ contact ? contact.user_fullname : 'Select a Contact' }}</h1>
+    <MessagesFeed :messages="messages" :contact="contact"/>
+    <MessageComposer :contact="contact" @haveChangeNoticeMessage="haveChangeNoticeMessage"/> 
+</div>

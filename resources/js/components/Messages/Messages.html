@@ -1,0 +1,14 @@
+<div class="chat-app">
+    <Conversation 
+        @haveChangeNoticeMessage="haveChangeNoticeMessage"
+        :messages="getMessages" 
+        :contact="selectedContact"
+    />
+
+    <ContactList 
+        @selected="startConversationWith" 
+        :haveChangeNoticeMessage="haveChangeNoticeMessage"
+        :changeNoticeMessage="changeNoticeMessage"
+        :noticeMessages="noticeMessages"
+    />
+</div>

@@ -1,36 +1,45 @@
 <template>
-<div>
-  <div class="pb-3">
-    <router-link to="/Add-Calam" class="btn btn-sm btn-outline-secondary">
-      <span class="oi oi-plus"></span>
-      Thêm ca làm</router-link>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="card mb-grid">
-        <div class="table-responsive-md">
-          <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-            <el-table resizable="true" v-loading="loading" :data="tableData" stripe style="width: 100%">
-              <el-table-column type="index" width="50"> </el-table-column>
-              <el-table-column prop="form_name" sortable label="Tên ca làm"> </el-table-column>
-              <el-table-column prop="form_work" sortable label="Số giờ công"> </el-table-column>
-              <el-table-column prop="form_time_in" sortable label="Giờ vào"> </el-table-column>
-              <el-table-column prop="form_time_out" sortable label="Giờ ra"> </el-table-column>
-              <el-table-column height="" prop="form_desc" label="Ghi chú"> </el-table-column>
-              <el-table-column prop="date" label="Tùy chọn">
-                <template slot-scope="scope">
-                  <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Calam/${scope.row.form_id}`">Edit</router-link>
-                  <el-button size="mini" type="danger">Delete</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
+  <div>
+    <div class="pb-3">
+      <router-link to="/Add-Calam" class="btn btn-sm btn-outline-secondary">
+        <span class="oi oi-plus"></span>
+        Thêm ca làm</router-link>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card mb-grid">
+          <div class="table-responsive-md">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+              <el-table resizable="true" v-loading="loading" :data="tableData" stripe style="width: 100%">
+                <el-table-column type="index" width="50"> </el-table-column>
+                <el-table-column prop="form_name" sortable label="Tên ca làm"> </el-table-column>
+                <el-table-column prop="form_work" sortable label="Số giờ công"> </el-table-column>
+                <el-table-column prop="form_time_in" sortable label="Giờ vào"> </el-table-column>
+                <el-table-column prop="form_time_out" sortable label="Giờ ra"> </el-table-column>
+                <el-table-column height="" prop="form_desc" label="Ghi chú"> </el-table-column>
+                <el-table-column prop="date" label="Tùy chọn">
+                  <template slot-scope="scope">
+                    <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/edit-Calam/${scope.row.form_id}`">Edit</router-link>
+                    <el-button size="mini" @click="closeCalam(scope.row.form_id)" type="danger">Close</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
           </div>
         </div>
+        <el-pagination 
+          background 
+          @current-change="changePage" 
+          :page-size="pagiSize" 
+          :current-page="currentPage" 
+          layout="prev, pager, next" 
+          :total="total" 
+          style="text-align:center"
+        >
+        </el-pagination>
       </div>
-      <el-pagination background @current-change="changePage" :page-size="pagiSize" :current-page="currentPage" layout="prev, pager, next" :total="total" style="text-align:center"> </el-pagination>
     </div>
   </div>
-</div>
 </template>
 
   
@@ -45,32 +54,35 @@ export default {
       pagiSize: 10
     }
   },
+
   created() {
     this.getCaLam();
   },
-  mounted() {
 
-  },
   methods: {
     changePage(page) {
       this.currentPage = page;
       this.getCaLam();
     },
+
     getCaLam() {
       this.loading = true;
       let uri = `/api/CaLam/${this.pagiSize}?page=${this.currentPage}`;
-      axios.get(uri).then((res) => {
-        try {
+
+      axios.get(uri)
+        .then((res) => {
           if (res.status === 200) {
             this.tableData = res.data.data;
             this.total = res.data.total;
-            // console.log(res.data);
           }
+
           this.loading = false;
-        } catch {
-          (e) => {}
-        }
-      }).catch((e) => {});
+      });
+    },
+
+    closeCalam(id) {
+      axios.get(`/api/closeCalam/${id}`);
+      this.getCaLam();
     }
   }
 }

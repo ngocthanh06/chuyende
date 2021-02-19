@@ -58,7 +58,7 @@ const routes = [
     { path: '/addEmployer', component: AddEmployer, name: 'addEmployer', meta: { requiresAuth: true } },
     { path: '/edit-Employer/:id', component: EditEmployer, meta: { requiresAuth: true } },
     { path: '/Set-Calendar', component: MainCalendar, name: 'SetCalendar', meta: { requiresAuth: true } },
-    { path: '/Show-Calam', component: ShowCaLam, name: 'ShowCalam', meta: { requiresAuth: true } },
+    { path: '/show-calam', component: ShowCaLam, name: 'ShowCalam', meta: { requiresAuth: true } },
     { path: '/Add-Calam', component: AddCalam, name: 'AddCalam', meta: { requiresAuth: true } },
     { path: '/Edit-Calam/:id', component: EditCaLam, name: 'EditCalam', meta: { requiresAuth: true } },
     { path: '/demo', component: Demo, name: 'demo', meta: { requiresAuth: true } },
@@ -91,7 +91,7 @@ const router = new VueRouter({
 });
 //Check Login/Louout with role_id when using Route-Link
 router.beforeEach((to, from, next) => {
-        let routes = ['/employers', '/Show-Calam', '/Set-Calendar', '/getLichNv', '/listPhep', '/listCong', '/getChinhanh', '/listChucvu'];
+        let routes = ['/employers', '/show-calam', '/Set-Calendar', '/getLichNv', '/listPhep', '/listCong', '/getChinhanh', '/listChucvu'];
         let routeAd = ['/ad-calendar', '/infomation', '/editUserNV', '/Set-Calendar'];
         //Get value meta router-link
         const requiresAuth = to.matched.some(record => record.meta.requiresAuth);

@@ -54,9 +54,9 @@ const routes = [
     },
 
     { 
-        path: '/Show-Calam', 
+        path: '/show-calam', 
         component: ShowCaLam, 
-        name: 'ShowCalam', 
+        name: 'showCalam', 
     },
 
     { 

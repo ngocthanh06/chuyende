@@ -13,31 +13,31 @@
       <div class="container form">
         <el-form role="ruleForm" :filter-multiple=true :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
           <el-form-item label="Tên ca làm" prop="form_name" required>
-            <el-input placeholder="Nhập tên ca làm" :class="{ 'is-invalid':  ruleForm.errors.has('form_name') }" v-model.number="ruleForm.form_name"></el-input>
+            <el-input placeholder="Nhập tên ca làm" :class="{ 'is-invalid':  ruleForm.errors.has('form_name') }" v-model="ruleForm.form_name"></el-input>
             <has-error :form="ruleForm" field="form_name"></has-error>
           </el-form-item>
-          <el-form-item label="Số giờ công" prop="region">
+          <el-form-item label="Số giờ công" prop="form_work">
             <el-input-number v-model="ruleForm.form_work" controls-position="right" :min="1" :max="10"></el-input-number>
             <span>Giờ</span>
           </el-form-item>
           <el-form-item label="Giờ vào / ra" required>
-            <el-col :span="11">
-              <el-time-picker value-format="HH:mm:ss" format="HH:mm:ss" start="07:30" placeholder="Giờ vào" v-model="ruleForm.time_in" style="width: 100%;"></el-time-picker>
+            <el-col :span="11" prop="form_time_in">
+              <el-time-picker value-format="HH:mm:ss" format="HH:mm:ss" start="07:30" placeholder="Giờ vào" v-model="ruleForm.form_time_in" style="width: 100%;"></el-time-picker>
             </el-col>
             <el-col class="line" style="text-align: center" :span="2">-</el-col>
-            <el-col :span="11">
-              <el-time-picker value-format="HH:mm:ss" end="23:00" format="HH:mm:ss" placeholder="Giờ ra" v-model="ruleForm.time_out" style="width: 100%;"></el-time-picker>
+            <el-col :span="11" prop="form_time_out">
+              <el-time-picker value-format="HH:mm:ss" end="23:00" format="HH:mm:ss" placeholder="Giờ ra" v-model="ruleForm.form_time_out" style="width: 100%;"></el-time-picker>
             </el-col>
           </el-form-item>
-          <el-form-item label="Ghi chú" prop="desc">
+          <el-form-item label="Ghi chú" prop="form_desc">
             <el-input type="textarea" placeholder="Nhập ghi chú của bạn tại đây" v-model="ruleForm.form_desc"></el-input>
           </el-form-item>
         </el-form>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" @click="resetForm('ruleForm')" class="btn btn-secondary">Làm mới</button>
-      <button type="submit" id="btn" @click="submitForm('ruleForm',ruleForm)" class="btn btn-primary">Thêm</button>
+      <button type="button" @click="resetForm()" class="btn btn-secondary">Làm mới</button>
+      <button type="submit" @click="submitForm()" class="btn btn-primary">Thêm</button>
     </div>
   </div>
 </div>
@@ -45,71 +45,54 @@
 
 <script>
 export default {
-  computed: {
-    // get all company
-    getCompanies() {
-      return this.$store.getters.getCompany
-    },
 
-  },
   data() {
     return {
-
       ruleForm: new Form({
         form_name: '',
         form_work: '',
-        time_in: '',
-        time_out: '',
+        form_time_in: '',
+        form_time_out: '',
         form_desc: '',
       }),
+
       rules: {
         form_name: [{
           required: true,
           message: 'Tên ca làm không được để trống',
           trigger: 'blur'
-        }, ],
-
+        }]
       }
     };
   },
   methods: {
     //Xử lý submit
-    submitForm(formName, value) {
-      // $('#AddEmp_Modal').modal('hide');
+    submitForm() {
       this.loading = true;
-      this.$refs[formName].validate((valid) => {
+
+      this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
-          try {
-            this.ruleForm.post('/api/addCalam').then((res) => {
-              if (res.data.code == 200) {
-                this.$message({
-                  type: 'success',
-                  message: 'Thêm ca làm thành công'
-                });
-                this.resetForm('ruleForm');
-                this.$router.push('/Show-Calam');
-              } else {
-                console.log(res);
-                this.$message({
-                  type: 'warning',
-                  message: 'Lỗi'
-                });
-              }
-            })
-          } catch (e) {
-            console.log(e);
-          }
-        } else {
-          console.log('error submit!!');
+          this.ruleForm.post('/api/addCalam').then((res) => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: 'success',
+                message: 'Thêm ca làm thành công'
+              });
+
+              this.$router.push({ name: 'showCalam' });
+            } else {
+              this.$message({
+                type: 'warning',
+                message: 'Lỗi'
+              });
+            }
+          })
         }
       });
     },
-    resetForm(formName) {
-      this.ruleForm.form_name = '';
-      this.ruleForm.form_work = '';
-      this.ruleForm.time_in = '';
-      this.ruleForm.time_out = '';
-      this.ruleForm.form_desc = '';
+
+    resetForm() {
+      this.$refs.ruleForm.resetFields();
     },
 
   },

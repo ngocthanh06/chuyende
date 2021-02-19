@@ -65,6 +65,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router)
      */
     Route::resource('/CaLam','CaLamController');
     Route::post('/addCalam','CaLamController@add');
+    Route::get('/closeCalam/{id}', 'CalamController@closeCalam');
     Route::get('/CalamID/{id}','CaLamController@getcalam');
     Route::post('/editCalam/{id}', 'CalamController@editCalam');
     Route::post('/countCaLam','CaLamController@countCalam');

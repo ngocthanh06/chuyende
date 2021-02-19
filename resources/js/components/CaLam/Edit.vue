@@ -36,8 +36,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" @click="resetForm('ruleForm')" class="btn btn-secondary">Làm mới</button>
-      <button type="submit" id="btn" @click="submitForm('ruleForm',ruleForm)" class="btn btn-primary">Thêm</button>
+      <button type="button" @click="resetForm()" class="btn btn-secondary">Làm mới</button>
+      <button type="submit" id="btn" @click="submitForm()" class="btn btn-primary">Sửa</button>
     </div>
   </div>
 </div>
@@ -45,19 +45,9 @@
 
 <script>
 export default {
-  mounted() {
 
-  },
-  computed: {
-    // get all company
-    getCompanies() {
-      return this.$store.getters.getCompany
-    },
-
-  },
   data() {
     return {
-
       ruleForm: new Form({
         form_name: '',
         form_work: '',
@@ -65,6 +55,7 @@ export default {
         form_time_out: '',
         form_desc: '',
       }),
+
       rules: {
         form_name: [{
           required: true,
@@ -75,52 +66,43 @@ export default {
       }
     };
   },
+
   mounted() {
     this.getCalam();
   },
+
   methods: {
     async getCalam() {
       let json = await axios.get(`/api/CalamID/${this.$route.params.id}`);
       this.ruleForm.fill(json.data);
     },
+
     //Xử lý submit
-    submitForm(formName, value) {
-      // $('#AddEmp_Modal').modal('hide');
+    submitForm() {
       this.loading = true;
-      this.$refs[formName].validate((valid) => {
+
+      this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
-          try {
-            this.ruleForm.post(`/api/editCalam/${this.$route.params.id}`).then((res) => {
-              if (res.data.code == 200) {
-                this.$message({
-                  type: 'success',
-                  message: res.data.messages
-                });
-                this.resetForm('ruleForm');
-                this.$router.push('/Show-Calam');
-              } else {
-                console.log(res);
-                this.$message({
-                  type: 'warning',
-                  message: 'Lỗi'
-                });
-              }
-            })
-          } catch (e) {
-            console.log(e);
-          }
-        } else {
-          console.log('error submit!!');
+          this.ruleForm.post(`/api/editCalam/${this.$route.params.id}`).then((res) => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: 'success',
+                message: res.data.messages
+              });
+              
+              this.$router.push({ name: 'showCalam' });
+            } else {
+              this.$message({
+                type: 'warning',
+                message: 'Lỗi'
+              });
+            }
+          })
         }
       });
     },
-    resetForm(formName) {
-      // return this.$refs[ruleForm].resetFields(); 
-      this.ruleForm.form_name = '';
-      this.ruleForm.form_work = '';
-      this.ruleForm.time_in = '';
-      this.ruleForm.time_out = '';
-      this.ruleForm.form_desc = '';
+    resetForm() {
+      return this.$refs[ruleForm].resetFields(); 
     },
 
   },

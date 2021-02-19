@@ -22,4 +22,5 @@ interface FormMCaLamInterface
 
    public function editCalam($id, $request);
 
+   public function closeCalam($request);
 }

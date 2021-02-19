@@ -4,66 +4,59 @@
 namespace App\Repositories\Work;
 
 use App\Repositories\TodoInterfaceWork\FormMCaLamInterface;
+use App\Repositories\Work\baseEloquent;
+use App\Enums\StatusFormsEnum;
 use DB;
-use Image;
-use App\Models\FormM;
-use App\Models\WorkShifts;
-use App\Models\Company;
-use App\User;
-class FormMCalamEloquent implements FormMCaLamInterface
+
+class FormMCalamEloquent extends baseEloquent implements FormMCaLamInterface
 {
-     
     public function getAll($limit)
     {
-        return FormM::paginate($limit);
+        return $this->formm->StatusOpen()->paginate($limit);
     }
     
     public function all()
     {
-        return FormM::all();
+        return $this->formm->all();
     }
-    //Lấy ca làm với id 
     
     public function getcalam($id)
     {
-        return Company::find($id);
+        return $this->formm->find($id);
     }
     
     public function editCalam($id, $request)
     {
-        $calam = FormM::find($id);
-        $calam['form_name'] = $request->form_name;
-        $calam['form_work'] = $request->form_work;
-        $calam['form_time_in'] = $request->form_time_in;
-        $calam['form_time_out'] = $request->form_time_out;
-        $calam['form_desc'] = $request->form_desc;
-        $calam->update();
+        $calam = $this->formm->find($id)->update($request->all());
 
+        if ($calam) {
+            return response()->json([
+                'code' => '200',
+                'messages' => 'Chỉnh sửa thành công'
+            ]);
+        }
+        
         return response()->json([
-            'code' => '200',
-            'messages' => 'Chỉnh sửa thành công'
+            'code' => '404',
+            'messages' => 'Chỉnh sửa không thành công'
         ]);
     }
 
     //Thêm ca làm
     public function addCalam($request)
     {
-        $validate = $request->validate(
-            [ 'form_name' => 'unique:formm' ],
-            [ 'form_name.unique' => 'Tên ca làm đã tồn tại' ]
-        );
+        $calam = $this->formm->create($request->all());
         
-        $calam = new FormM();
-        $calam['form_name'] = $request->form_name;
-        $calam['form_work'] = $request->form_work;
-        $calam['form_time_in'] = $request->time_in;
-        $calam['form_time_out'] = $request->time_out;
-        $calam['form_desc'] = $request->form_desc;
-        $calam->save();
-        
+        if ($calam) {
+            return response()->json([
+                'code' => '200',
+                'messages' => 'Thành công'
+            ]);
+        }
+
         return response()->json([
-            'code' => '200',
-            'messages' => 'Thành công'
+            'code' => '404',
+            'messages' => 'Không thành công'
         ]);
     }
 
@@ -114,7 +107,12 @@ class FormMCalamEloquent implements FormMCaLamInterface
             ->get();
     }
 
-   
+    public function closeCalam($id)
+    {
+        return response()->json(
+            $close = $this->formm->find($id)->update(['status' => StatusFormsEnum::CLOSE])
+        );
+    }
     
     
     

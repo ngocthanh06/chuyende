@@ -139,7 +139,7 @@ export default {
           id: 1,
           icon: 'oi oi-spreadsheet',
           value: ' Ca làm',
-          link: '/Show-Calam'
+          link: '/show-calam'
         },
         {
           id: 2,

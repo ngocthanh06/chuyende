@@ -52,8 +52,8 @@ class chucvuController extends Controller
     public function store(Request $request)
     {
         $request->validate([ 
-            'role_name' => 'unique:role', 
-            'role_name.unique' => 'Tên role đã tồn tại' 
+            ['role_name' => 'unique:role'], 
+            ['role_name.unique' => 'Tên role đã tồn tại']
         ]);
              
         return response()->json(
@@ -95,8 +95,8 @@ class chucvuController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([ 
-            'role_name' => 'unique:role,role_name,'.$id.',role_id', 
-            'role_name.unique' => 'Tên role đã tồn tại' 
+            ['role_name' => 'unique:role,role_name,'.$id.',role_id'], 
+            ['role_name.unique' => 'Tên role đã tồn tại']
         ]);
 
         return response()->json(

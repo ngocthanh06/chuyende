@@ -6,7 +6,7 @@ export default {
 
     data() {
         return {
-            selected: 0,
+            selected: '',
             userIdFrom: 0
         }
     },

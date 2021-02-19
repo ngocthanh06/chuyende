@@ -4,6 +4,7 @@ import sidebar from './modules/sidebar';
 import form from './modules/form';
 import chat from './modules/chat'
 import auth from './auth';
+import helper from './modules/helper';
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
         sidebar,
         form,
         auth,
-        chat
+        chat,
+        helper
     }
 });
 

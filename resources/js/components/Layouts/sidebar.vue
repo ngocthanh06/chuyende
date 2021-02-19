@@ -42,6 +42,17 @@
         </router-link>
       </router-link>
     </li>
+
+    <li class="sidebar-nav-item">
+      <router-link to="/messages" class="sidebar-nav-link active">
+        <span class="sidebar-nav-icon">
+          <i class="el-icon-chat-dot-round"></i>
+        </span>
+        <router-link to="/messages" href="#" class="nav-link">
+          Tin nhắn 
+       </router-link>
+      </router-link>
+    </li>
   </ul>
   <!-- end nhân viên -->
   <!-- QUản lý -->

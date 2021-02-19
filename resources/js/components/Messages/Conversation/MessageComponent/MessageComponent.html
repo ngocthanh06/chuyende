@@ -1,3 +1,7 @@
 <div class="composer">
-    <textarea v-model="message" @keydown.enter.prevent="send" placeholder="Message..."></textarea>
+    <textarea 
+        v-model="message" 
+        @keydown.enter.prevent="send" 
+        :disabled="!contact"
+        placeholder="Message..."></textarea>
 </div>

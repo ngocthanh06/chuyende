@@ -25,6 +25,16 @@
           </div>
         </div>
       </div>
+       <el-pagination 
+        background 
+        @current-change="changePage" 
+        :page-size="pagiSize" 
+        :current-page="currentPage" 
+        layout="prev, pager, next" 
+        :total="total" 
+        style="text-align:center"
+      > 
+      </el-pagination>
     </div>
   </div>
 </div>
@@ -36,6 +46,9 @@ export default {
     return {
       tableData: [],
       loading: false,
+      total: 1,
+      currentPage: 1,
+      pagiSize: 10
     }
   },
 
@@ -44,12 +57,18 @@ export default {
   },
 
   methods: {
-    getCaLam() {
-      axios.get(`/api/chucvu`).then((res) => {
-        if (res.status === 200) {
-          this.tableData = res.data;
-        }
+    changePage(page) {
+      this.currentPage = page;
+      this.getCaLam();
+    },
 
+    getCaLam() {
+      this.loading = true;
+      let url = `/api/listChucVu/${this.pagiSize}?page=${this.currentPage}`;
+
+      axios.get(url).then((res) => {
+        this.tableData = res.data.data;
+        this.total = res.data.total;
         this.loading = false;
       })
     },

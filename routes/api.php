@@ -59,6 +59,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router)
      * Todo List Chức vụ
      */
     Route::resource('/chucvu','chucvuController');
+    Route::get('/listChucVu/{limit}', 'chucvuController@listChucVu');
     /**
      * Todo List CaLam
      */
@@ -130,7 +131,7 @@ Route::group(['middleware' => 'jwt.verify'], function ($router)
     Route::get('/conversation/send','chatController@sends');
     Route::post('/conversation/new', 'chatController@newMessage');
 
-
+    Route::get('demo', 'chatController@demo');
     /**
     * Todo List Send mail Accept Permission
     */

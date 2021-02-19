@@ -26,6 +26,13 @@ class chucvuController extends Controller
         );
     }
 
+    public function listChucVu($limit)
+    {
+        return response()->json(
+            $this->role->paginate($limit)
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      *

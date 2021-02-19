@@ -29,7 +29,7 @@ class ChatEloquent implements ChatInterface
 
     public function contacts()
     {
-        return $this->user->notUser()->employers()->get();
+        return $this->user->notUser()->get();
     }
 
     public function getMessagesFor($id)

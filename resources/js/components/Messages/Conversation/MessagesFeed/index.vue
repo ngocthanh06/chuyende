@@ -1,7 +1,8 @@
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
-    
+
     props: {
         messages: {
             type: Array,
@@ -11,7 +12,21 @@ export default {
         contact: {
             type: Object,
             default: {}
-        }
+        }, 
+    },
+
+    computed: {
+        ...mapGetters([
+            'getLoading'
+        ]),
+    },
+
+    updated() {
+        this.$store.dispatch('setFalseLoading');
+    },
+
+    beforeDestroy() {
+        this.$store.dispatch('setTrueLoading');
     },
 
     methods: {

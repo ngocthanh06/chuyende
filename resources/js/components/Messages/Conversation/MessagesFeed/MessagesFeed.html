@@ -1,5 +1,5 @@
-<div class="feed" ref="feed">
-    <ul>
+<div v-loading="getLoading" class="feed" ref="feed">
+    <ul v-if="contact">
         <li v-for="message in messages" :class="`message${message.to == contact.user_id ? ' received' : ' sent'}`" :key="message.id">
             <div class="text">
                 {{ message.text }}

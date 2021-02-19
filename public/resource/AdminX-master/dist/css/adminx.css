@@ -12346,7 +12346,7 @@ span.flatpickr-weekday {
 @media (min-width:768px) {
     .adminx-sidebar.expand-hover {
         width: 4rem;
-        overflow-x: hidden
+        overflow-x: hidden;
     }
     .adminx-sidebar.expand-hover .sidebar-nav-end,
     .adminx-sidebar.expand-hover .sidebar-nav-name {
@@ -12359,7 +12359,8 @@ span.flatpickr-weekday {
         visibility: visible
     }
     .adminx-sidebar.expand-hover:hover {
-        width: 260px
+        width: 260px;
+        z-index: 2010;
     }
     .adminx-sidebar.expand-hover:hover .sidebar-nav-end,
     .adminx-sidebar.expand-hover:hover .sidebar-nav-name {

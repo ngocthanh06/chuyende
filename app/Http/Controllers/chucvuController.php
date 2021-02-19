@@ -7,6 +7,13 @@ use App\Models\Role;
 
 class chucvuController extends Controller
 {
+    private $role;
+
+    public function __construct(Role $role) 
+    {
+        $this->role = $role;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class chucvuController extends Controller
      */
     public function index()
     {
-         return Role::get();
+        return response()->json(
+            $this->role->get()
+        );
     }
 
     /**
@@ -35,16 +44,14 @@ class chucvuController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate(
-            [ 'role_name' => 'unique:role' ], 
-            [ 'role_name.unique' => 'Tên role đã tồn tại' ]
+        $request->validate([ 
+            'role_name' => 'unique:role', 
+            'role_name.unique' => 'Tên role đã tồn tại' 
+        ]);
+             
+        return response()->json(
+            $this->role->create($request->all())
         );
-        $role = new Role();
-        $role['coefficient'] = $request['coefficient'];
-        $role['price'] = $request['price'];
-        $role['role_name'] = $request['role_name'];
-        $role['role_desc'] = $request['role_desc'];
-        $role->save();        
     }
 
     /**
@@ -55,7 +62,9 @@ class chucvuController extends Controller
      */
     public function show($id)
     {
-        return Role::find($id);
+        return response()->json(
+            $this->role->find($id)
+        );
     }
 
     /**
@@ -78,12 +87,14 @@ class chucvuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::find($id);
-        $role['coefficient'] = $request['coefficient'];
-        $role['price'] = $request['price'];
-        $role['role_name'] = $request['role_name'];
-        $role['role_desc'] = $request['role_desc'];
-        $role->save(); 
+        $request->validate([ 
+            'role_name' => 'unique:role,role_name,'.$id.',role_id', 
+            'role_name.unique' => 'Tên role đã tồn tại' 
+        ]);
+
+        return response()->json(
+            $this->role->find($id)->update($request->all())
+        ); 
     }
 
     /**
@@ -94,6 +105,8 @@ class chucvuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json(
+            $this->role->find($id)->delete()
+        );
     }
 }

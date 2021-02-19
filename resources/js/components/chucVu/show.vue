@@ -19,7 +19,6 @@
               <el-table-column prop="date" label="Tùy chọn">
                 <template slot-scope="scope">
                   <router-link size="mini" class="el-button el-button--primary el-button--mini" :to="`/editChucvu/${scope.row.role_id}`">Sửa</router-link>
-                  <!-- <el-button size="mini" type="danger">Delete</el-button> -->
                 </template>
               </el-table-column>
             </el-table>
@@ -39,20 +38,24 @@ export default {
       loading: false,
     }
   },
+
   created() {
     this.getCaLam();
   },
+
   methods: {
     getCaLam() {
       axios.get(`/api/chucvu`).then((res) => {
         if (res.status === 200) {
           this.tableData = res.data;
         }
+
         this.loading = false;
       })
     },
+    
     number(row, column, cellValue, index) {
-      return cellValue.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});;
+      return cellValue.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
     }
   },
 }

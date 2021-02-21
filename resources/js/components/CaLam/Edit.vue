@@ -22,11 +22,17 @@
           </el-form-item>
           <el-form-item label="Giờ vào / ra" required>
             <el-col :span="11">
-              <el-time-picker value-format="HH:mm:ss" format="HH:mm:ss" start="07:30" placeholder="Giờ vào" v-model="ruleForm.form_time_in" style="width: 100%;"></el-time-picker>
+              <el-form-item prop="form_time_in" required>
+                <el-time-picker value-format="HH:mm:ss" format="HH:mm:ss" :class="{ 'is-invalid':  ruleForm.errors.has('form_time_in') }" start="07:30" placeholder="Giờ vào" v-model="ruleForm.form_time_in" style="width: 100%;"></el-time-picker>
+                <has-error :form="ruleForm" field="form_time_in"></has-error>
+              </el-form-item>
             </el-col>
             <el-col class="line" style="text-align: center" :span="2">-</el-col>
             <el-col :span="11">
-              <el-time-picker value-format="HH:mm:ss" end="23:00" format="HH:mm:ss" placeholder="Giờ ra" v-model="ruleForm.form_time_out" style="width: 100%;"></el-time-picker>
+              <el-form-item prop="form_time_out" required>
+                <el-time-picker value-format="HH:mm:ss" end="23:00" format="HH:mm:ss" :class="{ 'is-invalid':  ruleForm.errors.has('form_time_out') }" placeholder="Giờ ra" v-model="ruleForm.form_time_out" style="width: 100%;"></el-time-picker>
+                <has-error :form="ruleForm" field="form_time_out"></has-error>
+              </el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item label="Ghi chú" prop="desc">
@@ -61,7 +67,19 @@ export default {
           required: true,
           message: 'Tên ca làm không được để trống',
           trigger: 'blur'
-        }, ],
+        }],
+
+        form_time_out: [{
+          required: true,
+          message: 'Giờ ra không được để trống',
+          trigger: 'blur'
+        }],
+
+        form_time_in: [{
+          required: true,
+          message: 'Giờ vào không được để trống',
+          trigger: 'blur'
+        }]
 
       }
     };
@@ -102,7 +120,7 @@ export default {
       });
     },
     resetForm() {
-      return this.$refs[ruleForm].resetFields(); 
+      this.getCalam(); 
     },
 
   },

@@ -94,7 +94,7 @@
 <script>
 import thuong from './inputThuong';
 import moment from 'moment';
-import { paymentStatus, timeWorkStatus, checkStatus, requestStatus } from '../../config/constant.js';
+import { timeWorkStatus, requestStatus } from '../../config/constant.js';
 import config from '../../config';
 
 export default {
@@ -290,7 +290,7 @@ export default {
     getTimeNow() {
       return moment().format("MM - YYYY");
     },
-    
+
     currentUser() {
       return this.$store.getters.currentUser;
     }

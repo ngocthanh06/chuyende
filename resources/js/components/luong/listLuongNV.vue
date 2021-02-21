@@ -489,6 +489,7 @@ export default {
 
     filterDataTable(){
       let filters = this.dataTable;
+      
       if (this.search) {
         filters = this.dataTable.filter(
           m => m.user_fullname.toLowerCase().indexOf(this.search) > -1

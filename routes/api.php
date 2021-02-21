@@ -75,8 +75,9 @@ Route::group(['middleware' => 'jwt.verify'], function ($router)
      * Todo List Company
      */
     Route::resource('/company', 'CompanyController');
-    Route::post('/postEditCompany', 'CompanyController@update');
+    Route::post('/postEditCompany/{id}', 'CompanyController@update');
     Route::get('/getCompany/{limit}', 'CompanyController@getLimit');
+    Route::get('/getChiNhanh/{id}', 'CompanyController@getChiNhanh');
     /**
      * Todo workshifts
      */ 

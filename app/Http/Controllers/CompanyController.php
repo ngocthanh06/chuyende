@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\TodoInterfaceWork\CompanyInterface;
+use Validator;
 
 class CompanyController extends Controller
 {
-
     private $company ;
 
-    public function __construct(CompanyInterface $company){
+    public function __construct(CompanyInterface $company)
+    {
         $this->company = $company;
     }
 
@@ -43,6 +44,11 @@ class CompanyController extends Controller
         //
     }
 
+    public function getChiNhanh($id)
+    {
+        return $this->company->getChiNhanh($id);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -51,6 +57,11 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            ['nameComp' => 'unique:companies'],
+            ['nameComp.unique' => 'Tên chi nhánh đã tồn tại']
+        );
+
         return $this->company->store($request);
     }
 
@@ -83,9 +94,15 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        return $this->company->update($request);
+        $request['id'] = $id;
+        $request->validate(
+            ['nameComp' => 'unique:companies,nameComp,'.$id.',idComp'],
+            ['nameComp.unique' => 'Tên chi nhánh đã tồn tại']
+        );
+        
+        return $this->company->update($request->all());
     }
 
     /**

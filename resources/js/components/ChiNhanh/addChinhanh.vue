@@ -37,7 +37,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" @click="resetForm()" class="btn btn-secondary">Làm mới</button>
-        <button type="submit" id="btn" @click="submitForm()" class="btn btn-primary">Thêm</button>
+        <button type="submit" @click="submitForm()" class="btn btn-primary">Thêm</button>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@ export default {
               if (res.data.code == 200) {
                 this.$message({
                   type: 'success',
-                  message: 'Thêm ca làm thành công'
+                  message: 'Thêm chi nhánh thành công'
                 });
 
                 this.$router.push({ name: 'getChinhnanh' });
@@ -96,8 +96,6 @@ export default {
               message: 'Lỗi'
             });
           }
-        } else {
-          console.log('error submit!!');
         }
       });
     },

@@ -73,12 +73,12 @@ export default {
   },
 
   mounted() {
-    this.getCalam();
+    this.getChiNhanh();
   },
   
   methods: {
-    async getCalam() {
-      let json = await axios.get(`/api/CalamID/${this.$route.params.id}`);
+    async getChiNhanh() {
+      let json = await axios.get(`/api/getChiNhanh/${this.$route.params.id}`);
       this.ruleForm.fill(json.data);
     },
 
@@ -88,28 +88,22 @@ export default {
 
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
-          try {
-            axios.post(`/api/postEditCompany`, {id: this.$route.params.id, value: this.ruleForm }).then((res) => {
-              if (res.data.code == 200) {
-                this.$message({
-                  type: 'success',
-                  message: res.data.messages
-                });
+          this.ruleForm.post(`/api/postEditCompany/${this.$route.params.id}`)
+          .then((res) => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: 'success',
+                message: res.data.messages
+              });
 
-                this.resetForm('ruleForm');
-                this.$router.push('/getChinhanh');
-              } else {
-                this.$message({
-                  type: 'warning',
-                  message: 'Lỗi'
-                });
-              }
-            })
-          } catch (e) {
-            console.log(e);
-          }
-        } else {
-          console.log('error submit!!');
+              this.$router.push({ name: 'getChinhnanh' });
+            } else {
+              this.$message({
+                type: 'warning',
+                message: 'Lỗi'
+              });
+            }
+          })
         }
       });
     },

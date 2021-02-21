@@ -51,15 +51,15 @@ class CompanyEloquent extends baseEloquent implements CompanyInterface
         if (empty($listUser)) {
             $this->company->find($id)->delete();
 
-            return response()->json('true');
+            return response()->json(true);
         }
         
-        return response()->json('false');
+        return response()->json(false);
     }
 
     public function update($request)
     {
-        $check = $this->company->find($request->id)->update($request['value']);
+        $check = $this->company->find($request['id'])->update($request);
 
         if ($check) {
             return response()->json([
@@ -70,6 +70,11 @@ class CompanyEloquent extends baseEloquent implements CompanyInterface
         return response()->json([
             'code' => 404
         ]);
+    }
+
+    public function getChiNhanh($id) 
+    {
+        return $this->company->find($id);
     }
     
 }

@@ -249,7 +249,7 @@ export default {
 
       prepayment.forEach(res => {
         res.prepayment.forEach(r => {
-          countPrepayment.push(r)
+          countPrepayment.push(r);
         });
       });
 
@@ -269,13 +269,13 @@ export default {
       let countWorkshilfts = [];
       let workshifts = thongke.filter((res) => {
         return res.workshifts != '';
-      })
+      });
 
       workshifts.forEach(res => {
         res.workshifts.forEach(r => {
-          countWorkshilfts.push(r)
-        })
-      })
+          countWorkshilfts.push(r);
+        });
+      });
 
       let numberWorkshilfts = countWorkshilfts.reduce((weight, val) => {
         return val.formm.form_work > timeWorkStatus.part_time ? weight += 2 : weight += 1;
@@ -311,7 +311,7 @@ export default {
     },
 
     phat(works) {
-      return this.workshilfts(works) < timeWorkStatus.time_bonus ? 0 : 0;
+      return this.workshilfts(works) < timeWorkStatus.time_bonus ? config.penalize : 0;
     },
 
     tamung(prepayment) {
